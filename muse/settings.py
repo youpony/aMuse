@@ -4,23 +4,23 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Mattia Larentis', 'mattia@larentis.eu'),
 
 )
 MANAGERS = ADMINS
 DATABASE_ENGINE = 'django.db.backends.postgresql_psycopg2'
-DATABASE_NAME = 'fuffa'
-DATABASE_PASSWORD = 'tomasigay'
+DATABASE_NAME = 'aMuse'
+DATABASE_PASSWORD = 'aMusePassword'
 DATABASE_USER = ''
 DATABASE_HOST = ''
 DATABASE_PORT = ''
 
 DATABASES = {
     'default': {
-        'ENGINE': DATABASE_ENGINE, # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': DATABASE_ENGINE,  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': DATABASE_NAME,      # Or path to database file if using sqlite3.
         'USER': DATABASE_USER,     # Not used with sqlite3.
-        'PASSWORD': DATABASE_PASSWORD, # Not used with sqlite3.
+        'PASSWORD': DATABASE_PASSWORD,  # Not used with sqlite3.
         'HOST': DATABASE_HOST,     # Set to empty string for localhost. Not used with sqlite3.
         'PORT': DATABASE_PORT,     # Set to empty string for default. Not used with sqlite3.
     }
