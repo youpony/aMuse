@@ -11,5 +11,4 @@ cd aMuse
 mkvirtualenv swen
 pip install -r requirements.txt
 
-python manage.py syncdb
-python manage.py runserver
+
