@@ -116,6 +116,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'muse.kiosk',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
