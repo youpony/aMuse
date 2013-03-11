@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     'muse.kiosk',
     'muse.rest',
 
+    'south',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
