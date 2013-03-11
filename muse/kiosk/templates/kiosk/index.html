@@ -6,7 +6,11 @@
 
 {% block templates %}
     <script type="text/template" id="exhibition_template">
-        <%= title %>
-        <%= description %>
+        <a href="#">
+            <article>
+                <h3><%= title %></h3>
+                <blockquote><%= description %></blockquote>
+            </article>
+        </a>
     </script>
 {% endblock templates %}

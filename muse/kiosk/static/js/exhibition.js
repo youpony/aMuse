@@ -15,7 +15,7 @@ $(function () {
 
   var ExhibitionView = Backbone.View.extend({
     tagName: "div",
-    className: "well",
+    className: "span4 well",
     template: _.template($('#exhibition_template').html()),
     render: function () {
       $(this.el).html(this.template(this.model.toJSON()));
@@ -36,8 +36,10 @@ $(function () {
       }});
     },
     render: function () {
-      _.each(this.model.models, function (exhibition) {
-        $(this.el).append(new ExhibitionView({model: exhibition}).render().el)
+      _.each(this.model.models, function (exhibition, i) {
+        $(this.el).append(new ExhibitionView({model: exhibition}).render().el);
+        if (i % 3 === 0)
+          $(this.el).addClass('row-fluid');
       }, this);
       return this;
     }
