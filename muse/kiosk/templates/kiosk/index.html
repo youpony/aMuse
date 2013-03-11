@@ -1,5 +1,11 @@
 {% extends "kiosk/site_base.html" %}
 
 {% block content %}
-    ciao
+    <div id="exhibition_list_template"></div>
 {% endblock content %}
+
+{% block templates %}
+    <script type="text/template" id="exhibition_template">
+        <%= title %>
+    </script>
+{% endblock templates %}
