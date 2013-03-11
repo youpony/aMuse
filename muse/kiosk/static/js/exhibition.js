@@ -13,11 +13,22 @@ $(function () {
     }
   });
 
+  var ExhibitionView = Backbone.View.extend({
+    tagName: "div",
+    className: "well",
+    template: _.template($('#exhibition_template').html()),
+    render: function () {
+      $(this.el).html(this.template(this.model.toJSON()));
+      return this;
+    }
+  });
+
   var ExhibitionListView = Backbone.View.extend({
-    tagName: "ul",
+    tagName: "div",
     el: $("#exhibition_list_template"),
     initialize: function () {
       var self = this;
+
       this.model = new ExhibitionList();
 
       this.model.fetch({ success: function () {
@@ -25,19 +36,9 @@ $(function () {
       }});
     },
     render: function () {
-      _.each(this.model.models, function (orderable) {
-        $(this.el).append(new ExhibitionView({model: orderable}).render().el)
+      _.each(this.model.models, function (exhibition) {
+        $(this.el).append(new ExhibitionView({model: exhibition}).render().el)
       }, this);
-      return this;
-    }
-  });
-
-  var ExhibitionView = Backbone.View.extend({
-    tagName: "li",
-    template: _.template($('#exhibition_template').html()),
-    render: function () {
-      $(this.el)
-        .html(this.template(this.model.toJSON()));
       return this;
     }
   });

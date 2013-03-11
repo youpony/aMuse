@@ -9,5 +9,14 @@ def home(request):
 @ajax()
 def get(request):
     return {
-        'data': [{'title':'bla'}, {'title': 'bla2'}]
+        'data': [
+            {
+                'title': 'bla',
+                'description': 'description',
+            },
+            {
+                'title': 'bla2',
+                'description': 'description2',
+            }
+        ]
     }
