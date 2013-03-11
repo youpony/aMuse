@@ -1,16 +1,25 @@
 """
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
 """
 
-from django.test import TestCase
+from django.test import TestCase, Client
+
+import simplejson as json
+from muse.rest import models
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class TestExhibitions(TestCase):
+    fixtures = ['item.json']
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_exhibitions_publiclist(self):
+        response = self.client.get('/api/m')
+        self.assertEqual(response.status_code, 200)
+        exhibitions = json.loads(response.content).get('data')
+        self.assertGreater(len(exhibitions), 1)
+
+        e = exhibitions[0]
+        for key in 'title', 'description':
+            self.assertIn(key, e)
+

@@ -1,0 +1,58 @@
+[
+  {
+    "pk": 1,
+    "model": "rest.museum",
+    "fields": {
+      "referral": "youponydev@gmail.com",
+      "name": "MUseo delle ScienzE",
+      "address": "Via Calepina 14, Trento"
+    }
+  },
+  {
+    "pk": 1,
+    "model": "rest.exhibition",
+    "fields": {
+      "description": "2013-03-11 00:00:00",
+      "end_date": "2013-03-31",
+      "title": "La storia della varicella",
+      "image": "",
+      "start_date": "2013-03-11",
+      "museum": 1
+    }
+  },
+  {
+    "pk": 2,
+    "model": "rest.exhibition",
+    "fields": {
+      "description": "2013-03-11 00:00:00",
+      "end_date": "2013-03-06",
+      "title": "I macbook air rotti",
+      "image": "",
+      "start_date": "2012-12-01",
+      "museum": 1
+    }
+  },
+  {
+    "pk": 3,
+    "model": "rest.exhibition",
+    "fields": {
+      "description": "un grandissimo test",
+      "end_date": "2013-06-19",
+      "title": "La troia della Madonna",
+      "image": "",
+      "start_date": "2013-03-01",
+      "museum": 1
+    }
+  },
+  {
+    "pk": 1,
+    "model": "rest.item",
+    "fields": {
+      "exhibitions": [],
+      "author": "Raffaello Sanzio",
+      "year": 1509,
+      "name": "Scuola d' Atene",
+      "desc": "Rappresenta una delle opere pittoriche pi\u00f9 rilevanti dello Stato della Citt\u00e0 del Vaticano, visitabile all'interno dei Musei Vaticani."
+    }
+  }
+]

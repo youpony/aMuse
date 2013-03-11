@@ -6,7 +6,7 @@ $(function () {
   });
 
   var ExhibitionList = Backbone.Collection.extend({
-    url: 'get',
+    url: '/api/m',
     model: Exhibition,
     parse: function (json) {
       return json.data;

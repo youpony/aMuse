@@ -2,11 +2,10 @@ from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-
 admin.autodiscover()
 
-urlpatterns = patterns(
-    '',
+urlpatterns = patterns('',
     url(r'^k/', include('muse.kiosk.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/', include('muse.rest.urls')),
 )
