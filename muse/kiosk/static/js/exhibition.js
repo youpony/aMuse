@@ -2,6 +2,9 @@ $(function () {
   "use strict";
 
   var Exhibition = Backbone.Model.extend({
+    defaults: {
+      url: "/k/1"
+    },
     urlRoot: 'cucu'
   });
 
