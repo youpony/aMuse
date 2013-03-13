@@ -51,8 +51,13 @@ class Tour(models.Model):
     """
     The user visiting the exhibition.
     """
+    #public_id =
+    #private_id =
+
     date = models.DateTimeField(auto_now_add=True)
-    posts = models.ManyToManyField(Post, verbose_name='posts collected during the tour')
+    posts = models.ManyToManyField(Post,
+            verbose_name='posts collected during the tour')
     user = models.ForeignKey(User, verbose_name='user having the tour')
     exhibition = models.ForeignKey(Exhibition)
+
 
