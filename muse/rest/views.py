@@ -21,6 +21,7 @@ import simplejson as json
 from django.views.decorators.http import require_GET, require_POST
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.forms.models import model_to_dict
 from ajaxutils.views import View, AjaxMixin
 from ajaxutils.decorators import ajax
 
@@ -40,7 +41,7 @@ def exhibitions_publiclist(request):
 
 
 @ajax(require_GET=True)
-def exhibition_detail(request, pk):
+def exhibition_details(request, pk):
     """
     GET /api/m/<pk>/
     Return all public informations about the selected exhibition.
@@ -61,10 +62,15 @@ def exhibition_items(request, pk):
 
 
 @ajax(require_GET=True)
-def item_detail(request):
+def item_details(request, pk):
     """
     GET /o/<pk>
     Return a list of available items.
     """
-    raise NotImplementedError
-
+    item = get_object_or_404(models.Item.objects, pk=pk)
+    response =  model_to_dict(item,
+                              fields=('name', 'desc', 'author', 'year')
+    )
+    response['exhibitions'] = [{'name': e.name, 'id': e.pk}
+                               for e in item.exhibitions.all()]
+    return response
