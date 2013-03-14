@@ -2,9 +2,6 @@ $(function () {
   "use strict";
 
   var Exhibition = Backbone.Model.extend({
-    defaults: {
-      url: "/k/1"
-    },
     urlRoot: 'cucu'
   });
 
@@ -21,7 +18,11 @@ $(function () {
     className: "span4 well",
     template: _.template($('#exhibition_template').html()),
     render: function () {
-      $(this.el).html(this.template(this.model.toJSON()));
+      var tmplData = {}
+        , attr = this.model.attributes;
+
+      $.extend(tmplData, attr, {'url': window.urls['kiosk'] + attr.pk});
+      $(this.el).html(this.template(tmplData));
       return this;
     }
   });
