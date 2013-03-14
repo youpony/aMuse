@@ -73,6 +73,6 @@ def item_details(request, pk):
     response =  model_to_dict(item,
                               fields=('name', 'desc', 'author', 'year')
     )
-    response['exhibitions'] = [{'name': e.name, 'id': e.pk}
+    response['exhibitions'] = [{'name': e.title, 'id': e.pk}
                                for e in item.exhibitions.all()]
     return response
