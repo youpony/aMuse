@@ -4,6 +4,7 @@
 {#{{ pk }}#}
 {% block content %}
     <div id="item_list_template"></div>
+    <div id="item_detail_template_placeholder"></div>
 {% endblock content %}
 
 {% block extra-script %}
@@ -17,6 +18,17 @@
     <script type="text/template" id="item_template">
         <article data-pk="<%= pk %>">
             <h3><%= name %></h3>
+        </article>
+    </script>
+
+    <script type="text/template" id="item_detail_template">
+        <article data-pk="<%= id %>">
+            <h3><%= name %></h3>
+            <blockquote><%= desc %></blockquote>
+            <ul>
+                <li><%= author %></li>
+                <li><%= year %></li>
+            </ul>
         </article>
     </script>
 {% endblock templates %}

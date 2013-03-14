@@ -93,4 +93,4 @@ def item_details(request, pk):
     )
     response['exhibitions'] = [{'name': e.title, 'id': e.pk}
                                for e in item.exhibitions.all()]
-    return response
+    return {'data': response}

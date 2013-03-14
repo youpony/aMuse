@@ -5,7 +5,7 @@ $(function () {
   });
 
   var ExhibitionList = Backbone.Collection.extend({
-    url: '/api/m',
+    url: window.urls['exhibition'],
     model: Exhibition,
     parse: function (json) {
       return json.data;
