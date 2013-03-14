@@ -11,6 +11,9 @@ class Museum(models.Model):
     address = models.CharField(max_length=50)
     referral = models.EmailField()
 
+    def __unicode__(self):
+        return unicode(self.name)
+
 
 class Exhibition(models.Model):
     """
@@ -24,6 +27,10 @@ class Exhibition(models.Model):
     end_date = models.DateField()
     image = models.ImageField(upload_to='uploads')
 
+    def __unicode__(self):
+        return "{title}-{museum}".format(title=unicode(self.title),
+                                         museum=unicode(self.museum))
+
 
 class Item(models.Model):
     """
@@ -35,6 +42,9 @@ class Item(models.Model):
     year = models.IntegerField()
     exhibitions = models.ManyToManyField(Exhibition,
                   verbose_name='exhibitions where this item is available')
+
+    def __unicode__(self):
+        return unicode(self.name)
 
 
 class Post(models.Model):
