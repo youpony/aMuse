@@ -1,1 +1,22 @@
-{{ pk }}
+{% extends "kiosk/site_base.html" %}
+{% load static %}
+
+{#{{ pk }}#}
+{% block content %}
+    <div id="item_list_template"></div>
+{% endblock content %}
+
+{% block extra-script %}
+    <script>
+        window.exhibition.pk = "{{ pk }}";
+    </script>
+    <script src="{% static "js/item.js" %}"></script>
+{% endblock %}
+
+{% block templates %}
+    <script type="text/template" id="item_template">
+        <article data-pk="<%= pk %>">
+            <h3><%= title %></h3>
+        </article>
+    </script>
+{% endblock templates %}

@@ -1,14 +1,13 @@
 {% extends "kiosk/site_base.html" %}
-
-{% block extra-script-top %}
-    <script>
-        window.exhibition.url = "{{ pk }}";
-    </script>
-{% endblock %}
+{% load static %}
 
 {% block content %}
     <div id="exhibition_list_template"></div>
 {% endblock content %}
+
+{% block extra-script %}
+    <script src="{% static "js/exhibition.js" %}"></script>
+{% endblock %}
 
 {% block templates %}
     <script type="text/template" id="exhibition_template">

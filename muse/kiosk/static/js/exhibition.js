@@ -2,7 +2,6 @@ $(function () {
   "use strict";
 
   var Exhibition = Backbone.Model.extend({
-    urlRoot: 'cucu'
   });
 
   var ExhibitionList = Backbone.Collection.extend({
