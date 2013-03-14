@@ -33,10 +33,12 @@ def exhibitions_publiclist(request):
     """
     GET /api/m/
     """
-    exhibitions = models.Exhibition.objects.filter(
-             end_date__gte=datetime.date.today(),
-             ).order_by('start_date'
-             ).values('title', 'description')
+    exhibitions = \
+        models.Exhibition.objects.filter(
+            end_date__gte=datetime.date.today()
+        ).order_by('start_date').values(
+            'title', 'description', 'pk'
+        )
     return {'data': list(exhibitions)}
 
 
