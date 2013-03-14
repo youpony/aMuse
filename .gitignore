@@ -3,3 +3,6 @@
 *.py[co]
 settings_local.py
 .idea
+*.swp
+.DS_Store
+migrations
