@@ -1,13 +1,14 @@
+# coding: utf-8
 """
 API in json
- - tutte le mostre  GET /m/
+ √ tutte le mostre  GET /m/
  x creare mostra POST /m/
- - dettagli mostra  GET /m/<id>/
+ √ dettagli mostra  GET /m/<id>/
  x edit mostra  PUT /m/<id>/
  x remove mostra  DELETE /m/<id>/ piuttosto data inizio e data fine...
- - tutti gli oggetti di una data mostra  GET /m/<id>/o/
+ √ tutti gli oggetti di una data mostra  GET /m/<id>/o/
  x creare oggetto POST /o/
- - dettagli oggetto  GET /o/<id>/
+ √ dettagli oggetto  GET /o/<id>/
  x edit oggetto  PUT /o/<id>/
  - inviare i preferiti segnati POST /s/
  - link pubblico visualizzazione story GET /s/<numero_casuale>/
@@ -48,7 +49,18 @@ def exhibition_details(request, pk):
     GET /api/m/<pk>/
     Return all public informations about the selected exhibition.
     """
-    raise NotImplementedError
+    exhibition = get_object_or_404(models.Exhibition, pk=pk)
+    response = model_to_dict(exhibition,
+                             fields=('title', 'description'))
+    # XXX. find a better way to serialize these keys.
+    response['museum'] = {'id': exhibition.museum.pk,
+                          'name': exhibition.museum.name}
+    response['start_date'] = str(exhibition.start_date)
+    response['end_date'] = str(exhibition.end_date)
+    response['image'] = str(exhibition.image)
+
+    return response
+
 
 @ajax(require_GET=True)
 def exhibition_items(request, pk):
