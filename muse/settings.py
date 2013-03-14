@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'muse.rest',
 
     'south',
+    'django_jenkins',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
