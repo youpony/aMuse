@@ -21,7 +21,7 @@ class Exhibition(models.Model):
     collected differently by each user in tours.
     """
     museum = models.ForeignKey(Museum)
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=60)
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
