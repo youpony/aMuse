@@ -27,26 +27,6 @@ DATABASES = {
     }
 }
 
-DJANGO_CONF = os.environ.get('DJANGO_CONF', 'dev')
-if DJANGO_CONF == "jenkins":
-    DATABASE_ENGINE = 'django.db.backends.postgresql_psycopg2'
-    DATABASE_NAME = 'aMuse'
-    DATABASE_PASSWORD = 'jenkins'
-    DATABASE_USER = 'jenkins'
-    DATABASE_HOST = ''
-    DATABASE_PORT = ''
-
-    DATABASES = {
-        'default': {
-            'ENGINE': DATABASE_ENGINE,  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': DATABASE_NAME,      # Or path to database file if using sqlite3.
-            'USER': DATABASE_USER,     # Not used with sqlite3.
-            'PASSWORD': DATABASE_PASSWORD,  # Not used with sqlite3.
-            'HOST': DATABASE_HOST,     # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': DATABASE_PORT,     # Set to empty string for default. Not used with sqlite3.
-        }
-    }
-
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Local time zone for this installation. Choices can be found here:
@@ -142,7 +122,6 @@ INSTALLED_APPS = (
     'muse.rest',
 
     'south',
-    'django_jenkins',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -183,6 +162,17 @@ LOGGING = {
         },
     }
 }
+
+if os.getenv('JENKINS_URL', False):
+    INSTALLED_APPS += ('django_jenkins', )
+    PROJECT_APPS = ('rest', 'kiosk', )
+    DATABASES['default'].update(dict(
+        ENGINE = os.getenv('DBA_SQL_DJANGO_ENGINE'),
+        USER = os.getenv('DBA_SQL_ADMIN'),
+        PASSWORD = os.getenv('DBA_SQL_ADMIN_PASSWORD'),
+        HOST = os.getenv('DBA_SQL_HOST'),
+        PORT = os.getenv('DBA_SQL_PORT'),
+    ))
 
 try:
     from settings_local import *
