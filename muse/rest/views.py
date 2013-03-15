@@ -50,11 +50,15 @@ def exhibition_details(request, pk):
     Return all public informations about the selected exhibition.
     """
     exhibition = get_object_or_404(models.Exhibition, pk=pk)
-    response = model_to_dict(exhibition,
-                             fields=('title', 'description'))
+    response = model_to_dict(
+        exhibition,
+        fields=('title', 'description')
+    )
     # XXX. find a better way to serialize these keys.
-    response['museum'] = {'id': exhibition.museum.pk,
-                          'name': exhibition.museum.name}
+    response['museum'] = {
+        'id': exhibition.museum.pk,
+        'name': exhibition.museum.name
+    }
     response['start_date'] = str(exhibition.start_date)
     response['end_date'] = str(exhibition.end_date)
     response['image'] = str(exhibition.image)
@@ -68,9 +72,10 @@ def exhibition_items(request, pk):
     GET /api/m/<pk>/o/
     Return a list of available objects
     """
-    e = get_object_or_404(models.Exhibition, pk=pk)
-    items = models.Item.objects.filter(exhibitions__pk__contains=pk
-            ).order_by('name').values('name', 'desc', 'year', 'author')
+    e = get_object_or_404(models.Exhibition, pk=pk)  # TODO[ml]: ?
+    items = models.Item.objects.filter(
+        exhibitions__pk__contains=pk
+    ).order_by('name').values('pk', 'name',)
 
     return {'data': list(items)}
 
@@ -82,9 +87,10 @@ def item_details(request, pk):
     Return a list of available items.
     """
     item = get_object_or_404(models.Item.objects, pk=pk)
-    response =  model_to_dict(item,
-                              fields=('name', 'desc', 'author', 'year')
+    response = model_to_dict(
+        item,
+        fields=('name', 'desc', 'author', 'year')
     )
     response['exhibitions'] = [{'name': e.title, 'id': e.pk}
                                for e in item.exhibitions.all()]
-    return response
+    return {'data': response}

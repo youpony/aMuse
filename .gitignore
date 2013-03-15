@@ -6,3 +6,4 @@ settings_local.py
 *.swp
 .DS_Store
 migrations
+reports
