@@ -69,5 +69,37 @@ class Tour(models.Model):
             verbose_name='posts collected during the tour')
     user = models.ForeignKey(User, verbose_name='user having the tour')
     exhibition = models.ForeignKey(Exhibition)
+    #email
+
+
+class Image(models.Model):
+    """
+    This class rapresent an image
+    """
+    id = models.AutoField(primary_key=True)
+    title = models.CharField( max_length=80 )
+    description = models.CharField( max_length=250 )
+    image = models.ImageField(upload_to='people_uploads')
+
+    def __unicode__(self):
+        return self.title
+
+
+class ItemImage(Image):
+    """
+    This class represent image directly connect with the museom material,
+    so it rapresent official images
+    """
+    item = models.ForeignKey(Item)
+
+
+class StoryImage(Image):
+    """
+    A StoryImage is an image loaded from a user in order to place it in the
+    storyteller
+    """
+    #user
+    pass
+    #Not yet implemented, miss a foreign key to a story
 
 
