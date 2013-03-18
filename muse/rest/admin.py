@@ -14,7 +14,7 @@ class MuseumAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-class UserImageInline(admin.StackedInline):
+class UserImageInline(admin.TabularInline):
     model = ItemImage
     extra = 1
 
@@ -32,6 +32,7 @@ class ItemAdmin(admin.ModelAdmin):
     inlines = [UserImageInline]
     list_display = ('name', 'author', 'year', 'actually_exposed')
     list_filter = ['author', 'year']
+    filter_horizontal = [ 'exhibitions', ]
     search_fields = ['name']
 
     def actually_exposed(self, obj):
