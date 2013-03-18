@@ -23,6 +23,15 @@ $(function () {
     tagName: "div",
     className: "span4 well item",
     template: _.template($('#item_template').html()),
+    events: {
+      'click .icon-star': 'changeStarStatus'
+    },
+    changeStarStatus: function (e) {
+      var $this = $(e.target);
+      e.preventDefault();
+      e.stopPropagation();
+      $this.toggleClass('icon-star-active');
+    },
     render: function () {
       var tmplData = this.model.toJSON();
       $(this.el).html(this.template(tmplData));
@@ -40,6 +49,20 @@ $(function () {
         self.model.set(data.attributes);
         self.render();
       }})
+    },
+    events: {
+      'click .icon-star': 'changeStarStatus'
+    },
+    changeStarStatus: function (e) {
+      var $this = $(e.target)
+        , $parent = $this.closest('article');
+
+      e.preventDefault();
+      e.stopPropagation();
+      $this.toggleClass('icon-star-active');
+
+      $('article[data-pk=' + $parent.data('pk') + ']:not(.item-detail)')
+        .find('.icon-star').click();  // trigger click to the mail star
     },
     render: function () {
       var tmplData = this.model.toJSON();
