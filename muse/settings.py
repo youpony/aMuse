@@ -165,7 +165,7 @@ LOGGING = {
 
 if os.getenv('JENKINS_URL', False):
     INSTALLED_APPS += ('django_jenkins', )
-    PROJECT_APPS = ('rest', 'kiosk', )
+    PROJECT_APPS = ('muse.rest', 'muse.kiosk', )
     DATABASES['default'].update(dict(
         ENGINE = os.getenv('DBA_SQL_DJANGO_ENGINE'),
         USER = os.getenv('DBA_SQL_ADMIN'),
