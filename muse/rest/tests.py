@@ -85,4 +85,4 @@ class TestItem(TestCase):
         self.assertEqual(response.status_code, 200)
         item = json.loads(response.content)
         self.assertTrue(all(key in models.Item._meta_fields)
-                            for key in item.keys())
+                                for key in item.keys())

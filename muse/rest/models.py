@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
+import hashlib
 
 class Museum(models.Model):
     """
@@ -36,9 +38,9 @@ class Item(models.Model):
     """
     An Item is an object present at the exhibition.
     """
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
     desc = models.TextField()
-    author = models.CharField(max_length=30)
+    author = models.CharField(max_length=50, blank=True)
     year = models.IntegerField()
     exhibitions = models.ManyToManyField(
         Exhibition,
@@ -49,31 +51,35 @@ class Item(models.Model):
         return unicode(self.name)
 
 
-class Post(models.Model):
-    """
-    A post is some kind of content present/taken at the exhibition,
-    that the user wants to share.
-    """
-    timestamp = models.DateTimeField(auto_now_add=True)
-    item = models.ForeignKey(Item)
-    text = models.TextField()
-
-
 class Tour(models.Model):
     """
     The user visiting the exhibition.
     """
     #public_id =
-    #private_id =
-
+    private_id = models.CharField(max_length=64, unique=True, editable=False)
     date = models.DateTimeField(auto_now_add=True)
-    posts = models.ManyToManyField(
-        Post,
-        verbose_name='posts collected during the tour'
-    )
-    user = models.ForeignKey(User, verbose_name='user having the tour')
-    exhibition = models.ForeignKey(Exhibition)
-    #email
+    #posts = models.ManyToManyField(Post,
+    #        verbose_name='posts collected during the tour')
+    #user = models.ForeignKey(User, verbose_name='user having the tour')
+    nickname = models.CharField(max_length=50)
+    museum = models.ForeignKey(Museum)
+    email = models.EmailField(max_length=254)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        """
+        This method ensure to set the private_id
+        """
+        if not self.private_id:
+            self.private_id = sha256("{email}_{timestamp}_{nickname}".format(
+                email=self.email,
+                timestamp=self.timestamp,
+                nickname=self.nickname,
+            )).hexdigest()
+        super(Tour, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return "User {user} tour".format(user=unicode(self.user))
 
 
 class Image(models.Model):
@@ -91,17 +97,48 @@ class Image(models.Model):
 
 class ItemImage(Image):
     """
+<<<<<<< Updated upstream
     This class represent image directly connect with the museom material,
     so it represent official images
+=======
+    This class represent image directly connect with the museum material,
+    so it rapresent official images
+>>>>>>> Stashed changes
     """
     item = models.ForeignKey(Item)
 
 
-class StoryImage(Image):
+class Post(models.Model):
     """
-    A StoryImage is an image loaded from a user in order to place it in the
-    storyteller
+    A post is some kind of content present/taken at the exhibition,
+    that the user wants to share.
     """
+<<<<<<< Updated upstream
     #user
     pass
     #Not yet implemented, miss a foreign key to a story
+=======
+    ordering_index = models.IntegerField()
+    tour = models.ForeignKey(Tour)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    item = models.ForeignKey(Item)
+    image = models.ForeignKey(Image)
+    text = models.TextField()
+
+    def clean(self):
+        """
+        This method ensure tha a Post is referred to at leas one object or an
+        image, and ensure that only one of this two possibility is set
+        """
+        if ((self.item is None and self.image is None) or
+            (self.item and self.image)):
+            raise ValidationError('A Post must refer to al least an image or '
+                                  'to an item, but not to both')
+    class Meta:
+        ordering = ['ordering_index']
+        unique_together = (("tour", "ordering_index"),)
+
+
+
+
+>>>>>>> Stashed changes

@@ -1,6 +1,17 @@
 import datetime
 from django.contrib import admin
-from muse.rest.models import Museum, Item, Exhibition, ItemImage
+from django import forms
+
+from muse.rest import models
+
+
+class ItemImageAdminForm(forms.ModelForm):
+  class Meta:
+    model = models.ItemImage
+    widgets = {
+      'description': forms.Textarea,
+    }
+
 
 
 class MuseumAdmin(admin.ModelAdmin):
@@ -18,7 +29,8 @@ class MuseumAdmin(admin.ModelAdmin):
 
 
 class UserImageInline(admin.TabularInline):
-    model = ItemImage
+    form = ItemImageAdminForm
+    model = models.ItemImage
     extra = 1
 
 
@@ -79,6 +91,18 @@ class ExhibitionAdmin(admin.ModelAdmin):
     search_fields = ['title', 'museum']
 
 
-admin.site.register(Museum, MuseumAdmin)
-admin.site.register(Item, ItemAdmin)
-admin.site.register(Exhibition, ExhibitionAdmin)
+class PostAdmin(admin.ModelAdmin):
+    pass
+
+
+class TourAdmin(admin.ModelAdmin):
+    pass
+
+# Museum management
+admin.site.register(models.Museum, MuseumAdmin)
+admin.site.register(models.Item, ItemAdmin)
+admin.site.register(models.Exhibition, ExhibitionAdmin)
+
+# User story management
+admin.site.register(models.Post, PostAdmin)
+admin.site.register(models.Tour, TourAdmin)
