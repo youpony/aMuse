@@ -97,13 +97,8 @@ class Image(models.Model):
 
 class ItemImage(Image):
     """
-<<<<<<< Updated upstream
-    This class represent image directly connect with the museom material,
-    so it represent official images
-=======
     This class represent image directly connect with the museum material,
     so it rapresent official images
->>>>>>> Stashed changes
     """
     item = models.ForeignKey(Item)
 
@@ -113,11 +108,6 @@ class Post(models.Model):
     A post is some kind of content present/taken at the exhibition,
     that the user wants to share.
     """
-<<<<<<< Updated upstream
-    #user
-    pass
-    #Not yet implemented, miss a foreign key to a story
-=======
     ordering_index = models.IntegerField()
     tour = models.ForeignKey(Tour)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -137,8 +127,3 @@ class Post(models.Model):
     class Meta:
         ordering = ['ordering_index']
         unique_together = (("tour", "ordering_index"),)
-
-
-
-
->>>>>>> Stashed changes
