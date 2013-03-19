@@ -20,9 +20,12 @@ class TestExhibitions(TestCase):
         response = self.client.get('/api/m/')
         self.assertEqual(response.status_code, 200)
         exhibitions = json.loads(response.content).get('data')
-        self.assertEqual(models.Exhibition.objects.filter(
-                             end_date__gte=datetime.date.today()).count(),
-                         len(exhibitions))
+        self.assertEqual(
+            models.Exhibition.objects.filter(
+                end_date__gte=datetime.date.today()
+            ).count(),
+            len(exhibitions)
+        )
 
         e = exhibitions[0]
         for key in 'title', 'description':
@@ -73,8 +76,9 @@ class TestItem(TestCase):
         item.save()
         response = self.client.get('/api/o/{}/'.format(item.pk))
         self.assertEqual(response.status_code, 200)
-        exhibitions = json.loads(response.content).get('data'
-            ).get('exhibitions')
+        exhibitions = json.loads(
+            response.content
+        ).get('data').get('exhibitions')
         self.assertEqual(len(exhibitions), 0)
 
         response = self.client.get('/api/o/{}/'.format(self.item.pk))

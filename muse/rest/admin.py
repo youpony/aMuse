@@ -1,13 +1,16 @@
 import datetime
-import datetime
 from django.contrib import admin
 from muse.rest.models import Museum, Item, Exhibition, ItemImage
 
+
 class MuseumAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Museum info',
-            {'fields':['name', 'address', 'referral']
-        }),
+        (
+            'Museum info',
+            {
+                'fields': ['name', 'address', 'referral']
+            }
+        ),
     )
 
     list_filter = ['name']
@@ -21,12 +24,18 @@ class UserImageInline(admin.TabularInline):
 
 class ItemAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Item info',
-            {'fields': ['name', 'desc', 'author', 'year']
-        }),
-        ('Exhibition info',
-            {'fields': ['exhibitions']
-        }),
+        (
+            'Item info',
+            {
+                'fields': ['name', 'desc', 'author', 'year']
+            }
+        ),
+        (
+            'Exhibition info',
+            {
+                'fields': ['exhibitions']
+            }
+        ),
     )
 
     inlines = [UserImageInline]
@@ -40,20 +49,28 @@ class ItemAdmin(admin.ModelAdmin):
         This method chek if the item is exposed in an exhibition that is
         actually public.
         """
-        return obj.exhibitions.filter(end_date__gte=datetime.date.today())\
-            .count() > 0
+        return obj.exhibitions.filter(
+            end_date__gte=datetime.date.today()
+        ).count() > 0
+
     actually_exposed.boolean = True
     actually_exposed.short_description = "Actually exposed?"
 
 
 class ExhibitionAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Exhibition info',
-            {'fields': ['museum', 'title', 'description', 'image']
-        }),
-        ('Date information',
-            {'fields': ['start_date', 'end_date']
-        }),
+        (
+            'Exhibition info',
+            {
+                'fields': ['museum', 'title', 'description', 'image']
+            }
+        ),
+        (
+            'Date information',
+            {
+                'fields': ['start_date', 'end_date']
+            }
+        ),
     )
 
     list_display = ('title', 'museum', 'start_date', 'end_date')

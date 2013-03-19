@@ -40,8 +40,10 @@ class Item(models.Model):
     desc = models.TextField()
     author = models.CharField(max_length=30)
     year = models.IntegerField()
-    exhibitions = models.ManyToManyField(Exhibition,
-                  verbose_name='exhibitions where this item is available')
+    exhibitions = models.ManyToManyField(
+        Exhibition,
+        verbose_name='exhibitions where this item is available'
+    )
 
     def __unicode__(self):
         return unicode(self.name)
@@ -65,8 +67,10 @@ class Tour(models.Model):
     #private_id =
 
     date = models.DateTimeField(auto_now_add=True)
-    posts = models.ManyToManyField(Post,
-            verbose_name='posts collected during the tour')
+    posts = models.ManyToManyField(
+        Post,
+        verbose_name='posts collected during the tour'
+    )
     user = models.ForeignKey(User, verbose_name='user having the tour')
     exhibition = models.ForeignKey(Exhibition)
     #email
@@ -74,11 +78,11 @@ class Tour(models.Model):
 
 class Image(models.Model):
     """
-    This class rapresent an image
+    This class represents an image
     """
-    id = models.AutoField(primary_key=True)
-    title = models.CharField( max_length=80 )
-    description = models.CharField( max_length=250 )
+    id = models.AutoField(primary_key=True)  # FIXME[ml]: id? O.o
+    title = models.CharField(max_length=80)
+    description = models.CharField(max_length=250)
     image = models.ImageField(upload_to='people_uploads')
 
     def __unicode__(self):
@@ -88,7 +92,7 @@ class Image(models.Model):
 class ItemImage(Image):
     """
     This class represent image directly connect with the museom material,
-    so it rapresent official images
+    so it represent official images
     """
     item = models.ForeignKey(Item)
 
@@ -101,5 +105,3 @@ class StoryImage(Image):
     #user
     pass
     #Not yet implemented, miss a foreign key to a story
-
-
