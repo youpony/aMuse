@@ -1,0 +1,17 @@
+{
+    "white": true,
+    "onevar": true,
+    "undef": true,
+    "newcap": true,
+    "nomen": true,
+    "regexp": true,
+    "bitwise": true,
+    "devel": true,
+    "maxerr": 50,
+    "browser": true,
+    "jquery": true,
+    "laxcomma": true,
+    "plusplus": false,
+    "regexp": false,
+    "indent": 2
+}
