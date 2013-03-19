@@ -1,3 +1,6 @@
+/* jshint undef: true */
+/* global Backbone: true, _: true */
+
 $(function () {
   "use strict";
 
