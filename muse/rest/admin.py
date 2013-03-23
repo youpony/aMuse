@@ -97,6 +97,9 @@ class PostAdmin(admin.ModelAdmin):
 class TourAdmin(admin.ModelAdmin):
     pass
 
+class ImageAdmin(admin.ModelAdmin):
+    pass
+
 # Museum management
 admin.site.register(models.Museum, MuseumAdmin)
 admin.site.register(models.Item, ItemAdmin)
@@ -105,3 +108,5 @@ admin.site.register(models.Exhibition, ExhibitionAdmin)
 # User story management
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Tour, TourAdmin)
+admin.site.register(models.Image, ImageAdmin)
+
