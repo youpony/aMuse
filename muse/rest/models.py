@@ -72,11 +72,13 @@ class Tour(models.Model):
         This method ensure to set the private_id
         """
         if not self.private_id:
-            self.private_id = sha256("{email}_{timestamp}_{nickname}".format(
-                email=self.email,
-                timestamp=self.timestamp,
-                nickname=self.nickname,
-            )).hexdigest()
+            self.private_id = hashlib.sha256(
+                "{email}_{timestamp}_{nickname}".format(
+                    email=self.email,
+                    timestamp=self.timestamp,
+                    nickname=self.nickname,
+                )
+            ).hexdigest()
         super(Tour, self).save(*args, **kwargs)
 
 
@@ -108,8 +110,8 @@ class Post(models.Model):
     ordering_index = models.IntegerField()
     tour = models.ForeignKey(Tour)
     timestamp = models.DateTimeField(auto_now_add=True)
-    item = models.ForeignKey(Item)
-    image = models.ForeignKey(Image)
+    item = models.ForeignKey(Item, blank=True, null=True)
+    image = models.ForeignKey(Image, blank=True, null=True)
     text = models.TextField()
 
     def clean(self):
@@ -117,8 +119,7 @@ class Post(models.Model):
         This method ensure tha a Post is referred to at least one object or an
         image, and ensure that only one of this two possibility is set
         """
-        if ((self.item is None and self.image is None) or
-                (self.item and self.image)):
+        if ((self.item is None and self.image is None) or (self.item and self.image)):
             raise ValidationError('A Post must refer to an image or '
                                   'to an item, but not to both')
 
