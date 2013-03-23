@@ -6,12 +6,11 @@ from muse.rest import models
 
 
 class ItemImageAdminForm(forms.ModelForm):
-  class Meta:
-    model = models.ItemImage
-    widgets = {
-      'description': forms.Textarea,
-    }
-
+    class Meta:
+        model = models.ItemImage
+        widgets = {
+            'description': forms.Textarea,
+        }
 
 
 class MuseumAdmin(admin.ModelAdmin):
@@ -53,7 +52,7 @@ class ItemAdmin(admin.ModelAdmin):
     inlines = [UserImageInline]
     list_display = ('name', 'author', 'year', 'actually_exposed')
     list_filter = ['author', 'year']
-    filter_horizontal = [ 'exhibitions', ]
+    filter_horizontal = ['exhibitions', ]
     search_fields = ['name']
 
     def actually_exposed(self, obj):
