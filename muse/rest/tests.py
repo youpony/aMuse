@@ -84,5 +84,6 @@ class TestItem(TestCase):
         response = self.client.get('/api/o/{}/'.format(self.item.pk))
         self.assertEqual(response.status_code, 200)
         item = json.loads(response.content)
-        self.assertTrue(all(key in models.Item._meta_fields)
-                                for key in item.keys())
+        self.assertTrue(
+            all(key in models.Item._meta_fields) for key in item.keys()
+        )
