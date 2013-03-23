@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 
 import hashlib
 
+
 class Museum(models.Model):
     """
     A museum simply holds informations about spacial, temporal, and social
@@ -58,13 +59,13 @@ class Tour(models.Model):
     #public_id =
     private_id = models.CharField(max_length=64, unique=True, editable=False)
     date = models.DateTimeField(auto_now_add=True)
-    #posts = models.ManyToManyField(Post,
-    #        verbose_name='posts collected during the tour')
-    #user = models.ForeignKey(User, verbose_name='user having the tour')
     nickname = models.CharField(max_length=50)
     museum = models.ForeignKey(Museum)
     email = models.EmailField(max_length=254)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return "User {user} tour".format(user=unicode(self.nickname))
 
     def save(self, *args, **kwargs):
         """
@@ -78,17 +79,12 @@ class Tour(models.Model):
             )).hexdigest()
         super(Tour, self).save(*args, **kwargs)
 
-    def __unicode__(self):
-        return "User {user} tour".format(user=unicode(self.user))
-
 
 class Image(models.Model):
     """
     This class represents an image
     """
-    id = models.AutoField(primary_key=True)  # FIXME[ml]: id? O.o
     title = models.CharField(max_length=80)
-    description = models.CharField(max_length=250)
     image = models.ImageField(upload_to='people_uploads')
 
     def __unicode__(self):
@@ -101,6 +97,7 @@ class ItemImage(Image):
     so it rapresent official images
     """
     item = models.ForeignKey(Item)
+    description = models.CharField(max_length=250)
 
 
 class Post(models.Model):
@@ -117,13 +114,14 @@ class Post(models.Model):
 
     def clean(self):
         """
-        This method ensure tha a Post is referred to at leas one object or an
+        This method ensure tha a Post is referred to at least one object or an
         image, and ensure that only one of this two possibility is set
         """
         if ((self.item is None and self.image is None) or
-            (self.item and self.image)):
-            raise ValidationError('A Post must refer to al least an image or '
+                (self.item and self.image)):
+            raise ValidationError('A Post must refer to an image or '
                                   'to an item, but not to both')
+
     class Meta:
         ordering = ['ordering_index']
         unique_together = (("tour", "ordering_index"),)
