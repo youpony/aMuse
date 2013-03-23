@@ -119,7 +119,8 @@ class Post(models.Model):
         This method ensure tha a Post is referred to at least one object or an
         image, and ensure that only one of this two possibility is set
         """
-        if ((self.item is None and self.image is None) or (self.item and self.image)):
+        if ((self.item is None and self.image is None) or
+                (self.item and self.image)):
             raise ValidationError('A Post must refer to an image or '
                                   'to an item, but not to both')
 
