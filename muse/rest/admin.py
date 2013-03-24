@@ -1,3 +1,5 @@
+# pylint: disable=R0904
+
 import datetime
 from django.contrib import admin
 from django import forms

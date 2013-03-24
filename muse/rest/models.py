@@ -1,3 +1,5 @@
+# pylint: disable=R0904
+
 from django.db import models
 from django.core.exceptions import ValidationError
 

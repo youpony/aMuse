@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, url
-from muse.rest import views
 
 urlpatterns = patterns(
     'muse.rest.views',

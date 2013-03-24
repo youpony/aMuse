@@ -1,3 +1,5 @@
+# pylint: disable=R0904
+
 import datetime
 
 from django.test import TestCase, Client
