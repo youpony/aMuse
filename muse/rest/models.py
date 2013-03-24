@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 import hashlib
@@ -15,7 +14,7 @@ class Museum(models.Model):
     referral = models.EmailField()
 
     def __unicode__(self):
-        return unicode(self.name)
+        return self.name
 
 
 class Exhibition(models.Model):
@@ -31,8 +30,8 @@ class Exhibition(models.Model):
     image = models.ImageField(upload_to='uploads')
 
     def __unicode__(self):
-        return "{title}-{museum}".format(title=unicode(self.title),
-                                         museum=unicode(self.museum))
+        return u'{title}-{museum}'.format(title=self.title,
+                                          museum=self.museum)
 
 
 class Item(models.Model):
@@ -52,54 +51,51 @@ class Item(models.Model):
         return unicode(self.name)
 
 
+class User(models.Model):
+    nickname = models.CharField(max_length=50)
+    email = models.EmailField(max_length=254)
+
+    def __unicode__(self):
+        return self.nickname
+
+
 class Tour(models.Model):
     """
     The user visiting the exhibition.
     """
     #public_id =
     private_id = models.CharField(max_length=64, unique=True, editable=False)
-    date = models.DateTimeField(auto_now_add=True)
-    nickname = models.CharField(max_length=50)
+    user = models.ForeignKey(User, blank=True, null=True)
     museum = models.ForeignKey(Museum)
-    email = models.EmailField(max_length=254)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return "User {user} tour".format(user=unicode(self.nickname))
-
-    def save(self, *args, **kwargs):
-        """
-        This method ensure to set the private_id
-        """
-        if not self.private_id:
-            self.private_id = hashlib.sha256(
-                "{email}_{timestamp}_{nickname}".format(
-                    email=self.email,
-                    timestamp=self.timestamp,
-                    nickname=self.nickname,
-                )
-            ).hexdigest()
-        super(Tour, self).save(*args, **kwargs)
+        return u'User {user} tour'.format(user=unicode(self.user))
 
 
-class Image(models.Model):
+class UserImage(models.Model):
     """
-    This class represents an image
+    This class represents an image.
     """
-    title = models.CharField(max_length=80)
+    title = models.CharField(max_length=80, blank=True, null=True)
     image = models.ImageField(upload_to='people_uploads')
 
     def __unicode__(self):
         return self.title
 
 
-class ItemImage(Image):
+class ItemImage(models.Model):
     """
     This class represent image directly connect with the museum material,
-    so it rapresent official images
+    so it rapresent official images.
     """
+    title = models.CharField(max_length=80)
     item = models.ForeignKey(Item)
-    description = models.CharField(max_length=250)
+    image = models.ImageField(upload_to='item_images')
+    description = models.CharField(max_length=250, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.title
 
 
 class Post(models.Model):
@@ -111,19 +107,22 @@ class Post(models.Model):
     tour = models.ForeignKey(Tour)
     timestamp = models.DateTimeField(auto_now_add=True)
     item = models.ForeignKey(Item, blank=True, null=True)
-    image = models.ForeignKey(Image, blank=True, null=True)
+    image = models.ForeignKey(UserImage, blank=True, null=True)
     text = models.TextField()
 
     def clean(self):
         """
-        This method ensure tha a Post is referred to at least one object or an
-        image, and ensure that only one of this two possibility is set
+        This method ensure that a Post is referred to at least one object or an
+        image, and ensure that only one of this two possibility is set.
         """
-        if ((self.item is None and self.image is None) or
-                (self.item and self.image)):
+        if ((self.item is None and self.image is None)):
             raise ValidationError('A Post must refer to an image or '
-                                  'to an item, but not to both')
+                                  'to an item')
+
+    def __unicode__(self):
+        return u'{index}-{tour}'.format(index=self.ordering_index,
+                                        tour=self.tour)
 
     class Meta:
         ordering = ['ordering_index']
-        unique_together = (("tour", "ordering_index"),)
+        unique_together = (('tour', 'ordering_index'),)
