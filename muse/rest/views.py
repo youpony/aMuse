@@ -20,8 +20,10 @@ import datetime
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from ajaxutils.decorators import ajax
+from django.views.decorators.csrf import csrf_exempt
 
 from muse.rest import models
+from muse.rest.models import Museum, Tour, Item, Post
 
 
 @ajax(require_GET=True)
@@ -70,7 +72,7 @@ def exhibition_items(request, pk):
     e = get_object_or_404(models.Exhibition, pk=pk)  # TODO[ml]: ?
     items = models.Item.objects.filter(
         exhibitions__pk__contains=pk
-    ).order_by('name').values('pk', 'name',)
+    ).order_by('name').values('pk', 'name', )
 
     return {'data': list(items)}
 
@@ -89,3 +91,36 @@ def item_details(request, pk):
     response['exhibitions'] = [{'name': e.title, 'id': e.pk}
                                for e in item.exhibitions.all()]
     return {'data': response}
+
+
+@ajax(require_POST=True)
+@csrf_exempt
+def story(request):
+    name = request.POST.get('fullname')
+    email = request.POST.get('email')
+    pks = request.POST.get('listofpk')
+
+    t = Tour({
+        'private_id': '1234',  # TODO[ml]... qualcosa di sensato
+        'name': name,
+        'email': email,
+        'museum': Museum.objects.all()[0],
+        'timestamp': datetime.now()
+    })
+
+    t.save()
+
+    for i, pk in enumerate(pks):
+        p = Post({
+            'ordering_index': i,
+            'tour': t,
+            'item': Item.objects.get(pk=pk),
+            'image': '',  # TODO[ml]: da supportare
+            'text': '',  # TODO[ml]: da supportare?
+        })
+        p.save()
+
+    return {
+        'status': 'completed',
+        'exit_status': 200
+    }

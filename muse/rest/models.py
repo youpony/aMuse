@@ -67,12 +67,14 @@ class Tour(models.Model):
     """
     #public_id =
     private_id = models.CharField(max_length=64, unique=True, editable=False)
-    user = models.ForeignKey(User, blank=True, null=True)
+    name = models.CharField(max_length=60)
+    email = models.EmailField()
+    # user = models.ForeignKey(User, blank=True, null=True)
     museum = models.ForeignKey(Museum)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return u'User {user} tour'.format(user=unicode(self.user))
+        return u'wtf?'
 
 
 class UserImage(models.Model):
@@ -107,7 +109,7 @@ class Post(models.Model):
     """
     ordering_index = models.IntegerField()
     tour = models.ForeignKey(Tour)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    # timestamp = models.DateTimeField(auto_now_add=True)
     item = models.ForeignKey(Item, blank=True, null=True)
     image = models.ForeignKey(UserImage, blank=True, null=True)
     text = models.TextField()

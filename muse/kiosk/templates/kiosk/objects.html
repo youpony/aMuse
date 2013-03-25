@@ -48,12 +48,12 @@
             data = {
                 "email": $('#inputEmail').val(),
                 "fullname": $("#inputFullname").val(),
-                "listofpk": pks = $.map($('.item').find('.icon-star-active'), function (el) {
+                "listofpk": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
                     return $(el).closest('article').data('pk');
-                })
+                }))
             };
 
-            $.post('/bla/', data).done(function () {
+            $.post(window.urls.story, data).done(function () {
                 alert('andato a buon fine!');
                 window.location.ahref = window.urls.kiosk;
             }).fail(function () {
