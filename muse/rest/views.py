@@ -17,6 +17,7 @@ API in json
 """
 import datetime
 import hashlib
+import simplejson as json
 
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
@@ -99,28 +100,23 @@ def item_details(request, pk):
 def story(request):
     name = request.POST.get('fullname')
     email = request.POST.get('email')
-    pks = request.POST.get('listofpk')
+    pks = json.loads(request.POST.get('listofpk'))
 
-    t = Tour(**{
-        'private_id': hashlib.sha1(
-            email + name
-        ).hexdigest(),  # TODO[ml]... qualcosa di sensato
-        'name': name,
-        'email': email,
-        'museum': Museum.objects.all()[0],
-        'timestamp': datetime.datetime.now()
-    })
+    t = Tour()
+    t.private_id = hashlib.sha1(email + name).hexdigest()  # TODO[ml]... qualcosa di sensato
+    t.name = name
+    t.email = email
+    t.museum = Museum.objects.all()[0]
+    t.timestamp = datetime.datetime.now()
 
     t.save()
 
     for i, pk in enumerate(pks):
-        p = Post(**{
-            'ordering_index': i,
-            'tour': t,
-            'item': Item.objects.get(pk=pk),
-            'image': '',  # TODO[ml]: da supportare
-            'text': '',  # TODO[ml]: da supportare?
-        })
+        p = Post()
+        p.ordering_index = i
+        p.tour = t
+        p.item = Item.objects.get(pk=pk)
+
         p.save()
 
     return {
