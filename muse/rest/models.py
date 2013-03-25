@@ -1,5 +1,9 @@
+# pylint: disable=R0904
+
 from django.db import models
-from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+import hashlib
 
 
 class Museum(models.Model):
@@ -12,7 +16,7 @@ class Museum(models.Model):
     referral = models.EmailField()
 
     def __unicode__(self):
-        return unicode(self.name)
+        return self.name
 
 
 class Exhibition(models.Model):
@@ -28,17 +32,17 @@ class Exhibition(models.Model):
     image = models.ImageField(upload_to='uploads')
 
     def __unicode__(self):
-        return "{title}-{museum}".format(title=unicode(self.title),
-                                         museum=unicode(self.museum))
+        return u'{title}-{museum}'.format(title=self.title,
+                                          museum=self.museum)
 
 
 class Item(models.Model):
     """
     An Item is an object present at the exhibition.
     """
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=50)
     desc = models.TextField()
-    author = models.CharField(max_length=30)
+    author = models.CharField(max_length=50, blank=True)
     year = models.IntegerField()
     exhibitions = models.ManyToManyField(
         Exhibition,
@@ -49,14 +53,12 @@ class Item(models.Model):
         return unicode(self.name)
 
 
-class Post(models.Model):
-    """
-    A post is some kind of content present/taken at the exhibition,
-    that the user wants to share.
-    """
-    timestamp = models.DateTimeField(auto_now_add=True)
-    item = models.ForeignKey(Item)
-    text = models.TextField()
+class User(models.Model):
+    nickname = models.CharField(max_length=50)
+    email = models.EmailField(max_length=254)
+
+    def __unicode__(self):
+        return self.nickname
 
 
 class Tour(models.Model):
@@ -64,44 +66,67 @@ class Tour(models.Model):
     The user visiting the exhibition.
     """
     #public_id =
-    #private_id =
+    private_id = models.CharField(max_length=64, unique=True, editable=False)
+    name = models.CharField(max_length=60)
+    email = models.EmailField()
+    # user = models.ForeignKey(User, blank=True, null=True)
+    museum = models.ForeignKey(Museum)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
-    date = models.DateTimeField(auto_now_add=True)
-    posts = models.ManyToManyField(
-        Post,
-        verbose_name='posts collected during the tour'
-    )
-    user = models.ForeignKey(User, verbose_name='user having the tour')
-    exhibition = models.ForeignKey(Exhibition)
-    #email
+    def __unicode__(self):
+        return u'wtf?'
 
 
-class Image(models.Model):
+class UserImage(models.Model):
     """
-    This class represents an image
+    This class represents an image.
     """
-    id = models.AutoField(primary_key=True)  # FIXME[ml]: id? O.o
-    title = models.CharField(max_length=80)
-    description = models.CharField(max_length=250)
+    title = models.CharField(max_length=80, blank=True, null=True)
     image = models.ImageField(upload_to='people_uploads')
 
     def __unicode__(self):
         return self.title
 
 
-class ItemImage(Image):
+class ItemImage(models.Model):
     """
-    This class represent image directly connect with the museom material,
-    so it represent official images
+    This class represent image directly connect with the museum material,
+    so it rapresent official images.
     """
+    title = models.CharField(max_length=80)
     item = models.ForeignKey(Item)
+    image = models.ImageField(upload_to='item_images')
+    description = models.CharField(max_length=250, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.title
 
 
-class StoryImage(Image):
+class Post(models.Model):
     """
-    A StoryImage is an image loaded from a user in order to place it in the
-    storyteller
+    A post is some kind of content present/taken at the exhibition,
+    that the user wants to share.
     """
-    #user
-    pass
-    #Not yet implemented, miss a foreign key to a story
+    ordering_index = models.IntegerField()
+    tour = models.ForeignKey(Tour)
+    # timestamp = models.DateTimeField(auto_now_add=True)
+    item = models.ForeignKey(Item, blank=True, null=True)
+    image = models.ForeignKey(UserImage, blank=True, null=True)
+    text = models.TextField()
+
+    def clean(self):
+        """
+        This method ensure that a Post is referred to at least one object or an
+        image, and ensure that only one of this two possibility is set.
+        """
+        if ((self.item is None and self.image is None)):
+            raise ValidationError('A Post must refer to an image or '
+                                  'to an item')
+
+    def __unicode__(self):
+        return u'{index}-{tour}'.format(index=self.ordering_index,
+                                        tour=self.tour)
+
+    class Meta:
+        ordering = ['ordering_index']
+        unique_together = (('tour', 'ordering_index'),)

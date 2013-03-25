@@ -1,17 +1,66 @@
 {% extends "kiosk/site_base.html" %}
 {% load static %}
 
-{#{{ pk }}#}
 {% block content %}
+    <div id="end-button" class="btn btn-danger">Fine</div>
     <div id="item_list_template"></div>
     <div id="item_detail_template_placeholder"></div>
+    <div id="end_exhibition_form" style="display: none;">
+        <div class="well">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Fullname</label>
+
+                    <div class="controls">
+                        <input type="text" id="inputFullname" placeholder="Email">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email</label>
+
+                    <div class="controls">
+                        <input type="email" id="inputEmail" placeholder="Email">
+                    </div>
+                </div>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block extra-script %}
     <script>
+        $('#end-button').on('click', function () {
+            $(this).hide();
+            $('#item_list_template, #item_detail_template_placeholder').hide();
+            $('#end_exhibition_form').show();
+        });
         window.exhibition.pk = "{{ pk }}";
     </script>
     <script src="{% static "js/item.js" %}"></script>
+    <script>
+        $("#end_exhibition_form").find('button').on('click', function (e) {
+            var data;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            data = {
+                "email": $('#inputEmail').val(),
+                "fullname": $("#inputFullname").val(),
+                "listofpk": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
+                    return $(el).closest('article').data('pk');
+                }))
+            };
+
+            $.post(window.urls.story, data).done(function () {
+                alert('andato a buon fine!');
+                window.location.ahref = window.urls.kiosk;
+            }).fail(function () {
+                    alert('NON andato a buon fine');
+                });
+        });
+    </script>
 {% endblock %}
 
 {% block templates %}
