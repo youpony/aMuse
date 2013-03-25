@@ -120,6 +120,7 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'muse.kiosk',
     'muse.rest',
+    'muse.papacastoro',
 
     'south',
     'django.contrib.auth',

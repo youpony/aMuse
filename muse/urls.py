@@ -9,4 +9,5 @@ urlpatterns = patterns(
     url(r'^k/', include('muse.kiosk.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('muse.rest.urls')),
+    url(r'^storyteller/', include('muse.papacastoro.urls')),
 )

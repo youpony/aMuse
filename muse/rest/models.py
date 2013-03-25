@@ -65,7 +65,7 @@ class Tour(models.Model):
     """
     The user visiting the exhibition.
     """
-    #public_id =
+    public_id = models.CharField(max_length=64, unique=True, editable=False)
     private_id = models.CharField(max_length=64, unique=True, editable=False)
     name = models.CharField(max_length=60)
     email = models.EmailField()
