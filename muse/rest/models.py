@@ -74,7 +74,7 @@ class Tour(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return u'wtf?'
+        return u'{user}\'s tour'.format(user=unicode(self.name))
 
 
 class UserImage(models.Model):
