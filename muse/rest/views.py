@@ -103,7 +103,9 @@ def story(request):
     pks = json.loads(request.POST.get('listofpk'))
 
     t = Tour()
-    t.public_id = hashlib.sha1(email + name + 'public').hexdigest()  # FIXME[mp]
+    t.public_id = hashlib.sha1(
+        email + name + 'public'
+    ).hexdigest()  # FIXME[mp]
     t.private_id = hashlib.sha1(email + name).hexdigest()  # FIXME[ml]
     t.name = name
     t.email = email
