@@ -103,7 +103,7 @@ def story(request):
     pks = json.loads(request.POST.get('listofpk'))
 
     t = Tour()
-    t.private_id = hashlib.sha1(email + name).hexdigest()  # TODO[ml]... qualcosa di sensato
+    t.private_id = hashlib.sha1(email + name).hexdigest()  # FIXME[ml]
     t.name = name
     t.email = email
     t.museum = Museum.objects.all()[0]
