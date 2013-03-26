@@ -4,7 +4,11 @@
 $(function () {
   "use strict";
 
-  var Exhibition = Backbone.Model.extend({})
+  var Exhibition = Backbone.Model.extend({
+      defaults: {
+        photo: ""
+      }
+    })
 
     , ExhibitionList = Backbone.Collection.extend({
       url: window.urls.exhibition,

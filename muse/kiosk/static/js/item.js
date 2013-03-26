@@ -3,7 +3,11 @@
 
 $(function () {
 
-  var Item = Backbone.Model.extend({})
+  var Item = Backbone.Model.extend({
+      defaults: {
+        images: []
+      }
+    })
 
     , ItemDetail = Backbone.Model.extend({
       urlRoot: window.urls.item,
@@ -30,6 +34,7 @@ $(function () {
       changeStarStatus: function (e) {
         var $this = $(e.target)
           , $parent = $this.closest('article');
+
         e.preventDefault();
         e.stopPropagation();
         $this.toggleClass('icon-star-active');
@@ -50,6 +55,7 @@ $(function () {
         var self = this;
 
         this.model = new ItemDetail({id: data.pk});
+
         this.model.fetch({success: function (data) {
           self.model.set(data.attributes);
           self.render();
@@ -91,7 +97,7 @@ $(function () {
         }});
       },
       events: {
-        "click .item": "showItemDetails"
+        "click div.item": "showItemDetails"
       },
       showItemDetails: function (event) {
         var $this = $(event.currentTarget);

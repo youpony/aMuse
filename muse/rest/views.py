@@ -96,8 +96,8 @@ def item_details(request, pk):
         item,
         fields=('name', 'desc', 'author', 'year')
     )
-    response['exhibitions'] = [{'name': e.title, 'id': e.pk}
-                               for e in item.exhibitions.all()]
+    # response['exhibitions'] = [{'name': e.title, 'id': e.pk}
+    #                            for e in item.exhibitions.all()]
 
     response['images'] = [
         request.build_absolute_uri(itemimage.image.url) for itemimage in
