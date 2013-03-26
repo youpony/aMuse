@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.conf import settings
 
 import hashlib
 
@@ -53,14 +54,6 @@ class Item(models.Model):
         return unicode(self.name)
 
 
-class User(models.Model):
-    nickname = models.CharField(max_length=50)
-    email = models.EmailField(max_length=254)
-
-    def __unicode__(self):
-        return self.nickname
-
-
 class Tour(models.Model):
     """
     The user visiting the exhibition.
@@ -69,7 +62,6 @@ class Tour(models.Model):
     private_id = models.CharField(max_length=64, unique=True, editable=False)
     name = models.CharField(max_length=60)
     email = models.EmailField()
-    # user = models.ForeignKey(User, blank=True, null=True)
     museum = models.ForeignKey(Museum)
     timestamp = models.DateTimeField(auto_now_add=True)
 
