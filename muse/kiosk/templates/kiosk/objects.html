@@ -84,9 +84,9 @@
 
 {% block templates %}
     <script type="text/template" id="item_template">
-        <article data-pk="<%= pk %>">
+        <article class="item" data-pk="<%= pk %>">
             <h3><%= name %></h3>
-            <i class="icon-star"></i>
+            <i class="icon-star"></i> 
         </article>
     </script>
 
@@ -98,7 +98,7 @@
                 <li><%= author %></li>
                 <li><%= year %></li>
             </ul>
-            <i class="icon-star"></i>
+            <i class="icon-star <% if(active){ %>icon-star-active<% } %>"></i>
         </article>
     </script>
 {% endblock templates %}

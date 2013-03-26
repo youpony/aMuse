@@ -2,7 +2,6 @@
 /* global Backbone: true, _: true */
 
 $(function () {
-  "use strict";
 
   var Item = Backbone.Model.extend({})
 
@@ -29,10 +28,14 @@ $(function () {
         'click .icon-star': 'changeStarStatus'
       },
       changeStarStatus: function (e) {
-        var $this = $(e.target);
+        var $this = $(e.target)
+          , $parent = $this.closest('article');
         e.preventDefault();
         e.stopPropagation();
         $this.toggleClass('icon-star-active');
+
+       $('article[data-pk=' + $parent.data('pk') + ']:not(.item)')
+         .find('.icon-star').toggleClass('icon-star-active');
       },
       render: function () {
         var tmplData = this.model.toJSON();
@@ -64,11 +67,13 @@ $(function () {
         $this.toggleClass('icon-star-active');
 
         $('article[data-pk=' + $parent.data('pk') + ']:not(.item-detail)')
-          .find('.icon-star').click();  // trigger click to the mail star
+          .find('.icon-star').toggleClass('icon-star-active');
       },
-      render: function () {
-        var tmplData = this.model.toJSON();
-        $('#item_detail_template_placeholder').html($(this.el).html(this.template(tmplData)));
+      render: function (e) {
+        var $this = $(this.el)
+          , $star = $('article[data-pk=' + this.model.id + ']')
+          , tmplData = $.extend({}, this.model.toJSON(), {'active': $star.find('i').is('.icon-star-active')});
+        $('#item_detail_template_placeholder').html($this.html(this.template(tmplData)));
         return this;
       }
     })
