@@ -3,6 +3,7 @@
 
 {% block content %}
     <div id="end-button" class="btn btn-danger">Fine</div>
+    <div id="back-button" class="btn">Indietro</div>
     <div id="item_list_template"></div>
     <div id="item_detail_template_placeholder"></div>
     <div id="end_exhibition_form" style="display: none;">
@@ -29,38 +30,56 @@
 {% endblock content %}
 
 {% block extra-script %}
-    <script>
-        $('#end-button').on('click', function () {
+<script>
+    $('#end-button').on('click', function () {
+        var startCounter = $('.icon-star-active').length;
+
+        if(startCounter > 0) {
             $(this).hide();
             $('#item_list_template, #item_detail_template_placeholder').hide();
             $('#end_exhibition_form').show();
-        });
-        window.exhibition.pk = "{{ pk }}";
-    </script>
-    <script src="{% static "js/item.js" %}"></script>
-    <script>
-        $("#end_exhibition_form").find('button').on('click', function (e) {
-            var data;
+        } 
+        else {
+            alert('selezionane almeno uno!');
+        }
+    });
 
-            e.preventDefault();
-            e.stopPropagation();
+    $('#back-button').on('click', function () {
+        if($('#end_exhibition_form').is(':hidden'))
+        window.history.go(-1);
+        else {
+            $('#item_list_template, #item_detail_template_placeholder').show();
+            $('#end-button').show();
+            $('#end_exhibition_form').hide();
+        }
+    });
 
-            data = {
-                "email": $('#inputEmail').val(),
-                "fullname": $("#inputFullname").val(),
-                "listofpk": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
-                    return $(el).closest('article').data('pk');
-                }))
-            };
+    window.exhibition.pk = "{{ pk }}";
+</script>
+<script src="{% static "js/item.js" %}"></script>
+<script>
+    $("#end_exhibition_form").find('button').on('click', function (e) {
+        var data;
 
-            $.post(window.urls.story, data).done(function () {
-                alert('andato a buon fine!');
-                window.location.href = window.urls.kiosk;
+        e.preventDefault();
+        e.stopPropagation();
+
+        data = {
+            "email": $('#inputEmail').val(),
+            "fullname": $("#inputFullname").val(),
+            "listofpk": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
+                return $(el).closest('article').data('pk');
+            }))
+        };
+
+        $.post(window.urls.story, data).done(function () {
+            alert('andato a buon fine!');
+            window.location.href = window.urls.kiosk;
             }).fail(function () {
-                    alert('NON andato a buon fine');
-                });
+            alert('NON andato a buon fine');
         });
-    </script>
+    });
+</script>
 {% endblock %}
 
 {% block templates %}
