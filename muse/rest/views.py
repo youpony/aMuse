@@ -103,14 +103,16 @@ def story(request):
     pks = json.loads(request.POST.get('listofpk'))
 
     t = Tour()
+    t.timestamp = datetime.datetime.now()
     t.public_id = hashlib.sha1(
-        email + name + 'public'
+        email + name + 'public' + str(t.timestamp)
     ).hexdigest()  # FIXME[mp]
-    t.private_id = hashlib.sha1(email + name).hexdigest()  # FIXME[ml]
+    t.private_id = hashlib.sha1(
+        email + name + str(t.timestamp)
+    ).hexdigest()  # FIXME[ml]
     t.name = name
     t.email = email
     t.museum = Museum.objects.all()[0]
-    t.timestamp = datetime.datetime.now()
 
     t.save()
 
@@ -124,5 +126,6 @@ def story(request):
 
     return {
         'status': 'completed',
+        'public_id': t.public_id,
         'exit_status': 200
     }
