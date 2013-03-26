@@ -8,3 +8,5 @@ urlpatterns = patterns(
     url(r'^o/(?P<pk>\d+)/$', 'item_details'),
     url(r'^s/$', 'story'),
 )
+
+

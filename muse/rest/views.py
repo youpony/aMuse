@@ -25,7 +25,7 @@ from ajaxutils.decorators import ajax
 from django.views.decorators.csrf import csrf_exempt
 
 from muse.rest import models
-from muse.rest.models import Museum, Tour, Item, Post
+from muse.rest.models import Museum, Tour, Item, Post, ItemImage
 
 
 @ajax(require_GET=True)
@@ -33,13 +33,22 @@ def exhibitions_publiclist(request):
     """
     GET /api/m/
     """
+    response = []
+
     exhibitions = \
         models.Exhibition.objects.filter(
             end_date__gte=datetime.date.today()
-        ).order_by('start_date').values(
-            'title', 'description', 'pk'
-        )
-    return {'data': list(exhibitions)}
+        ).order_by('start_date')
+
+    for e in exhibitions:
+        response.append({
+            'pk': e.pk,
+            'title': e.title,
+            'description': e.description,
+            'image': request.build_absolute_uri(e.image.url),
+        })
+
+    return {'data': list(response)}
 
 
 @ajax(require_GET=True)
@@ -60,7 +69,7 @@ def exhibition_details(request, pk):
     }
     response['start_date'] = str(exhibition.start_date)
     response['end_date'] = str(exhibition.end_date)
-    response['image'] = str(exhibition.image)
+    # response['imaege'] = str(exhibition.image)
 
     return response
 
@@ -75,6 +84,12 @@ def exhibition_items(request, pk):
     items = models.Item.objects.filter(
         exhibitions__pk__contains=pk
     ).order_by('name').values('pk', 'name', )
+
+    for item in items:
+        item['images'] = [
+            request.build_absolute_uri(itemimage.image.url) for itemimage in
+            models.ItemImage.objects.filter(item__pk=item['pk'])
+        ]
 
     return {'data': list(items)}
 
@@ -92,6 +107,12 @@ def item_details(request, pk):
     )
     response['exhibitions'] = [{'name': e.title, 'id': e.pk}
                                for e in item.exhibitions.all()]
+
+    response['images'] = [
+        request.build_absolute_uri(itemimage.image.url) for itemimage in
+        models.ItemImage.objects.filter(item__pk=item.pk)
+    ]
+
     return {'data': response}
 
 

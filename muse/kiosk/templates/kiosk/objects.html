@@ -93,7 +93,8 @@
     <script type="text/template" id="item_template">
         <article class="item" data-pk="<%= pk %>">
             <h3><%= name %></h3>
-            <i class="icon-star"></i> 
+            <i class="icon-star"></i>
+            <img src="<%= images[0] %>" alt="<%= name %>">
         </article>
     </script>
 
@@ -106,6 +107,9 @@
                 <li><%= year %></li>
             </ul>
             <i class="icon-star <% if(active){ %>icon-star-active<% } %>"></i>
+            <% for(var i in images) { %>
+                <img src="<%= images[i] %>" alt="<%= name %>">
+            <% } %>
         </article>
     </script>
 {% endblock templates %}
