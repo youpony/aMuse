@@ -25,7 +25,7 @@ from ajaxutils.decorators import ajax
 from django.views.decorators.csrf import csrf_exempt
 
 from muse.rest import models
-from muse.rest.models import Museum, Tour, Item, Post
+from muse.rest.models import Museum, Tour, Item, Post, ItemImage
 
 
 @ajax(require_GET=True)
@@ -33,13 +33,22 @@ def exhibitions_publiclist(request):
     """
     GET /api/m/
     """
+    response = []
+
     exhibitions = \
         models.Exhibition.objects.filter(
             end_date__gte=datetime.date.today()
-        ).order_by('start_date').values(
-            'title', 'description', 'pk'
-        )
-    return {'data': list(exhibitions)}
+        ).order_by('start_date')
+
+    for e in exhibitions:
+        response.append({
+            'pk': e.pk,
+            'title': e.title,
+            'description': e.description,
+            'image': request.build_absolute_uri(e.image.url),
+        })
+
+    return {'data': list(response)}
 
 
 @ajax(require_GET=True)
@@ -60,7 +69,7 @@ def exhibition_details(request, pk):
     }
     response['start_date'] = str(exhibition.start_date)
     response['end_date'] = str(exhibition.end_date)
-    response['image'] = str(exhibition.image)
+    # response['imaege'] = str(exhibition.image)
 
     return response
 

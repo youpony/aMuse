@@ -6,7 +6,7 @@ $(function () {
 
   var Exhibition = Backbone.Model.extend({
       defaults: {
-        photo: ""
+        image: ""
       }
     })
 
