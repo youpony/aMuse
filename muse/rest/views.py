@@ -76,6 +76,12 @@ def exhibition_items(request, pk):
         exhibitions__pk__contains=pk
     ).order_by('name').values('pk', 'name', )
 
+    for item in items:
+        item['images'] = [
+            request.build_absolute_uri(itemimage.image.url) for itemimage in
+            models.ItemImage.objects.filter(item__pk=item['pk'])
+        ]
+
     return {'data': list(items)}
 
 
@@ -92,6 +98,12 @@ def item_details(request, pk):
     )
     response['exhibitions'] = [{'name': e.title, 'id': e.pk}
                                for e in item.exhibitions.all()]
+
+    response['images'] = [
+        request.build_absolute_uri(itemimage.image.url) for itemimage in
+        models.ItemImage.objects.filter(item__pk=item.pk)
+    ]
+
     return {'data': response}
 
 
