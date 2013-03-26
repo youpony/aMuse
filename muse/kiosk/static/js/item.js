@@ -2,6 +2,7 @@
 /* global Backbone: true, _: true */
 
 $(function () {
+  "use strict";
 
   var Item = Backbone.Model.extend({
       defaults: {
@@ -39,8 +40,8 @@ $(function () {
         e.stopPropagation();
         $this.toggleClass('icon-star-active');
 
-       $('article[data-pk=' + $parent.data('pk') + ']:not(.item)')
-         .find('.icon-star').toggleClass('icon-star-active');
+        $('article[data-pk=' + $parent.data('pk') + ']:not(.item)')
+          .find('.icon-star').toggleClass('icon-star-active');
       },
       render: function () {
         var tmplData = this.model.toJSON();

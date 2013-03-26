@@ -100,9 +100,9 @@
                 <li><%= year %></li>
             </ul>
             <i class="icon-star <% if(active){ %>icon-star-active<% } %>"></i>
-{#            <% for(var img in images) { %>#}
-{#                <img src="<%= img %>" alt="<%= name %>">#}
-{#            <% } %>#}
+            <% for(var i in images) { %>
+                <img src="<%= images[i] %>" alt="<%= name %>">
+            <% } %>
         </article>
     </script>
 {% endblock templates %}
