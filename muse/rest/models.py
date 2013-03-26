@@ -1,11 +1,19 @@
 # pylint: disable=R0904
+import hashlib
+import os
+import time
 
 from django.db import models
+from django.dispatch import Signal, receiver
 from django.core.exceptions import ValidationError
-from django.conf import settings
+from django.core.mail import send_mail
 
-import hashlib
-
+def csrng_key():
+    # os.random is a blocking call?
+    return hashlib.sha256('{key}.{salt}'.format(
+            key=time.time(),
+            salt=os.urandom(100),
+    )).hexdigest()
 
 class Museum(models.Model):
     """
@@ -58,8 +66,10 @@ class Tour(models.Model):
     """
     The user visiting the exhibition.
     """
-    public_id = models.CharField(max_length=64, unique=True, editable=False)
-    private_id = models.CharField(max_length=64, unique=True, editable=False)
+    public_id = models.CharField(default=csrng_key, max_length=64,
+                                 unique=True, editable=False)
+    private_id = models.CharField(default=csrng_key, max_length=64,
+                                  unique=True, editable=False)
     name = models.CharField(max_length=60)
     email = models.EmailField()
     museum = models.ForeignKey(Museum)
@@ -122,3 +132,32 @@ class Post(models.Model):
     class Meta:
         ordering = ['ordering_index']
         unique_together = (('tour', 'ordering_index'),)
+
+
+#story_created = Signal(providing_args=['tour', 'museum'])
+
+#@receiver(story_created, sender=Tour)
+def notify_email(sender, **kwargs):
+    tour = kwargs['tour']
+    museum = kwargs['museum']
+
+    referral = museum.referral
+    sbj = '[{mname}] Created new story: {id}'.format(
+            mname=museum.name, id=tour.public_id[:5])
+    body = '''
+       Hey {nickname}!
+       Somebody, hopefully you, crated a new story.
+       Here is your public link: {publink}
+       Here is your editable link, do not share this with no one! {privlink}.
+
+       Sincerly yours,
+        -- {mname} Notification System
+    '''.format(
+       mname=museum.name,
+       nickname=tour.name,
+       publink=tour.public_id,
+       privlink=tour.private_id,
+    )
+
+    # XXX. send as mime message? correct format?
+    send_mail(sbj, body, referral, [tour.email])

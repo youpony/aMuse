@@ -1,11 +1,18 @@
 # pylint: disable=R0904
 
 import datetime
+from mock import patch, ANY
 
 from django.test import TestCase, Client
 import simplejson as json
 
 from muse.rest import models
+
+
+class TestModels(TestCase):
+    def test_csrng_key(self):
+        self.assertNotEqual(models.csrng_key(), models.csrng_key())
+## test also with private_id key
 
 
 class TestExhibitions(TestCase):
@@ -60,6 +67,28 @@ class TestExhibitions(TestCase):
         items = json.loads(response.content).get('data')
         self.assertGreater(len(items), 0)
         self.assertEqual(items[0]['name'], self.item.name)
+
+
+class TestStory(TestCase):
+    fixtures = ['item.json']
+
+    def setUp(self):
+        self.client = Client()
+
+    @patch('muse.rest.models.send_mail')
+    def test_story(self, mock_send_mail):
+        story = {
+                'fullname': 'test test',
+                'email': 'test@example.com',
+                'listofpk': json.dumps(
+                    [i.pk for i in models.Item.objects.all()[:20:2]]),
+        }
+        response = self.client.post('/api/s/', story)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.content), {'status': 'completed'})
+
+        m = models.Museum.objects.latest('pk')
+        mock_send_mail.assert_called_with(ANY, ANY, m.referral, [story['email']])
 
 
 class TestItem(TestCase):

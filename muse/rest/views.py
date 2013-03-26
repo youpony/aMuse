@@ -21,11 +21,11 @@ import simplejson as json
 
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
-from ajaxutils.decorators import ajax
 from django.views.decorators.csrf import csrf_exempt
+from django.http import Http404
+from ajaxutils.decorators import ajax
 
 from muse.rest import models
-from muse.rest.models import Museum, Tour, Item, Post, ItemImage
 
 
 @ajax(require_GET=True)
@@ -69,7 +69,7 @@ def exhibition_details(request, pk):
     }
     response['start_date'] = str(exhibition.start_date)
     response['end_date'] = str(exhibition.end_date)
-    # response['imaege'] = str(exhibition.image)
+    response['image'] = str(exhibition.image)
 
     return response
 
@@ -123,30 +123,18 @@ def story(request):
     email = request.POST.get('email')
     pks = json.loads(request.POST.get('listofpk'))
 
-    t = Tour()
-    t.timestamp = datetime.datetime.now()
-    t.public_id = hashlib.sha1(
-        email + name + 'public' + str(t.timestamp)
-    ).hexdigest()  # FIXME[mp]
-    t.private_id = hashlib.sha1(
-        email + name + str(t.timestamp)
-    ).hexdigest()  # FIXME[ml]
-    t.name = name
-    t.email = email
-    t.museum = Museum.objects.all()[0]
+    if not all((name, email, pks)):
+        raise Http404
 
+    m = models.Museum.objects.latest('pk')
+    t = models.Tour(name=name, email=email, museum=m)
     t.save()
 
-    for i, pk in enumerate(pks):
-        p = Post()
-        p.ordering_index = i
-        p.tour = t
-        p.item = Item.objects.get(pk=pk)
-
+    for i, item in enumerate([models.Item.objects.get(pk=pk) for pk in pks]):
+        p = models.Post(ordering_index=i, tour=t, item=item)
         p.save()
 
-    return {
-        'status': 'completed',
-        'public_id': t.public_id,
-        'exit_status': 200
-    }
+    # fire up the notification system
+    # TODO. fire using django's Signals, not directly.
+    models.notify_email(sender='story_view', museum=m, tour=t)
+    return {'status': 'completed'}
