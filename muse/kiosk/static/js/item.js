@@ -63,7 +63,8 @@ $(function () {
         }});
       },
       events: {
-        'click .icon-star': 'changeStarStatus'
+        'click .icon-star': 'changeStarStatus',
+        'click .close': 'closeDetailView'
       },
       changeStarStatus: function (e) {
         var $this = $(e.target)
@@ -75,6 +76,11 @@ $(function () {
 
         $('article[data-pk=' + $parent.data('pk') + ']:not(.item-detail)')
           .find('.icon-star').toggleClass('icon-star-active');
+      },
+      closeDetailView: function (e) {
+        var $this = $(e.target);
+        console.log('asd', window.a =$this);
+        $this.closest('.item-detail').parent().remove();
       },
       render: function (e) {
         var $this = $(this.el)
