@@ -78,17 +78,18 @@ class TestStory(TestCase):
     @patch('muse.rest.models.send_mail')
     def test_story(self, mock_send_mail):
         story = {
-                'fullname': 'test test',
-                'email': 'test@example.com',
-                'listofpk': json.dumps(
-                    [i.pk for i in models.Item.objects.all()[:20:2]]),
+            'fullname': 'test test',
+            'email': 'test@example.com',
+            'listofpk': json.dumps(
+                [i.pk for i in models.Item.objects.all()[:20:2]]),
         }
         response = self.client.post('/api/s/', story)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content), {'status': 'completed'})
 
         m = models.Museum.objects.latest('pk')
-        mock_send_mail.assert_called_with(ANY, ANY, m.referral, [story['email']])
+        mock_send_mail.assert_called_with(
+            ANY, ANY, m.referral, [story['email']])
 
 
 class TestItem(TestCase):

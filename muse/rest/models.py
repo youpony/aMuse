@@ -8,12 +8,14 @@ from django.dispatch import Signal, receiver
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 
+
 def csrng_key():
     # os.random is a blocking call?
     return hashlib.sha256('{key}.{salt}'.format(
-            key=time.time(),
-            salt=os.urandom(100),
+        key=time.time(),
+        salt=os.urandom(100),
     )).hexdigest()
+
 
 class Museum(models.Model):
     """
@@ -22,7 +24,7 @@ class Museum(models.Model):
     """
     name = models.CharField(max_length=30)
     address = models.CharField(max_length=50)
-    referral = models.EmailField()
+    referral = models.EmailField(max_length=254)
 
     def __unicode__(self):
         return self.name
@@ -39,6 +41,14 @@ class Exhibition(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     image = models.ImageField(upload_to='uploads')
+
+    def clean(self):
+        """
+        This method ensure that end_date is a date equal or greather than
+        start_date
+        """
+        if ((self.end_date < self.start_date)):
+            raise ValidationError('End date must to be after start date')
 
     def __unicode__(self):
         return u'{title}-{museum}'.format(title=self.title,
@@ -71,7 +81,7 @@ class Tour(models.Model):
     private_id = models.CharField(default=csrng_key, max_length=64,
                                   unique=True, editable=False)
     name = models.CharField(max_length=60)
-    email = models.EmailField()
+    email = models.EmailField(max_length=254)
     museum = models.ForeignKey(Museum)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -143,7 +153,7 @@ def notify_email(sender, **kwargs):
 
     referral = museum.referral
     sbj = '[{mname}] Created new story: {id}'.format(
-            mname=museum.name, id=tour.public_id[:5])
+        mname=museum.name, id=tour.public_id[:5])
     body = '''
        Hey {nickname}!
        Somebody, hopefully you, crated a new story.
@@ -153,10 +163,10 @@ def notify_email(sender, **kwargs):
        Sincerly yours,
         -- {mname} Notification System
     '''.format(
-       mname=museum.name,
-       nickname=tour.name,
-       publink=tour.public_id,
-       privlink=tour.private_id,
+        mname=museum.name,
+        nickname=tour.name,
+        publink=tour.public_id,
+        privlink=tour.private_id,
     )
 
     # XXX. send as mime message? correct format?
