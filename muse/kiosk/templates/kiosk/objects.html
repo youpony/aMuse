@@ -2,105 +2,111 @@
 {% load static %}
 
 {% block content %}
-    <div id="end-button" class="btn btn-danger">Fine</div>
-    <div id="back-button" class="btn">Indietro</div>
     <div id="item_list_template"></div>
-    <div id="item_detail_template_placeholder"></div>
-    <div id="end_exhibition_form" style="display: none;">
-        <div class="well">
-            <form class="form-horizontal">
-                <div class="control-group">
-                    <label class="control-label" for="inputEmail">Fullname</label>
 
-                    <div class="controls">
-                        <input type="text" id="inputFullname" placeholder="Email">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="inputEmail">Email</label>
-
-                    <div class="controls">
-                        <input type="email" id="inputEmail" placeholder="Email">
-                    </div>
-                </div>
-                <button type="submit" class="btn">Send</button>
-            </form>
-        </div>
-    </div>
+    {#    <div id="end-button" class="btn btn-danger">Fine</div>#}
+    {#    <div id="back-button" class="btn">Indietro</div>#}
+    {#    <div id="item_list_template"></div>#}
+    {#    <div id="item_detail_template_placeholder"></div>#}
+    {#    <div id="end_exhibition_form" style="display: none;">#}
+    {#        <div class="well">#}
+    {#            <form class="form-horizontal">#}
+    {#                <div class="control-group">#}
+    {#                    <label class="control-label" for="inputEmail">Fullname</label>#}
+    {##}
+    {#                    <div class="controls">#}
+    {#                        <input type="text" id="inputFullname" placeholder="Email">#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <div class="control-group">#}
+    {#                    <label class="control-label" for="inputEmail">Email</label>#}
+    {##}
+    {#                    <div class="controls">#}
+    {#                        <input type="email" id="inputEmail" placeholder="Email">#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <button type="submit" class="btn">Send</button>#}
+    {#            </form>#}
+    {#        </div>#}
+    {#    </div>#}
 {% endblock content %}
 
 {% block extra-script %}
-<script>
-    $('#end-button').on('click', function () {
-        var startCounter = $('.icon-star-active').length;
+    <script>
+        $('#end-button').on('click', function () {
+            var startCounter = $('.icon-star-active').length;
 
-        if(startCounter > 0) {
-            $(this).hide();
-            $('#item_list_template, #item_detail_template_placeholder').hide();
-            $('#end_exhibition_form').show();
-        } 
-        else {
-            alert('selezionane almeno uno!');
-        }
-    });
-
-    $('#back-button').on('click', function () {
-        if($('#end_exhibition_form').is(':hidden'))
-        window.history.go(-1);
-        else {
-            $('#item_list_template, #item_detail_template_placeholder').show();
-            $('#end-button').show();
-            $('#end_exhibition_form').hide();
-        }
-    });
-
-    window.exhibition.pk = "{{ pk }}";
-</script>
-<script src="{% static "js/item.js" %}"></script>
-<script>
-    $("#end_exhibition_form").find('button').on('click', function (e) {
-        var data;
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        data = {
-            "email": $('#inputEmail').val(),
-            "fullname": $("#inputFullname").val(),
-            "listofpk": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
-                return $(el).closest('article').data('pk');
-            }))
-        };
-
-        $.post(window.urls.story, data).done(function (r) {
-            alert('andato a buon fine!\nid: ' + r.public_id);
-            $('#end_exhibition_form').find('button')
-                                     .attr({disabled: true})
-                                     .after(
-                                        '<a href="' + window.urls.kiosk +
-                                        '" class="btn btn-danger">Done</a>' +
-                                        '<p>  id: ' + r.public_id + '</p>'
-                                     )
-            // window.location.href = window.urls.kiosk;
-            }).fail(function () {
-            alert('NON andato a buon fine');
+            if (startCounter > 0) {
+                $(this).hide();
+                $('#item_list_template, #item_detail_template_placeholder').hide();
+                $('#end_exhibition_form').show();
+            }
+            else {
+                alert('selezionane almeno uno!');
+            }
         });
-    });
-</script>
+
+        $('#back-button').on('click', function () {
+            if ($('#end_exhibition_form').is(':hidden'))
+                window.history.go(-1);
+            else {
+                $('#item_list_template, #item_detail_template_placeholder').show();
+                $('#end-button').show();
+                $('#end_exhibition_form').hide();
+            }
+        });
+
+        window.exhibition.pk = "{{ pk }}";
+    </script>
+    <script src="{% static "js/item.js" %}"></script>
+    <script>
+        $("#end_exhibition_form").find('button').on('click', function (e) {
+            var data;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            data = {
+                "email": $('#inputEmail').val(),
+                "fullname": $("#inputFullname").val(),
+                "listofpk": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
+                    return $(el).closest('article').data('pk');
+                }))
+            };
+
+            $.post(window.urls.story, data).done(function (r) {
+                alert('andato a buon fine!\nid: ' + r.public_id);
+                $('#end_exhibition_form').find('button')
+                    .attr({disabled: true})
+                    .after(
+                        '<a href="' + window.urls.kiosk +
+                            '" class="btn btn-danger">Done</a>' +
+                            '<p>  id: ' + r.public_id + '</p>'
+                    )
+                // window.location.href = window.urls.kiosk;
+            }).fail(function () {
+                    alert('NON andato a buon fine');
+                });
+        });
+    </script>
 {% endblock %}
 
 {% block templates %}
     <script type="text/template" id="item_template">
-        <article class="item" data-pk="<%= pk %>">
-            <h3><%= name %></h3>
-            <i class="icon-star"></i>
-            <img src="<%= images[0] %>" alt="<%= name %>">
+        <article class="pin item" data-pk="<%= pk %>">
+            <img src="<%= images[0] %>"  alt="<%= name %>" />
+            <p><%= name %><br>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Sed feugiat consectetur pellentesque. Nam ac elit risus,
+                ac blandit dui. Duis rutrum porta tortor ut convallis.
+            </p>
         </article>
     </script>
 
     <script type="text/template" id="item_detail_template">
         <article class="item-detail well" data-pk="<%= id %>">
-        <span class="pull-right close">chiudi</span>
+            <span class="pull-right close">chiudi</span>
+
             <h3><%= name %></h3>
             <blockquote><%= desc %></blockquote>
             <ul>
@@ -109,7 +115,7 @@
             </ul>
             <i class="icon-star <% if(active){ %>icon-star-active<% } %>"></i>
             <% for(var i in images) { %>
-                <img src="<%= images[i] %>" alt="<%= name %>">
+            <img src="<%= images[i] %>" alt="<%= name %>">
             <% } %>
         </article>
     </script>
