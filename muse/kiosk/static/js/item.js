@@ -27,7 +27,7 @@ $(function () {
 
     , ItemView = Backbone.View.extend({
       tagName: "div",
-      className: "span4 well item",
+      className: "item",
       template: _.template($('#item_template').html()),
       events: {
         'click .icon-star': 'changeStarStatus'
@@ -111,10 +111,8 @@ $(function () {
         new ItemDetailView({pk: $this.children().data('pk')});
       },
       render: function () {
-        _.each(this.model.models, function (item, i) {
+        _.each(this.model.models, function (item) {
           $(this.el).append(new ItemView({model: item}).render().el);
-          if (i % 3 === 0)
-            $(this.el).addClass('row-fluid');
         }, this);
         return this;
       }

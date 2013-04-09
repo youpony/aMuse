@@ -10,14 +10,11 @@
     <meta name="author" content="YouPony">
 
     <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
+{#    <link rel="stylesheet" type="text/css" href="{% static "css/space.css" %}" />#}
     <link rel="stylesheet/less" type="text/css" href="{% static "less/style.less" %}" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container"></div>
-        </div>
-    </div>
+    <div id="wrapper"></div>
     {% block content %}{% endblock %}
     {% block templates %}{% endblock %}
 
@@ -25,6 +22,7 @@
     <script src="{% static "js/deps/underscore-min.js" %}"></script>
     <script src="{% static "js/deps/backbone-min.js" %}"></script>
     <script src="{% static "js/deps/less-1.3.3.min.js" %}"></script>
+    <script src="{% static "js/deps/jquery.tubular.1.0.js" %}"></script>
     <script>
         window.urls = {
             'kiosk': "/k/",
@@ -34,6 +32,13 @@
             'item': "/api/o/"
         };
         window.exhibition = {};
+        $().ready(function() {
+            $('#wrapper').tubular({
+                videoId: 'wC_6fmQFh8U',
+                mute: true,
+                repeat: true,
+            }); // where idOfYourVideo is the YouTube ID.
+        });
     </script>
     {% block extra-script %}{% endblock %}
 </body>
