@@ -9,7 +9,9 @@
     <meta name="description" content="kiosk">
     <meta name="author" content="YouPony">
 
-    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
+
+    {#    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />#}
 {#    <link rel="stylesheet" type="text/css" href="{% static "css/space.css" %}" />#}
     <link rel="stylesheet/less" type="text/css" href="{% static "less/style.less" %}" />
 </head>
@@ -27,17 +29,18 @@
         window.urls = {
             'kiosk': "/k/",
             'story': "/api/s/",
-            'exhibition': "/api/m/",
+            'exhibitions': "/api/m/",
+            'exhibition': "/api/m/<%= pk_m =>/",
             'exhibitionitem': "/api/m/<%= pk_m =>/o/",
             'item': "/api/o/"
         };
         window.exhibition = {};
-        $().ready(function() {
+        $(function() {
             $('#wrapper').tubular({
-                videoId: 'wC_6fmQFh8U',
+                videoId: 'ouygVDstZwg',
                 mute: true,
-                repeat: true,
-            }); // where idOfYourVideo is the YouTube ID.
+                repeat: true
+            });
         });
     </script>
     {% block extra-script %}{% endblock %}

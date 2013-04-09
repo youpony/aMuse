@@ -79,7 +79,6 @@ $(function () {
       },
       closeDetailView: function (e) {
         var $this = $(e.target);
-        console.log('asd', window.a =$this);
         $this.closest('.item-detail').parent().remove();
       },
       render: function (e) {
@@ -93,7 +92,7 @@ $(function () {
 
     , ItemListView = Backbone.View.extend({
       tagName: "div",
-      el: $("#item_list_template"),
+      el: $("#item-list-template"),
       initialize: function () {
         var self = this;
 
@@ -116,7 +115,30 @@ $(function () {
         }, this);
         return this;
       }
+    })
+
+    , ExhibitionDetail = Backbone.Model.extend({
+      url: window.urls.exhibition.replace('<%= pk_m =>', window.exhibition.pk)
+    })
+
+    , ExhibitionDetailView = Backbone.View.extend({
+      tagName: "div",
+      template: _.template($('#exhibition_detail_template').html()),
+      initialize: function () {
+        var self = this;
+
+        this.model = new ExhibitionDetail();
+        this.model.fetch({success: function () {
+          self.render();
+        }});
+      },
+      render: function () {
+        var tmplData = this.model.toJSON();
+        $('#exhibition-detail').html(this.template(tmplData));
+        return this;
+      }
     });
 
   new ItemListView();
+  new ExhibitionDetailView();
 });

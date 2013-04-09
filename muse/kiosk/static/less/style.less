@@ -1,11 +1,42 @@
-@import "_font-awesome.less";
+@import "_reset";
+@import "_font-awesome";
+@import "_font";
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 200;
+}
+
+.text-center {
+  text-align: center;
+}
+
+#exhibition-detail {
+  position: relative;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.5);
+
+  h1 {
+    margin-top: 0;
+    padding-top: 20px;
+    & + h4 {
+      margin: -30px 0 0;
+      padding-bottom: 20px;
+      font-weight: 300;
+      line-height: 1.25;
+    }
+  }
+}
 
 .icon-star-active {
   color: yellow;
 }
 
-#item_list_template {
- padding-top: 60px;
+#item-list-template {
+  padding-top: 60px;
   position: relative;
   z-index: 10000;
   margin: 0 5%;
@@ -47,7 +78,7 @@
 }
 
 @media (min-width: 960px) {
-  #item_list_template {
+  #item-list-template {
     -webkit-column-count: 4;
     -moz-column-count: 4;
     column-count: 4;
@@ -55,7 +86,7 @@
 }
 
 @media (min-width: 1100px) {
-  #item_list_template {
+  #item-list-template {
     -webkit-column-count: 5;
     -moz-column-count: 5;
     column-count: 5;

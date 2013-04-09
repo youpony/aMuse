@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block content %}
-    <div id="item_list_template"></div>
+    <div id="exhibition-detail"></div>
+    <div id="item-list-template"></div>
 
     {#    <div id="end-button" class="btn btn-danger">Fine</div>#}
     {#    <div id="back-button" class="btn">Indietro</div>#}
@@ -38,7 +39,7 @@
 
             if (startCounter > 0) {
                 $(this).hide();
-                $('#item_list_template, #item_detail_template_placeholder').hide();
+                $('#item-list-template, #item_detail_template_placeholder').hide();
                 $('#end_exhibition_form').show();
             }
             else {
@@ -50,7 +51,7 @@
             if ($('#end_exhibition_form').is(':hidden'))
                 window.history.go(-1);
             else {
-                $('#item_list_template, #item_detail_template_placeholder').show();
+                $('#item-list-template, #item_detail_template_placeholder').show();
                 $('#end-button').show();
                 $('#end_exhibition_form').hide();
             }
@@ -117,6 +118,13 @@
             <% for(var i in images) { %>
             <img src="<%= images[i] %>" alt="<%= name %>">
             <% } %>
+        </article>
+    </script>
+
+    <script type="text/template" id="exhibition_detail_template">
+        <article class="text-center">
+            <h1><%= title %></h1>
+            <h4><%= description %></h4>
         </article>
     </script>
 {% endblock templates %}
