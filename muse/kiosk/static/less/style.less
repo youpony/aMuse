@@ -31,6 +31,55 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@slide: 70%;
+
+#main {
+  -webkit-transition: all 0.5s;
+  &.slide-left {
+    margin-left: -@slide;
+    margin-right: @slide;
+  }
+}
+
+#sidebar-detail {
+  -webkit-transition: all 0.5s;
+  background: rgba(255,255,255,0.5);
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  right: -@slide;
+  bottom: 0;
+  width: @slide;
+
+  &.slide-left {
+    right: 0%;
+  }
+
+  small {
+    font-size: 50%;
+  }
+
+  .first-image-wrapper {
+    display: inline-block;
+    float:left;
+    margin: 0 20px;
+
+    img.first-image {
+      margin-bottom: 10px;
+      border: 1px solid #000000;
+    }
+  }
+}
+
+#sidebar-detail {
+  blockquote {
+    border-left: 5px solid white;
+    padding-left: 10px;
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
+
 .icon-star-active {
   color: yellow;
 }

@@ -2,9 +2,12 @@
 {% load static %}
 
 {% block content %}
-    <div id="exhibition-detail"></div>
-    <div id="item-list-template"></div>
 
+    <div id="main">
+        <div id="exhibition-detail"></div>
+        <div id="item-list-template"></div>
+    </div>
+    <div id="sidebar-detail">ciao</div>
     {#    <div id="end-button" class="btn btn-danger">Fine</div>#}
     {#    <div id="back-button" class="btn">Indietro</div>#}
     {#    <div id="item_list_template"></div>#}
@@ -34,28 +37,28 @@
 
 {% block extra-script %}
     <script>
-        $('#end-button').on('click', function () {
-            var startCounter = $('.icon-star-active').length;
+{#        $('#end-button').on('click', function () {#}
+{#            var startCounter = $('.icon-star-active').length;#}
+{##}
+{#            if (startCounter > 0) {#}
+{#                $(this).hide();#}
+{#                $('#item-list-template, #item_detail_template_placeholder').hide();#}
+{#                $('#end_exhibition_form').show();#}
+{#            }#}
+{#            else {#}
+{#                alert('selezionane almeno uno!');#}
+{#            }#}
+{#        });#}
 
-            if (startCounter > 0) {
-                $(this).hide();
-                $('#item-list-template, #item_detail_template_placeholder').hide();
-                $('#end_exhibition_form').show();
-            }
-            else {
-                alert('selezionane almeno uno!');
-            }
-        });
-
-        $('#back-button').on('click', function () {
-            if ($('#end_exhibition_form').is(':hidden'))
-                window.history.go(-1);
-            else {
-                $('#item-list-template, #item_detail_template_placeholder').show();
-                $('#end-button').show();
-                $('#end_exhibition_form').hide();
-            }
-        });
+{#        $('#back-button').on('click', function () {#}
+{#            if ($('#end_exhibition_form').is(':hidden'))#}
+{#                window.history.go(-1);#}
+{#            else {#}
+{#                $('#item-list-template, #item_detail_template_placeholder').show();#}
+{#                $('#end-button').show();#}
+{#                $('#end_exhibition_form').hide();#}
+{#            }#}
+{#        });#}
 
         window.exhibition.pk = "{{ pk }}";
     </script>
@@ -101,19 +104,20 @@
     </script>
 
     <script type="text/template" id="item_detail_template">
-        <article class="item-detail well" data-pk="<%= id %>">
+        <article class="item-detail" data-pk="<%= id %>">
             <span class="pull-right close">chiudi</span>
+            <h2 class="text-center"><%= name %> <small>- <%= author %> <%= year %></small></h2>
 
-            <h3><%= name %></h3>
+            <div class="first-image-wrapper">
+                <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="200" /><br>
+                <% for(var i in images) { %>
+                    <% if(images.length !==1) { %>
+                        <img src="<%= images[i] %>" alt="<%= name %>" width="50" />
+                    <% } %>
+                <% } %>
+            </div>
+
             <blockquote><%= desc %></blockquote>
-            <ul>
-                <li><%= author %></li>
-                <li><%= year %></li>
-            </ul>
-            <i class="icon-star <% if(active){ %>icon-star-active<% } %>"></i>
-            <% for(var i in images) { %>
-            <img src="<%= images[i] %>" alt="<%= name %>">
-            <% } %>
         </article>
     </script>
 

@@ -78,14 +78,14 @@ $(function () {
           .find('.icon-star').toggleClass('icon-star-active');
       },
       closeDetailView: function (e) {
-        var $this = $(e.target);
-        $this.closest('.item-detail').parent().remove();
+        $('#main').removeClass('slide-left');
+        $('#sidebar-detail').removeClass('slide-left');
       },
       render: function (e) {
         var $this = $(this.el)
           , $star = $('article[data-pk=' + this.model.id + ']')
           , tmplData = $.extend({}, this.model.toJSON(), {'active': $star.find('i').is('.icon-star-active')});
-        $('#item_detail_template_placeholder').html($this.html(this.template(tmplData)));
+        $('#sidebar-detail').html($this.html(this.template(tmplData)));
         return this;
       }
     })
@@ -107,6 +107,10 @@ $(function () {
       },
       showItemDetails: function (event) {
         var $this = $(event.currentTarget);
+
+        $('#main').addClass('slide-left');
+        $('#sidebar-detail').addClass('slide-left');
+
         new ItemDetailView({pk: $this.children().data('pk')});
       },
       render: function () {
