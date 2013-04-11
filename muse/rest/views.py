@@ -17,12 +17,14 @@ API in json
 """
 import datetime
 import hashlib
+import base64
 import simplejson as json
 
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
-from django.http import Http404
+from django.http import Http404, HttpResponseBadRequest
+from django.core.files.base import ContentFile
 from ajaxutils.decorators import ajax
 
 from muse.rest import models
@@ -119,19 +121,43 @@ def item_details(request, pk):
 @ajax(require_POST=True)
 @csrf_exempt
 def story(request):
+    """
+
+    {
+        name: "User Name",
+        email: "user@example.com",
+        posts: [
+            {
+                item_pk:  "item public key",
+                image: "image/base64 image",
+            },
+        ]
+    }
+    """
     name = request.POST.get('fullname')
     email = request.POST.get('email')
-    pks = json.loads(request.POST.get('listofpk'))
+    posts = json.loads(request.POST.get('posts', '[]'))
 
-    if not all((name, email, pks)):
-        raise Http404
+    if not all((name, email, posts)):
+        return HttpResponseBadRequest()
 
     m = models.Museum.objects.latest('pk')
     t = models.Tour(name=name, email=email, museum=m)
     t.save()
 
-    for i, item in enumerate([models.Item.objects.get(pk=pk) for pk in pks]):
-        p = models.Post(ordering_index=i, tour=t, item=item)
+    for i, post in enumerate(posts):
+        item = post.get('item_pk')
+        if item:
+            item = get_object_or_404(models.Item, pk=item)
+
+        image = post.get('image')
+        if image:
+            image=ContentFile(base64.decodestring(image))
+
+        if not image and not item:
+            return HttpResponseBadRequest()
+
+        p = models.Post(ordering_index=i, tour=t, item=item, image=image)
         p.save()
 
     # fire up the notification system

@@ -29,7 +29,7 @@ class MuseumAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-class UserImageInline(admin.TabularInline):
+class ItemImageInline(admin.TabularInline):
     form = ItemImageAdminForm
     model = models.ItemImage
     extra = 1
@@ -51,7 +51,7 @@ class ItemAdmin(admin.ModelAdmin):
         ),
     )
 
-    inlines = [UserImageInline]
+    inlines = [ItemImageInline]
     list_display = ('name', 'author', 'year', 'actually_exposed')
     list_filter = ['author', 'year']
     filter_horizontal = ['exhibitions', ]
@@ -100,10 +100,6 @@ class TourAdmin(admin.ModelAdmin):
     pass
 
 
-class UserImageAdmin(admin.ModelAdmin):
-    pass
-
-
 # Museum management
 admin.site.register(models.Museum, MuseumAdmin)
 admin.site.register(models.Item, ItemAdmin)
@@ -112,4 +108,3 @@ admin.site.register(models.Exhibition, ExhibitionAdmin)
 # User story management
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Tour, TourAdmin)
-admin.site.register(models.UserImage, UserImageAdmin)

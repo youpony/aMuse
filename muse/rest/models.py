@@ -89,17 +89,6 @@ class Tour(models.Model):
         return u'{user}\'s tour'.format(user=unicode(self.name))
 
 
-class UserImage(models.Model):
-    """
-    This class represents an image.
-    """
-    title = models.CharField(max_length=80, blank=True, null=True)
-    image = models.ImageField(upload_to='people_uploads')
-
-    def __unicode__(self):
-        return self.title
-
-
 class ItemImage(models.Model):
     """
     This class represent image directly connect with the museum material,
@@ -123,7 +112,7 @@ class Post(models.Model):
     tour = models.ForeignKey(Tour)
     # timestamp = models.DateTimeField(auto_now_add=True)
     item = models.ForeignKey(Item, blank=True, null=True)
-    image = models.ForeignKey(UserImage, blank=True, null=True)
+    image = models.ImageField(upload_to='people_uploads', blank=True, null=True)
     text = models.TextField()
 
     def clean(self):

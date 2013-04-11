@@ -2,6 +2,7 @@
 
 import datetime
 from mock import patch, ANY
+from os.path import join, dirname
 
 from django.test import TestCase, Client
 import simplejson as json
@@ -67,6 +68,8 @@ class TestExhibitions(TestCase):
         items = json.loads(response.content).get('data')
         self.assertGreater(len(items), 0)
         self.assertEqual(items[0]['name'], self.item.name)
+        self.assertEqual(len(items[0]['images']),
+                         self.item.itemimage_set.count())
 
 
 class TestStory(TestCase):
@@ -76,12 +79,13 @@ class TestStory(TestCase):
         self.client = Client()
 
     @patch('muse.rest.models.send_mail')
-    def test_story(self, mock_send_mail):
+    def test_story_sendmail(self, mock_send_mail):
         story = {
             'fullname': 'test test',
             'email': 'test@example.com',
-            'listofpk': json.dumps(
-                [i.pk for i in models.Item.objects.all()[:20:2]]),
+            'posts': json.dumps(
+                [{'item_pk': i.pk}
+                 for i in models.Item.objects.all()[:20:2]]),
         }
         response = self.client.post('/api/s/', story)
         self.assertEqual(response.status_code, 200)
@@ -90,6 +94,40 @@ class TestStory(TestCase):
         m = models.Museum.objects.latest('pk')
         mock_send_mail.assert_called_with(
             ANY, ANY, m.referral, [story['email']])
+
+    def test_story_posts(self):
+        story = {
+            'fullname': 'test test',
+            'email': 'test@example.com',
+        }
+
+        # a story without any post is invalid.
+        response = self.client.post('/api/s/', story)
+        self.assertEqual(response.status_code, 400)
+        story['posts'] = json.dumps([])
+        response = self.client.post('/api/s/', story)
+        self.assertEqual(response.status_code, 400)
+
+        # a story containing a post without any item or image is invalid.
+        story['posts'] = json.dumps([{}])
+        response = self.client.post('/api/s/', story)
+        self.assertEqual(response.status_code, 400)
+
+        # a valid story should have a completed status
+        item_pk, item_pk1 = models.Item.objects.all()[:2].values_list(
+            'pk',
+            flat=True,
+        )
+        with open(join(dirname(__file__), 'image64')) as f:
+            image = f.read()
+        story['posts'] = json.dumps([
+                {'item_pk': item_pk, 'image': image},
+                {'item_pk': item_pk1},
+                { 'image': image},
+        ])
+        response = self.client.post('/api/s/', story)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.content), {'status': 'completed'})
 
 
 class TestItem(TestCase):
