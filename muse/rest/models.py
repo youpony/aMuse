@@ -114,6 +114,7 @@ class Post(models.Model):
     item = models.ForeignKey(Item, blank=True, null=True)
     image = models.ImageField(upload_to='people_uploads', blank=True, null=True)
     text = models.TextField()
+    # XXX. add pointer to the current exhibition.
 
     def clean(self):
         """

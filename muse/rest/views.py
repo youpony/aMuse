@@ -23,9 +23,11 @@ import simplejson as json
 from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import View
 from django.http import Http404, HttpResponseBadRequest
 from django.core.files.base import ContentFile
 from ajaxutils.decorators import ajax
+from ajaxutils.views import AjaxMixin
 
 from muse.rest import models
 
@@ -115,52 +117,112 @@ def item_details(request, pk):
         models.ItemImage.objects.filter(item__pk=item.pk)
     ]
 
+    # XXX. remove the 'data' keyword.
     return {'data': response}
 
 
-@ajax(require_POST=True)
-@csrf_exempt
-def story(request):
-    """
+class StoryView(AjaxMixin, View):
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        """
+        POST /s/
+        Create a new story.
 
-    {
-        name: "User Name",
-        email: "user@example.com",
-        posts: [
-            {
-                item_pk:  "item public key",
-                image: "image/base64 image",
-            },
-        ]
-    }
-    """
-    name = request.POST.get('fullname')
-    email = request.POST.get('email')
-    posts = json.loads(request.POST.get('posts', '[]'))
+        Example of json request is:
+        {
+            name: "User Name",
+            email: "user@example.com",
+            posts: [
+                {
+                    item_pk:  "item public key",
+                    image: "image/base64 image",
+                },
+            ]
+        }
+        """
+        name = request.POST.get('fullname')
+        email = request.POST.get('email')
+        posts = json.loads(request.POST.get('posts', '[]'))
 
-    if not all((name, email, posts)):
-        return HttpResponseBadRequest()
-
-    m = models.Museum.objects.latest('pk')
-    t = models.Tour(name=name, email=email, museum=m)
-    t.save()
-
-    for i, post in enumerate(posts):
-        item = post.get('item_pk')
-        if item:
-            item = get_object_or_404(models.Item, pk=item)
-
-        image = post.get('image')
-        if image:
-            image=ContentFile(base64.decodestring(image))
-
-        if not image and not item:
+        if not all((name, email, posts)):
             return HttpResponseBadRequest()
 
-        p = models.Post(ordering_index=i, tour=t, item=item, image=image)
-        p.save()
+        m = models.Museum.objects.latest('pk')
+        t = models.Tour(name=name, email=email, museum=m)
+        t.save()
 
-    # fire up the notification system
-    # TODO. fire using django's Signals, not directly.
-    models.notify_email(sender='story_view', museum=m, tour=t)
-    return {'status': 'completed'}
+        for i, post in enumerate(posts):
+            item = post.get('item_pk')
+            if item:
+                item = get_object_or_404(models.Item, pk=item)
+
+            image = post.get('image')
+            if image:
+                image=ContentFile(base64.decodestring(image))
+
+            if not image and not item:
+                return HttpResponseBadRequest()
+
+            p = models.Post(ordering_index=i, tour=t, item=item, image=image)
+            p.save()
+
+        # fire up the notification system
+        # TODO. fire using django's Signals, not directly.
+        models.notify_email(sender='story_view', museum=m, tour=t)
+        return {'status': 'completed'}
+
+    def get(self, request, pk):
+        """
+        GET /s/<pk>
+        """
+        edit = bool(request.GET.get('edit', False) in ('true', 'yes', 'True'))
+        if edit:
+            tour = get_object_or_404(models.Tour, private_id=pk)
+        else:
+            tour = get_object_or_404(models.Tour, public_id=pk)
+
+        response =  {
+            'name': tour.name,
+            'museum': tour.museum.name,
+            'timestamp': tour.timestamp,
+        }
+        response['posts'] = []
+        for p in tour.post_set.all():
+            # build json for item
+            if p.item:
+                item = ('name', 'desc', 'author', 'year')
+                item = {key: getattr(p.item, key) for key in item}
+                item['images'] = [
+                    request.build_absolute_uri(itemimage.url)
+                    for itemimage in models.ItemImage.objects.filter(
+                        item__pk=p.item.pk
+                    )
+                ]
+            else:
+                item = {}
+
+            image = request.build_absolute_uri(p.image.url) if p.image else ''
+
+            response['posts'].append(json.dumps({
+                'item': json.dumps(item),
+                'image': image,
+                'text': p.text,
+                'ordering_index': p.ordering_index
+            }))
+
+        return response
+
+
+    @csrf_exempt
+    def delete(self, request, pk):
+        """
+        DELETE /s/<pk>
+        Delete Tour items.
+
+        """
+        tour = get_object_or_404(models.Tour, private_id=pk)
+        raise NotImplementedError
+
+    @csrf_exempt
+    def put(self, request, *args, **kwargs):
+        raise NotImplementedError
