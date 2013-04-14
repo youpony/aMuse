@@ -109,10 +109,10 @@
             <h2 class="text-center"><%= name %> <small>- <%= author %> <%= year %></small></h2>
 
             <div class="first-image-wrapper">
-                <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="200" /><br>
+                <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="300" /><br>
                 <% for(var i in images) { %>
                     <% if(images.length !==1) { %>
-                        <img src="<%= images[i] %>" alt="<%= name %>" width="50" />
+                        <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="90" style="margin-right: 10px" />
                     <% } %>
                 <% } %>
             </div>

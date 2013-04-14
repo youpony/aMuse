@@ -64,7 +64,8 @@ $(function () {
       },
       events: {
         'click .icon-star': 'changeStarStatus',
-        'click .close': 'closeDetailView'
+        'click .close': 'closeDetailView',
+        'click .other-images': 'changeImage'
       },
       changeStarStatus: function (e) {
         var $this = $(e.target)
@@ -80,6 +81,10 @@ $(function () {
       closeDetailView: function (e) {
         $('#main').removeClass('slide-left');
         $('#sidebar-detail').removeClass('slide-left');
+      },
+      changeImage: function (e) {
+        var $this = $(e.target);
+        $('.first-image').attr('src', $this.attr('src'));
       },
       render: function (e) {
         var $this = $(this.el)
