@@ -32,9 +32,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @slide: 700px;
+@transition-time: .4s;
 
 #main {
-  -webkit-transition: all 0.5s;
+  -webkit-transition: all @transition-time;
   &.slide-left {
     margin-left: -@slide;
     margin-right: @slide;
@@ -42,7 +43,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #sidebar-detail {
-  -webkit-transition: all 0.5s;
+  -webkit-transition: all @transition-time;
   background: rgba(255,255,255,0.5);
   position: fixed;
   z-index: 10000;
