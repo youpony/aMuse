@@ -110,13 +110,14 @@
 
             <div class="first-image-wrapper">
                 <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="250" /><br>
-                <p class="text-center">
-                <% for(var i in images) { %>
-                    <% if(images.length !==1) { %>
-                        <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="70" />
-                    <% } %>
+
+                <% if(images.length !==1) { %>
+                    <p class="text-center">
+                        <% for(var i in images) { %>
+                            <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="70" />
+                        <% } %>
+                    </p>
                 <% } %>
-                </p>
             </div>
 
             <blockquote><%= desc %></blockquote>
