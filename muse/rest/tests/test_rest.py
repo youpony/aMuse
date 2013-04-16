@@ -51,7 +51,7 @@ class TestModels(TestCase):
             self.fail('saving exhibition.start_date == exhibition.end_date')
 
         exhibition.start_date = datetime.datetime.now()
-        exhibition.end_date = datetime.datetime.now() - datetime.timedelta(days=1)
+        exhibition.end_date = datetime.datetime.now()-datetime.timedelta(days=1)
         self.assertRaises(ValidationError, exhibition.save)
 
 
