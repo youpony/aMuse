@@ -52,7 +52,7 @@ class Exhibition(models.Model):
         Override save method to ensure that end_date is equal or greather
         than start_date
         """
-        if ((self.end_date < self.start_date)):
+        if self.end_date < self.start_date:
             raise ValidationError('End date must to be after start date')
 
         super(Exhibition, self).save(*args, **kwargs)

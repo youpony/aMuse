@@ -12,9 +12,48 @@ from muse.rest import models
 
 
 class TestModels(TestCase):
+    fixtures = ['item.json']
+
     def test_csrng_key(self):
         self.assertNotEqual(models.csrng_key(), models.csrng_key())
 ## test also with private_id key
+
+    def test_item_save(self):
+        item = models.Item.objects.latest('pk')
+
+        invalid_dates = ['foo-bar', '1968-foo', 'a1-1', '0x10-0x100',
+                         '', '111_1', '1-1a']
+        for invalid_date in invalid_dates:
+            item.year = invalid_date
+            try:
+                item.save()
+            except ValidationError:
+                continue
+            else:
+                self.fail('ValidationError: {}'.format(invalid_date))
+
+        valid_dates = ['1-1', '2013-2015', '1992']
+        for valid_date in valid_dates:
+            item.year = valid_date
+            try:
+                item.save()
+            except ValidationError:
+                self.fail('cannot save date {}'.format(valid_date))
+
+    def test_exhibition_save(self):
+        exhibition = models.Exhibition.objects.latest('pk')
+
+        exhibition.start_date = datetime.datetime.now()
+        exhibition.end_date = datetime.datetime.now()
+        try:
+            exhibition.save()
+        except ValidationError:
+            self.fail('saving exhibition.start_date == exhibition.end_date')
+
+        exhibition.start_date = datetime.datetime.now()
+        exhibition.end_date = datetime.datetime.now() - datetime.timedelta(days=1)
+        self.assertRaises(ValidationError, exhibition.save)
+
 
 
 class TestExhibitions(TestCase):
@@ -172,23 +211,3 @@ class TestItem(TestCase):
         self.assertTrue(
             all(key in models.Item._meta_fields) for key in item.keys()
         )
-    def test_item_clean(self):
-        invalid_dates = ['foo-bar', '1968-foo', 'a1-1', '0x10-0x100',
-                         '', '111_1', '1-1a']
-        for invalid_date in invalid_dates:
-            self.item.year = invalid_date
-            try:
-                self.item.save()
-            except ValidationError:
-                continue
-            else:
-                self.fail('ValidationError: {}'.format(invalid_date))
-
-        valid_dates = ['1-1', '2013-2015', '1992']
-        for valid_date in valid_dates:
-            self.item.year = valid_date
-            try:
-                self.item.save()
-            except ValidationError:
-                self.fail('cannot save date {}'.format(valid_date))
-
