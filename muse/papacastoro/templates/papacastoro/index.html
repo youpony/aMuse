@@ -2,11 +2,20 @@
 
 {% block content %}
 <div class="reveal">
-    <div class="slides">
-        <section class="tour-post tour-cover">{{ tour }}</section>
-        {% for p in posts %}
-        <section class="tour-post">{{ p.item.name }}</section>
-        {% endfor %}
+  <div class="slides">
+    <section class="tour-post"><h1>{{ tour }}<h1></section>
+      {% for p in posts %}
+        <section class="tour-post">
+          {% if p.image %}
+            <img src="/media/{{ p.image }}">
+            <p class="comment">{{ p.text }}</p>
+          {% else %}
+            <h2>{{ p.item.name }}</h2>
+            <p>{{ p.item.desc }}</p>
+            <p class="comment">{{ p.text }}</p>
+          {% endif %}
+        </section>
+      {% endfor %}
     </div>
-</div>
+  </div>
 {% endblock content %}

@@ -181,8 +181,8 @@ body {
 .reveal img,
 .reveal video,
 .reveal iframe {
-	max-width: 95%;
-	max-height: 95%;
+	max-width: 80%;
+	max-height: 80%;
 }
 
 /** Prevents layering issues in certain browser/transition combinations */
@@ -923,6 +923,7 @@ body {
 	.reveal.page .slides section.past {
 		z-index: 12;
 	}
+    /*
 	.reveal.page .slides section:not(.stack):before {
 		content: '';
 		position: absolute;
@@ -955,6 +956,7 @@ body {
 
 		-webkit-transform: translateZ(-90px) rotateX( 65deg );
 	}
+        */
 
 .reveal.page .slides>section.stack {
 	padding: 0;
