@@ -33,6 +33,7 @@ class ItemImageInline(admin.TabularInline):
     form = ItemImageAdminForm
     model = models.ItemImage
     extra = 1
+    max_num = 3
 
 
 class ItemAdmin(admin.ModelAdmin):

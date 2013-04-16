@@ -112,7 +112,7 @@ class ItemImage(models.Model):
     """
     title = models.CharField(max_length=80)
     item = models.ForeignKey(Item)
-    image = models.ImageField(upload_to='item_images')
+    image = models.ImageField(upload_to='item_images/{.title:.80}'.format)
     description = models.CharField(max_length=250, blank=True, null=True)
 
     def __unicode__(self):
