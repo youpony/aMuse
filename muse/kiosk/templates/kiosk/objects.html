@@ -6,30 +6,20 @@
     <div id="main">
         <div id="exhibition-detail"></div>
         <div id="item-list-template"></div>
+
+        <div id="end_exhibition_form" style="display: none;">
+            <form>
+                <input type="text" id="inputFullname" placeholder="fullname">
+                <input type="email" id="inputEmail" placeholder="email">
+                <button type="submit" class="btn">send</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+
     </div>
     <div id="sidebar-detail"></div>
 
-    <div id="end_exhibition_form" style="display: none;">
-        <div class="well">
-            <form class="form-horizontal">
-                <div class="control-group">
-                    <label class="control-label" for="inputEmail">Fullname</label>
 
-                    <div class="controls">
-                        <input type="text" id="inputFullname" placeholder="Email">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="inputEmail">Email</label>
-
-                    <div class="controls">
-                        <input type="email" id="inputEmail" placeholder="Email">
-                    </div>
-                </div>
-                <button type="submit" class="btn">Send</button>
-            </form>
-        </div>
-    </div>
 
 {% endblock content %}
 
@@ -47,9 +37,11 @@
 
             data = {
                 "email": $('#inputEmail').val(),
-                "fullname": $("#inputFullname").val(),
-                "listofpk": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
-                    return $(el).closest('article').data('pk');
+                "name": $("#inputFullname").val(),
+                "posts": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
+                    return {
+                        'item_pk': $(el).closest('article').data('pk')
+                    };
                 }))
             };
 
@@ -90,17 +82,16 @@
             <h4 class="text-center"> <%= author %> <%= year %></h4>
 
             <div class="first-image-wrapper">
+                <% if(images.length !==1) { %>
+                <p class="text-center">
+                    <% for(var i in images) { %>
+                    <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="70" />
+                    <% } %>
+                </p>
+                <% } %>
                 <div style="position: relative;">
                     <i class="icon-star <% if(active){ %>icon-star-active<% } %>"></i>
                     <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="250" /><br>
-
-                    <% if(images.length !==1) { %>
-                    <p class="text-center">
-                        <% for(var i in images) { %>
-                        <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="70" />
-                        <% } %>
-                    </p>
-                    <% } %>
                 </div>
             </div>
 
@@ -113,7 +104,7 @@
             <h1 class="text-center">
                 <span id="back-button"><i class="icon-arrow-left"></i> Indietro</span>
                 <span><%= title %></span>
-                <span id="end-button">Fine <i class="icon-arrow-right"></i></span>
+                <span id="end-button" style="display: none;">Fine <i class="icon-arrow-right"></i></span>
             </h1>
             <h4 class="text-center"><%= description %></h4>
         </article>

@@ -7,6 +7,7 @@
 
 body {
   margin: 0;
+  -webkit-user-select: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -29,6 +30,10 @@ h1 {
   }
 }
 
+.clearfix {
+  clear: both;
+}
+
 #exhibition-detail {
   position: relative;
   z-index: 100;
@@ -41,6 +46,8 @@ h1 {
 }
 
 #back-button, #end-button, #close-button {
+  position: absolute;
+  top: 20px;
   font-size: 20px;
   line-height: 60px;
   margin: 0 20px;
@@ -48,15 +55,10 @@ h1 {
 }
 
 #end-button {
-  float: right;
+  right: 0;
 }
 
-#back-button {
-  float: left;
-}
-
-#close-button {
-  position: absolute;
+#back-button, #close-button {
   left: 0;
 }
 
@@ -68,6 +70,29 @@ h1 {
   &.slide-left {
     margin-left: -@slide;
     margin-right: @slide;
+  }
+}
+
+#end_exhibition_form {
+  z-index: 100000;
+  position: relative;
+  width: 50%;
+  text-align: center;
+  background: @bg-color;
+  margin: 70px auto;
+  padding: 50px 50px 30px;
+  box-sizing: border-box;
+
+  input, button {
+    width: 100%;
+    border: 1px solid gray;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+
+  button {
+    float: right;
   }
 }
 
@@ -109,10 +134,14 @@ h1 {
 
 #sidebar-detail {
   blockquote {
-    text-align: justify;
-    padding-left: 10px;
+    display: inline-block;
+
     font-size: 16px;
     line-height: 26px;
+    float: left;
+    width: 350px;
+    margin: 0;
+    padding: 0;
   }
 }
 

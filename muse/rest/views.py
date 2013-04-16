@@ -158,7 +158,7 @@ class StoryView(AjaxMixin, View):
 
             image = post.get('image')
             if image:
-                image=ContentFile(base64.decodestring(image))
+                image = ContentFile(base64.decodestring(image))
 
             if not image and not item:
                 return HttpResponseBadRequest()
@@ -181,7 +181,7 @@ class StoryView(AjaxMixin, View):
         else:
             tour = get_object_or_404(models.Tour, public_id=pk)
 
-        response =  {
+        response = {
             'name': tour.name,
             'museum': tour.museum.name,
             'timestamp': tour.timestamp,

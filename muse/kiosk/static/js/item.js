@@ -34,7 +34,8 @@ $(function () {
       },
       changeStarStatus: function (e) {
         var $this = $(e.target)
-          , $parent = $this.closest('article');
+          , $parent = $this.closest('article')
+          , $endButton = $('#end-button');
 
         e.preventDefault();
         e.stopPropagation();
@@ -42,6 +43,10 @@ $(function () {
 
         $('article[data-pk=' + $parent.data('pk') + ']:not(.item)')
           .find('.icon-star').toggleClass('icon-star-active');
+
+        if ($('.icon-star-active').length > 0)
+          $endButton.show();
+        else $endButton.hide();
       },
       render: function () {
         var tmplData = this.model.toJSON();
@@ -69,7 +74,8 @@ $(function () {
       },
       changeStarStatus: function (e) {
         var $this = $(e.target)
-          , $parent = $this.closest('article');
+          , $parent = $this.closest('article')
+          , $endButton = $('#end-button');
 
         e.preventDefault();
         e.stopPropagation();
@@ -77,6 +83,10 @@ $(function () {
 
         $('article[data-pk=' + $parent.data('pk') + ']:not(.item-detail)')
           .find('.icon-star').toggleClass('icon-star-active');
+
+        if ($('.icon-star-active').length > 0)
+          $endButton.show();
+        else $endButton.hide();
       },
       closeDetailView: function (e) {
         $('#main').removeClass('slide-left');
@@ -159,17 +169,10 @@ $(function () {
         }
       },
       endButtonClick: function (e) {
-        alert('fine');
-//          var startCounter = $('.icon-star-active').length;
-//
-//          if (startCounter > 0) {
-//            $(this).hide();
-//            $('#item-list-template, #item_detail_template_placeholder').hide();
-//            $('#end_exhibition_form').show();
-//          }
-//          else {
-//            alert('selezionane almeno uno!');
-//          }
+        var startCounter = $('.icon-star-active').length;
+        $(this).hide();
+        $('#item-list-template, #item_detail_template_placeholder').hide();
+        $('#end_exhibition_form').show();
       },
       render: function () {
         var tmplData = this.model.toJSON();
