@@ -2,6 +2,9 @@
 @import "_font-awesome";
 @import "_font";
 
+@font-color: #DDDDDD;
+@bg-color: rgba(33, 33, 33, 0.7);
+
 body {
   margin: 0;
 }
@@ -29,7 +32,8 @@ h1 {
 #exhibition-detail {
   position: relative;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.6);
+  color: @font-color;
+  background: @bg-color;
 
   span {
     display: inline-block;
@@ -69,7 +73,8 @@ h1 {
 
 #sidebar-detail {
   -webkit-transition: all @transition-time;
-  background: rgba(255, 255, 255, 0.6);
+  color: @font-color;
+  background: @bg-color;
   position: fixed;
   z-index: 10000;
   top: 0;
@@ -97,7 +102,7 @@ h1 {
 
     img.first-image {
       margin-bottom: 10px;
-      border: 1px solid #000000;
+      border: 5px solid #FEFEFE;
     }
   }
 }
@@ -111,9 +116,21 @@ h1 {
   }
 }
 
-.icon-star-active {
-  color: yellow;
+.icon-star {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #333333;
+  background: #FEFEFE;
+  padding: 10px;
+  font-size: 25px;
+
+  &.icon-star-active {
+    color: darkorange;
+  }
 }
+
+
 
 #item-list-template {
   padding-top: 60px;
@@ -129,6 +146,7 @@ h1 {
 }
 
 .pin {
+  position: relative;
   display: inline-block;
   background: #FEFEFE;
   border: 2px solid #FAFAFA;
@@ -139,7 +157,7 @@ h1 {
   column-break-inside: avoid;
   padding: 15px;
   padding-bottom: 5px;
-  background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+  background: #FEFEFE;
   opacity: 1;
 
   -webkit-transition: all .2s ease;

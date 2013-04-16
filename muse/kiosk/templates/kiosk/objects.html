@@ -74,6 +74,7 @@
     <script type="text/template" id="item_template">
         <article class="pin item" data-pk="<%= pk %>">
             <img src="<%= images[0] %>" alt="<%= name %>" />
+            <i class="icon-star"></i>
 
             <p class="text-center"><%= name %></p>
         </article>
@@ -89,15 +90,18 @@
             <h4 class="text-center"> <%= author %> <%= year %></h4>
 
             <div class="first-image-wrapper">
-                <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="250" /><br>
+                <div style="position: relative;">
+                    <i class="icon-star <% if(active){ %>icon-star-active<% } %>"></i>
+                    <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="250" /><br>
 
-                <% if(images.length !==1) { %>
-                <p class="text-center">
-                    <% for(var i in images) { %>
-                    <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="70" />
+                    <% if(images.length !==1) { %>
+                    <p class="text-center">
+                        <% for(var i in images) { %>
+                        <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="70" />
+                        <% } %>
+                    </p>
                     <% } %>
-                </p>
-                <% } %>
+                </div>
             </div>
 
             <blockquote><%= desc %></blockquote>
