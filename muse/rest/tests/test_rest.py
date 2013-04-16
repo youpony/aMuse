@@ -80,7 +80,7 @@ class TestStory(TestCase):
     @patch('muse.rest.models.send_mail')
     def test_story_sendmail(self, mock_send_mail):
         story = {
-            'fullname': 'test test',
+            'name': 'test test',
             'email': 'test@example.com',
             'posts': json.dumps(
                 [{'item_pk': i.pk}
@@ -97,7 +97,7 @@ class TestStory(TestCase):
     @patch('muse.rest.models.send_mail')
     def test_story_posts(self, mock_send_mail):
         story = {
-            'fullname': 'test test',
+            'name': 'test test',
             'email': 'test@example.com',
         }
 
