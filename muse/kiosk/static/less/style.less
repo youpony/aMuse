@@ -14,6 +14,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 200;
 }
 
+a {
+  text-decoration: none;
+}
+
 .text-center {
   text-align: center;
 }
@@ -34,7 +38,7 @@ h1 {
   clear: both;
 }
 
-#exhibition-detail {
+#exhibition-detail, #museum-detail {
   position: relative;
   z-index: 100;
   color: @font-color;
@@ -129,6 +133,12 @@ h1 {
       margin-bottom: 10px;
       border: 5px solid #FEFEFE;
     }
+
+//    img.other-images {
+//      position: absolute;
+//      clip: rect(0px, 70px, 70px, 0px);
+//      height: 100%;
+//    }
   }
 }
 
@@ -159,9 +169,7 @@ h1 {
   }
 }
 
-
-
-#item-list-template {
+#item-list-template, #exhibition-list-template {
   padding-top: 60px;
   position: relative;
   z-index: 10000;

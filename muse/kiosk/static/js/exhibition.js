@@ -20,7 +20,7 @@ $(function () {
 
     , ExhibitionView = Backbone.View.extend({
       tagName: "div",
-      className: "span4 well",
+      className: "pin",
       template: _.template($('#exhibition_template').html()),
       render: function () {
         var tmplData = {}
@@ -34,13 +34,14 @@ $(function () {
 
     , ExhibitionListView = Backbone.View.extend({
       tagName: "div",
-      el: $("#exhibition_list_template"),
+      el: $("#exhibition-list-template"),
       initialize: function () {
         var self = this;
 
         this.model = new ExhibitionList();
 
         this.model.fetch({ success: function () {
+          $('body').css('background-image', 'url(http://crisdecuba.com/images/background1920x1080.jpg)')
           self.render();
         }});
       },
