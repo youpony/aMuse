@@ -75,7 +75,7 @@ class ExhibitionAdmin(admin.ModelAdmin):
         (
             'Exhibition info',
             {
-                'fields': ['museum', 'title', 'description', 'image']
+                'fields': ['museum', 'title', 'description', 'image', 'video']
             }
         ),
         (
