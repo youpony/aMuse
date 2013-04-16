@@ -62,7 +62,7 @@ def exhibition_details(request, pk):
     exhibition = get_object_or_404(models.Exhibition, pk=pk)
     response = model_to_dict(
         exhibition,
-        fields=('title', 'description')
+        fields=('title', 'description', 'video')
     )
     # XXX. find a better way to serialize these keys.
     response['museum'] = {

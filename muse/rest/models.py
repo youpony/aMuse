@@ -41,6 +41,7 @@ class Exhibition(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     image = models.ImageField(upload_to='uploads')
+    video = models.CharField(max_length=10, blank=True)
 
     def clean(self):
         """

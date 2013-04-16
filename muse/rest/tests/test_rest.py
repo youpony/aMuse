@@ -50,14 +50,13 @@ class TestExhibitions(TestCase):
 
         response = self.client.get('/api/m/{}/'.format(self.exhibition.pk))
         details = json.loads(response.content)
-        for key in 'museum', 'title', 'description', 'image':
+        for key in 'museum', 'title', 'description', 'image', 'video':
             self.assertIn(key, details)
 
         response = self.client.get(r'/api/m/\'\0\x86/')
         self.assertEqual(response.status_code, 404)
 
     def test_exhibition_items(self):
-        # XXX. provide new fixtures
         self.item.exhibitions.add(self.exhibition)
 
         response = self.client.get('/api/m/44444222222222222222/o/')
