@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
     <div id="main">
         <div id="exhibition-detail"></div>
         <div id="item-list-template"></div>
@@ -15,12 +14,8 @@
                 <div class="clearfix"></div>
             </form>
         </div>
-
     </div>
     <div id="sidebar-detail"></div>
-
-
-
 {% endblock content %}
 
 {% block extra-script %}
@@ -85,7 +80,9 @@
                 <% if(images.length !==1) { %>
                 <p class="text-center">
                     <% for(var i in images) { %>
-                    <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="70" />
+                    <div style="position: relative; height: 70px; width: 70px; display: inline-block;">
+                        <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" />
+                    </div>
                     <% } %>
                 </p>
                 <% } %>

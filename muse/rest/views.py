@@ -121,8 +121,8 @@ def item_details(request, pk):
     return {'data': response}
 
 
+
 class StoryView(AjaxMixin, View):
-    @csrf_exempt
     def post(self, request, *args, **kwargs):
         """
         POST /s/
@@ -140,12 +140,12 @@ class StoryView(AjaxMixin, View):
             ]
         }
         """
-        name = request.POST.get('fullname')
+        name = request.POST.get('name')
         email = request.POST.get('email')
         posts = json.loads(request.POST.get('posts', '[]'))
 
         if not all((name, email, posts)):
-            return HttpResponseBadRequest()
+            return HttpResponseBadRequest('name, email, posts fileds invalid.')
 
         m = models.Museum.objects.latest('pk')
         t = models.Tour(name=name, email=email, museum=m)
@@ -212,8 +212,6 @@ class StoryView(AjaxMixin, View):
 
         return response
 
-
-    @csrf_exempt
     def delete(self, request, pk):
         """
         DELETE /s/<pk>
@@ -223,6 +221,9 @@ class StoryView(AjaxMixin, View):
         tour = get_object_or_404(models.Tour, private_id=pk)
         raise NotImplementedError
 
-    @csrf_exempt
     def put(self, request, *args, **kwargs):
         raise NotImplementedError
+
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(StoryView, self).dispatch(*args, **kwargs)

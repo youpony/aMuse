@@ -5,15 +5,55 @@ from mock import patch, ANY
 from os.path import join, dirname
 
 from django.test import TestCase, Client
+from django.core.exceptions import ValidationError
 import simplejson as json
 
 from muse.rest import models
 
 
 class TestModels(TestCase):
+    fixtures = ['item.json']
+
     def test_csrng_key(self):
         self.assertNotEqual(models.csrng_key(), models.csrng_key())
 ## test also with private_id key
+
+    def test_item_save(self):
+        item = models.Item.objects.latest('pk')
+
+        invalid_dates = ['foo-bar', '1968-foo', 'a1-1', '0x10-0x100',
+                         '', '111_1', '1-1a']
+        for invalid_date in invalid_dates:
+            item.year = invalid_date
+            try:
+                item.save()
+            except ValidationError:
+                continue
+            else:
+                self.fail('ValidationError: {}'.format(invalid_date))
+
+        valid_dates = ['1-1', '2013-2015', '1992']
+        for valid_date in valid_dates:
+            item.year = valid_date
+            try:
+                item.save()
+            except ValidationError:
+                self.fail('cannot save date {}'.format(valid_date))
+
+    def test_exhibition_save(self):
+        exhibition = models.Exhibition.objects.latest('pk')
+
+        exhibition.start_date = datetime.datetime.now()
+        exhibition.end_date = datetime.datetime.now()
+        try:
+            exhibition.save()
+        except ValidationError:
+            self.fail('saving exhibition.start_date == exhibition.end_date')
+
+        exhibition.start_date = datetime.datetime.now()
+        exhibition.end_date = datetime.datetime.now() - datetime.timedelta(days=1)
+        self.assertRaises(ValidationError, exhibition.save)
+
 
 
 class TestExhibitions(TestCase):
@@ -80,7 +120,7 @@ class TestStory(TestCase):
     @patch('muse.rest.models.send_mail')
     def test_story_sendmail(self, mock_send_mail):
         story = {
-            'fullname': 'test test',
+            'name': 'test test',
             'email': 'test@example.com',
             'posts': json.dumps(
                 [{'item_pk': i.pk}
@@ -97,7 +137,7 @@ class TestStory(TestCase):
     @patch('muse.rest.models.send_mail')
     def test_story_posts(self, mock_send_mail):
         story = {
-            'fullname': 'test test',
+            'name': 'test test',
             'email': 'test@example.com',
         }
 
