@@ -2,6 +2,7 @@
 import hashlib
 import os
 import time
+import re
 
 from django.db import models
 from django.dispatch import Signal, receiver
@@ -43,17 +44,18 @@ class Exhibition(models.Model):
     image = models.ImageField(upload_to='uploads')
     video = models.CharField(max_length=10, blank=True)
 
-    def clean(self):
+    def __unicode__(self):
+        return u'{title}-{museum}'.format(title=self.title,
+                                          museum=self.museum)
+    def save(self, *args, **kwargs):
         """
-        This method ensure that end_date is a date equal or greather than
-        start_date
+        Override save method to ensure that end_date is equal or greather
+        than start_date
         """
         if ((self.end_date < self.start_date)):
             raise ValidationError('End date must to be after start date')
 
-    def __unicode__(self):
-        return u'{title}-{museum}'.format(title=self.title,
-                                          museum=self.museum)
+        super(Exhibition, self).save(*args, **kwargs)
 
 
 class Item(models.Model):
@@ -63,7 +65,7 @@ class Item(models.Model):
     name = models.CharField(max_length=50)
     desc = models.TextField()
     author = models.CharField(max_length=50, blank=True)
-    year = models.IntegerField()
+    year = models.CharField(max_length=9)
     exhibitions = models.ManyToManyField(
         Exhibition,
         verbose_name='exhibitions where this item is available'
@@ -71,6 +73,19 @@ class Item(models.Model):
 
     def __unicode__(self):
         return unicode(self.name)
+
+    def save(self, *args, **kwargs):
+        """
+        Override save  method to ensure that year use the format dddd or
+        dddd-dddd where d rapresent an integer.
+        This method is necessary to let user set a year for an item that
+        haven't a fixed year date.
+        """
+        if not (re.match(r'^\d{1,4}$', str(self.year)) or
+                re.match(r'^\d{1,4}-\d{1,4}$', str(self.year))):
+            raise ValidationError('Year must be in format yyyy or yyyy-yyyy')
+
+        super(Item, self).save(*args, **kwargs)
 
 
 class Tour(models.Model):
@@ -111,7 +126,6 @@ class Post(models.Model):
     """
     ordering_index = models.IntegerField()
     tour = models.ForeignKey(Tour)
-    # timestamp = models.DateTimeField(auto_now_add=True)
     item = models.ForeignKey(Item, blank=True, null=True)
     image = models.ImageField(upload_to='people_uploads', blank=True, null=True)
     text = models.TextField()

@@ -5,6 +5,7 @@ from mock import patch, ANY
 from os.path import join, dirname
 
 from django.test import TestCase, Client
+from django.core.exceptions import ValidationError
 import simplejson as json
 
 from muse.rest import models
@@ -171,3 +172,23 @@ class TestItem(TestCase):
         self.assertTrue(
             all(key in models.Item._meta_fields) for key in item.keys()
         )
+    def test_item_clean(self):
+        invalid_dates = ['foo-bar', '1968-foo', 'a1-1', '0x10-0x100',
+                         '', '111_1', '1-1a']
+        for invalid_date in invalid_dates:
+            self.item.year = invalid_date
+            try:
+                self.item.save()
+            except ValidationError:
+                continue
+            else:
+                self.fail('ValidationError: {}'.format(invalid_date))
+
+        valid_dates = ['1-1', '2013-2015', '1992']
+        for valid_date in valid_dates:
+            self.item.year = valid_date
+            try:
+                self.item.save()
+            except ValidationError:
+                self.fail('cannot save date {}'.format(valid_date))
+
