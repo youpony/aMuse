@@ -64,7 +64,8 @@ $(function () {
       },
       events: {
         'click .icon-star': 'changeStarStatus',
-        'click .close': 'closeDetailView'
+        'click #close-button': 'closeDetailView',
+        'click .other-images': 'changeImage'
       },
       changeStarStatus: function (e) {
         var $this = $(e.target)
@@ -81,6 +82,10 @@ $(function () {
         $('#main').removeClass('slide-left');
         $('#sidebar-detail').removeClass('slide-left');
       },
+      changeImage: function (e) {
+        var $this = $(e.target);
+        $('.first-image').attr('src', $this.attr('src'));
+      },
       render: function (e) {
         var $this = $(this.el)
           , $star = $('article[data-pk=' + this.model.id + ']')
@@ -90,7 +95,8 @@ $(function () {
       }
     })
 
-    , ItemListView = Backbone.View.extend({
+    ,
+    ItemListView = Backbone.View.extend({
       tagName: "div",
       el: $("#item-list-template"),
       initialize: function () {
@@ -127,6 +133,7 @@ $(function () {
 
     , ExhibitionDetailView = Backbone.View.extend({
       tagName: "div",
+      el: $("#exhibition-detail"),
       template: _.template($('#exhibition_detail_template').html()),
       initialize: function () {
         var self = this;
@@ -136,13 +143,42 @@ $(function () {
           self.render();
         }});
       },
+      events: {
+        "click #back-button": 'backButtonClick',
+        "click #end-button": 'endButtonClick'
+      },
+      backButtonClick: function (e) {
+        var $endExhibitionForm = $('#end_exhibition_form');
+
+        if ($endExhibitionForm.is(':hidden'))
+          window.location.href = window.urls.kiosk;
+        else {
+          $('#item-list-template, #item_detail_template_placeholder').show();
+          $('#end-button').show();
+          $endExhibitionForm.hide();
+        }
+      },
+      endButtonClick: function (e) {
+        alert('fine');
+//          var startCounter = $('.icon-star-active').length;
+//
+//          if (startCounter > 0) {
+//            $(this).hide();
+//            $('#item-list-template, #item_detail_template_placeholder').hide();
+//            $('#end_exhibition_form').show();
+//          }
+//          else {
+//            alert('selezionane almeno uno!');
+//          }
+      },
       render: function () {
         var tmplData = this.model.toJSON();
-        $('#exhibition-detail').html(this.template(tmplData));
+        $(this.el).html(this.template(tmplData));
         return this;
       }
     });
 
   new ItemListView();
   new ExhibitionDetailView();
-});
+})
+;

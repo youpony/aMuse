@@ -1,11 +1,12 @@
-{% extends "kiosk/site_base.html" %}
+{% extends "papacastoro/site_base.html" %}
 
 {% block content %}
-<h1>{{ tour }}</h1>
-<h3>{{ tour.pk }}</h3>
-<ul>
-    {% for p in posts %}
-    <li class="well">{{ p.item.name }}</li>
-    {% endfor %}
-</ul>
+<div class="reveal">
+    <div class="slides">
+        <section class="tour-post tour-cover">{{ tour }}</section>
+        {% for p in posts %}
+        <section class="tour-post">{{ p.item.name }}</section>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}

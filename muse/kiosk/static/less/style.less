@@ -14,27 +14,53 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-#exhibition-detail {
-  position: relative;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.5);
+h1 {
+  margin-top: 0;
+  padding-top: 20px;
 
-  h1 {
-    margin-top: 0;
-    padding-top: 20px;
-    & + h4 {
-      margin: -30px 0 0;
-      padding-bottom: 20px;
-      font-weight: 300;
-      line-height: 1.25;
-    }
+  & + h4 {
+    margin: -30px 0 0;
+    padding-bottom: 20px;
+    font-weight: 300;
+    line-height: 1.25;
   }
 }
 
-@slide: 70%;
+#exhibition-detail {
+  position: relative;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.6);
+
+  span {
+    display: inline-block;
+  }
+}
+
+#back-button, #end-button, #close-button {
+  font-size: 20px;
+  line-height: 60px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+#end-button {
+  float: right;
+}
+
+#back-button {
+  float: left;
+}
+
+#close-button {
+  position: absolute;
+  left: 0;
+}
+
+@slide: 700px;
+@transition-time: .4s;
 
 #main {
-  -webkit-transition: all 0.5s;
+  -webkit-transition: all @transition-time;
   &.slide-left {
     margin-left: -@slide;
     margin-right: @slide;
@@ -42,14 +68,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #sidebar-detail {
-  -webkit-transition: all 0.5s;
-  background: rgba(255,255,255,0.5);
+  -webkit-transition: all @transition-time;
+  background: rgba(255, 255, 255, 0.6);
   position: fixed;
   z-index: 10000;
   top: 0;
   right: -@slide;
   bottom: 0;
   width: @slide;
+
+  h1 {
+    width: 500px;
+    margin-left: 100px;
+  }
 
   &.slide-left {
     right: 0%;
@@ -61,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .first-image-wrapper {
     display: inline-block;
-    float:left;
+    float: left;
     margin: 0 20px;
 
     img.first-image {
@@ -73,7 +104,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #sidebar-detail {
   blockquote {
-    border-left: 5px solid white;
+    text-align: justify;
     padding-left: 10px;
     font-size: 16px;
     line-height: 26px;

@@ -94,7 +94,8 @@ class TestStory(TestCase):
         mock_send_mail.assert_called_with(
             ANY, ANY, m.referral, [story['email']])
 
-    def test_story_posts(self):
+    @patch('muse.rest.models.send_mail')
+    def test_story_posts(self, mock_send_mail):
         story = {
             'fullname': 'test test',
             'email': 'test@example.com',
@@ -127,6 +128,20 @@ class TestStory(TestCase):
         response = self.client.post('/api/s/', story)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.content), {'status': 'completed'})
+
+    def test_story_get(self):
+        story = models.Tour.objects.latest('public_id')
+
+        response = self.client.get('/api/s/lalalal/')
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get('/api/s/lalalal/', {'edit':'lalalala'})
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.get('/api/s/{}/'.format(story.public_id), {'edit':'false'})
+        self.assertEqual(response.status_code, 200)
+        response = json.loads(response.content)
+        self.assertIn('posts', response)
+        self.assertIn('name', response)
 
 
 class TestItem(TestCase):

@@ -431,5 +431,50 @@
     "name": "Osborne 1",
     "desc": "L'Osborne 1 \u00e8 stato il primo computer portatile di massa della storia.Presentato alla West Coast Computer Faire di San Francisco, fu messo in commercio nell'aprile del 1981 dalla Osborne Computer Corporation; pesava circa 10,7 kg ed aveva un costo di 1795 $.\r\nIl sistema operativo integrato all'interno era il CP/M 2.2. I suoi difetti principali erano il minuscolo schermo da 5 pollici (13 cm) ed i floppy disk a singola faccia e singola densit\u00e0 che non avevano una capacit\u00e0 sufficiente a contenere i dati per le applicazioni aziendali.\r\nIl suo design era molto simile a quello di uno dei primi prototipi di computer portatili, il NoteTaker Xerox, sviluppato presso Xerox PARC nel 1976.\r\nAlcuni difetti di produzione costrinsero l'azienda al richiamo di oltre 100.000 unit\u00e0; ci\u00f2 nonostante, a meno di un anno dal lancio del primo sistema, Osborne ebbe vendite totali per oltre 250 milioni di dollari.[1]\r\nLa concorrenza arriv\u00f2 presto sul mercato con un portatile che correggeva la principale carenza dell'Osborne 1: la dimensione del display. Il prodotto concorrente si chiamava Kaypro II, sistema venduto ad un prezzo minore dell'Osborne e dotato di un display da 9\"."
   }
+},
+{
+  "pk": 1,
+  "model": "rest.tour",
+  "fields": {
+    "private_id": "1c127b30145781313ba62fdc6515a067a881e66804cf009f289e2af59b4cc4c9",
+    "public_id": "9494653cbcda067e0e97af4e372611dedfdc4d4bdc708a749b6329624453f4db",
+    "name": "Michele Lever",
+    "timestamp": "2013-04-12T12:33:35.245Z",
+    "museum": 1,
+    "email": "michele@lever.it"
+  }
+},
+{
+  "pk": 1,
+  "model": "rest.post",
+  "fields": {
+    "item": null,
+    "tour": 1,
+    "text": "Ciao amore, c'e` una gnocca alla finestra",
+    "image": "people_uploads/gnocca.jpg",
+    "ordering_index": 0
+  }
+},
+{
+  "pk": 2,
+  "model": "rest.post",
+  "fields": {
+    "item": 2,
+    "tour": 1,
+    "text": "Che canna lunga!",
+    "image": "",
+    "ordering_index": 1
+  }
+},
+{
+  "pk": 3,
+  "model": "rest.post",
+  "fields": {
+    "item": 10,
+    "tour": 1,
+    "text": "un retina, uau",
+    "image": "people_uploads/appleII.jpg",
+    "ordering_index": 2
+  }
 }
 ]

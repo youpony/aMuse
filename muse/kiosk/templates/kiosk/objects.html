@@ -7,59 +7,34 @@
         <div id="exhibition-detail"></div>
         <div id="item-list-template"></div>
     </div>
-    <div id="sidebar-detail">ciao</div>
-    {#    <div id="end-button" class="btn btn-danger">Fine</div>#}
-    {#    <div id="back-button" class="btn">Indietro</div>#}
-    {#    <div id="item_list_template"></div>#}
-    {#    <div id="item_detail_template_placeholder"></div>#}
-    {#    <div id="end_exhibition_form" style="display: none;">#}
-    {#        <div class="well">#}
-    {#            <form class="form-horizontal">#}
-    {#                <div class="control-group">#}
-    {#                    <label class="control-label" for="inputEmail">Fullname</label>#}
-    {##}
-    {#                    <div class="controls">#}
-    {#                        <input type="text" id="inputFullname" placeholder="Email">#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#                <div class="control-group">#}
-    {#                    <label class="control-label" for="inputEmail">Email</label>#}
-    {##}
-    {#                    <div class="controls">#}
-    {#                        <input type="email" id="inputEmail" placeholder="Email">#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#                <button type="submit" class="btn">Send</button>#}
-    {#            </form>#}
-    {#        </div>#}
-    {#    </div>#}
+    <div id="sidebar-detail"></div>
+
+    <div id="end_exhibition_form" style="display: none;">
+        <div class="well">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Fullname</label>
+
+                    <div class="controls">
+                        <input type="text" id="inputFullname" placeholder="Email">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="inputEmail">Email</label>
+
+                    <div class="controls">
+                        <input type="email" id="inputEmail" placeholder="Email">
+                    </div>
+                </div>
+                <button type="submit" class="btn">Send</button>
+            </form>
+        </div>
+    </div>
+
 {% endblock content %}
 
 {% block extra-script %}
     <script>
-{#        $('#end-button').on('click', function () {#}
-{#            var startCounter = $('.icon-star-active').length;#}
-{##}
-{#            if (startCounter > 0) {#}
-{#                $(this).hide();#}
-{#                $('#item-list-template, #item_detail_template_placeholder').hide();#}
-{#                $('#end_exhibition_form').show();#}
-{#            }#}
-{#            else {#}
-{#                alert('selezionane almeno uno!');#}
-{#            }#}
-{#        });#}
-
-{#        $('#back-button').on('click', function () {#}
-{#            if ($('#end_exhibition_form').is(':hidden'))#}
-{#                window.history.go(-1);#}
-{#            else {#}
-{#                $('#item-list-template, #item_detail_template_placeholder').show();#}
-{#                $('#end-button').show();#}
-{#                $('#end_exhibition_form').hide();#}
-{#            }#}
-{#        });#}
-
         window.exhibition.pk = "{{ pk }}";
     </script>
     <script src="{% static "js/item.js" %}"></script>
@@ -98,22 +73,30 @@
 {% block templates %}
     <script type="text/template" id="item_template">
         <article class="pin item" data-pk="<%= pk %>">
-            <img src="<%= images[0] %>"  alt="<%= name %>" />
+            <img src="<%= images[0] %>" alt="<%= name %>" />
+
             <p class="text-center"><%= name %></p>
         </article>
     </script>
 
     <script type="text/template" id="item_detail_template">
         <article class="item-detail" data-pk="<%= id %>">
-            <span class="pull-right close">chiudi</span>
-            <h2 class="text-center"><%= name %> <small>- <%= author %> <%= year %></small></h2>
+
+            <h1 class="text-center">
+                <span id="close-button"><i class="icon-arrow-left"></i> Chiudi</span>
+                <span><%= name %></span>
+            </h1>
+            <h4 class="text-center"> <%= author %> <%= year %></h4>
 
             <div class="first-image-wrapper">
-                <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="200" /><br>
-                <% for(var i in images) { %>
-                    <% if(images.length !==1) { %>
-                        <img src="<%= images[i] %>" alt="<%= name %>" width="50" />
+                <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="250" /><br>
+
+                <% if(images.length !==1) { %>
+                <p class="text-center">
+                    <% for(var i in images) { %>
+                    <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" width="70" />
                     <% } %>
+                </p>
                 <% } %>
             </div>
 
@@ -122,9 +105,13 @@
     </script>
 
     <script type="text/template" id="exhibition_detail_template">
-        <article class="text-center">
-            <h1><%= title %></h1>
-            <h4><%= description %></h4>
+        <article>
+            <h1 class="text-center">
+                <span id="back-button"><i class="icon-arrow-left"></i> Indietro</span>
+                <span><%= title %></span>
+                <span id="end-button">Fine <i class="icon-arrow-right"></i></span>
+            </h1>
+            <h4 class="text-center"><%= description %></h4>
         </article>
     </script>
 {% endblock templates %}
