@@ -153,7 +153,8 @@ $(function () {
           $('#wrapper').tubular({
             videoId: self.model.get('video'),
             mute: true,
-            repeat: true
+            repeat: true,
+            start: 10
           });
 
           self.render();
