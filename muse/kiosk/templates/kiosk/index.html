@@ -2,7 +2,17 @@
 {% load static %}
 
 {% block content %}
-    <div id="exhibition_list_template"></div>
+    <div id="main">
+    <div id="museum-detail">
+        <article>
+            <h1 class="text-center">
+                <span>aMuse</span>
+            </h1>
+            <h4 class="text-center">le mostre di questo bellissimo museo</h4>
+        </article>
+    </div>
+    <div id="exhibition-list-template"></div>
+    </div>
 {% endblock content %}
 
 {% block extra-script %}
@@ -13,9 +23,9 @@
     <script type="text/template" id="exhibition_template">
         <a href="<%= url %>">
             <article>
-                <h3><%= title %></h3>
-                <blockquote><%= description %></blockquote>
                 <img src="<%= image %>" alt="<%= title %>" />
+                <p class="text-center"><%= title %></p>
+                <p class="text-center"><%= description %></p>
             </article>
         </a>
     </script>
