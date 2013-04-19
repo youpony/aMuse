@@ -8,7 +8,10 @@
         {% if p.image %}
         <section class="tour-post user-image">
             <img src="{{ p.image.url }}">
-            <p class="comment">{{ p.text }}</p>
+            <p class="comment">
+              <i class="icon-user"></i>
+              {{ p.text }}
+            </p>
         {% else %}
         <section class="tour-post tour-item">
             <h2>{{ p.item.name }}</h2>
@@ -16,7 +19,10 @@
             <img src="{{ image.image.url }}" class="item-image">
             {% endfor %}
             <p>{{ p.item.desc }}</p>
-            <p class="comment">{{ p.text }}</p>
+            <p class="comment">
+              <i class="icon-user"></i>
+              {{ p.text }}
+            </p>
         {% endif %}
         </section>
       {% endfor %}
