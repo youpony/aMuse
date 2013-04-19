@@ -26,6 +26,13 @@
         {% endif %}
         </section>
       {% endfor %}
-    </div>
+    <section class="tour-post tour-share">
+      <h2>Share this tour!</h2>
+      <!-- Facebook -->
+      <div class="fb-send" data-href="http://youpony.pittoni.org/storyteller/{{ tour.public_id }}" data-font="lucida grande"></div>
+      <!-- Twitter -->
+      <a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">{{ tour }} - aMuse</a>
+    </section>
   </div>
+</div>
 {% endblock content %}
