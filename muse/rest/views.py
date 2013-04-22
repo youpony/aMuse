@@ -16,7 +16,6 @@ API in json
 
 """
 import datetime
-import hashlib
 import base64
 import simplejson as json
 
@@ -24,7 +23,7 @@ from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
-from django.http import Http404, HttpResponseBadRequest
+from django.http import HttpResponseBadRequest
 from django.core.files.base import ContentFile
 from ajaxutils.decorators import ajax
 from ajaxutils.views import AjaxMixin
@@ -119,7 +118,6 @@ def item_details(request, pk):
 
     # XXX. remove the 'data' keyword.
     return {'data': response}
-
 
 
 class StoryView(AjaxMixin, View):
