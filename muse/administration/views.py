@@ -99,8 +99,11 @@ class ExhibitionDelete(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         try:
-            return super(ItemDelete, self).delete(request, *args, **kwargs)
+            return super(ExhibitionDelete, self).delete(
+                request, *args, **kwargs
+            )
         except ProtectedError as e:
+            self.get_context_data()
             return render_to_response(
                 self.unsuccess_template,
                 {'error': e.args[0]},
@@ -271,6 +274,7 @@ class ItemDelete(DeleteView):
         try:
             return super(ItemDelete, self).delete(request, *args, **kwargs)
         except ProtectedError as e:
+            self.get_context_data()
             return render_to_response(
                 self.unsuccess_template,
                 {'error': e.args[0]},
