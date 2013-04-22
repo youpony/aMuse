@@ -99,6 +99,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class TourAdmin(admin.ModelAdmin):
     readonly_fields = ('public_id', 'private_id')
+    list_display = ('__unicode__', 'public_id', 'private_id')
 
 
 # Museum management
