@@ -1,0 +1,58 @@
+{% extends "administration/site_base.html" %}
+
+{% block content %}
+
+{% if perms.rest.add_exhibition %}
+<div class='add_button'>
+    <a href={% url 'exhibition_add'%}>add exhibition</a>
+</div>
+{% endif %}
+
+<div class='table'>
+    {% for exhibition in exhibitions %}
+    <div class='table-row'>
+
+        {% if perms.rest.change_exhibition %}
+        <a href={% url 'exhibition_edit' exhibition.pk %}>
+            {{ exhibition.title }} || {{ exhibition.museum }}
+        </a>
+        {% else %}
+            {{ exhibition.title }} || {{ exhibition.museum }}
+        {% endif %}
+        <a href={% url 'items_list' exhibition.pk %}>
+            objects
+        </a>
+        {% if perms.rest.delete_item %}
+            <a href={% url 'exhibition_delete' exhibition.pk %}>
+                delete
+            </a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<br/>
+
+{% if is_paginated %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">
+                previous
+            </a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }}
+            of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+
+{% endblock content %}
+

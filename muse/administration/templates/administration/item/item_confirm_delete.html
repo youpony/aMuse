@@ -1,0 +1,13 @@
+{% extends "administration/site_base.html" %}
+
+{% block content %}
+
+<div>
+    <p> Sei sicuro di voler eliminare {{ object }} ? </p>
+    <form action="." method="post">
+        {% csrf_token %}
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+{% endblock content %}
+

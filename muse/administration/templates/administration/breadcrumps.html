@@ -1,0 +1,4 @@
+{% for breadcrumb in request.breadcrumbs %}
+<a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a>{% if not forloop.last %} &raquo; {% endif %}
+{% endfor %}
+
