@@ -1,6 +1,6 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
@@ -26,6 +26,9 @@ class ExhibitionList(ListView):
         self.request.breadcrumbs([
             ("Home", reverse('exhibitions_list')),
         ])
+        context['item_without_exhibition'] = (
+            rest.Item.objects.filter(exhibitions=None).count()
+        )
         return context
 
     @method_decorator(login_required)
@@ -58,6 +61,7 @@ class ExhibitionCreate(CreateView):
             return super(ExhibitionCreate, self).form_invalid(form)
 
     @method_decorator(login_required)
+    @method_decorator(permission_required('rest.add_exhibition'))
     def dispatch(self, *args, **kwargs):
         return super(ExhibitionCreate, self).dispatch(*args, **kwargs)
 
@@ -87,6 +91,7 @@ class ExhibitionEdit(UpdateView):
             return super(ExhibitionEdit, self).form_invalid(form)
 
     @method_decorator(login_required)
+    @method_decorator(permission_required('rest.change_exhibition'))
     def dispatch(self, *args, **kwargs):
         return super(ExhibitionEdit, self).dispatch(*args, **kwargs)
 
@@ -96,6 +101,11 @@ class ExhibitionDelete(DeleteView):
     template_name = 'administration/exhibition/exhibition_confirm_delete.html'
     success_url = reverse_lazy('exhibitions_list')
     unsuccess_template = 'administration/unable_to_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ExhibitionDelete, self).get_context_data(**kwargs)
+        context['undu_url'] = reverse('exhibition_list')
+        return context
 
     def delete(self, request, *args, **kwargs):
         try:
@@ -111,6 +121,7 @@ class ExhibitionDelete(DeleteView):
             )
 
     @method_decorator(login_required)
+    @method_decorator(permission_required('rest.delete_exhibition'))
     def dispatch(self, *args, **kwargs):
         return super(ExhibitionDelete, self).dispatch(*args, **kwargs)
 
@@ -126,7 +137,7 @@ class ItemList(ListView):
         self.request.breadcrumbs([
             ("Home", reverse('exhibitions_list')),
         ])
-        context['exhibition_id'] = self.kwargs['pk']
+        context['exhibition_pk'] = self.kwargs['pk']
         return context
 
     def get_queryset(self):
@@ -192,6 +203,7 @@ class ItemCreate(CreateView):
         return self.render_to_response(self.get_context_data(form=form))
 
     @method_decorator(login_required)
+    @method_decorator(permission_required('rest.add_item'))
     def dispatch(self, *args, **kwargs):
         return super(ItemCreate, self).dispatch(*args, **kwargs)
 
@@ -216,12 +228,13 @@ class ItemEdit(UpdateView):
                 instance=self.object
             )
 
-        self.request.breadcrumbs([
-            ("Home", reverse('exhibitions_list')),
-            ("Exhibition", reverse(
-                'items_list', args=[self.kwargs['exhibition_pk']]
-            ))
-        ])
+        self.request.breadcrumbs("Home", reverse('exhibitions_list'))
+
+        if 'exhibition_pk' in kwargs:
+            self.request.breadcrumbs(
+                "Exhibition",
+                reverse('items_list', args=[kwargs['exhibition_pk']])
+            )
 
         return context
 
@@ -248,6 +261,7 @@ class ItemEdit(UpdateView):
             return self.render_to_response(self.get_context_data(form=form))
 
     @method_decorator(login_required)
+    @method_decorator(permission_required('rest.change_item'))
     def dispatch(self, *args, **kwargs):
         return super(ItemEdit, self).dispatch(*args, **kwargs)
 
@@ -262,12 +276,19 @@ class ItemDelete(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(ItemDelete, self).get_context_data(**kwargs)
-        self.request.breadcrumbs([
-            ("Home", reverse('exhibitions_list')),
-            ("Exhibition", reverse(
-                'items_list', args=[self.kwargs['exhibition_pk']]
-            ))
-        ])
+        self.request.breadcrumbs("Home", reverse('exhibitions_list'))
+
+        if 'exhibition_pk' in kwargs:
+            self.request.breadcrumbs(
+                "Exhibition",
+                reverse('items_list', args=[kwargs['exhibition_pk']])
+            )
+            context['undu_url'] = reverse(
+                'items_list', args=[kwargs['exhibition_pk']]
+            )
+        else:
+            context['undu_url'] = reverse('item_no_exhibition_list')
+
         return context
 
     def delete(self, request, *args, **kwargs):
@@ -282,5 +303,27 @@ class ItemDelete(DeleteView):
             )
 
     @method_decorator(login_required)
+    @method_decorator(permission_required('rest.delete_item'))
     def dispatch(self, *args, **kwargs):
         return super(ItemDelete, self).dispatch(*args, **kwargs)
+
+
+class ItemWithoutExhibition(ListView):
+    model = rest.Item
+    template_name = 'administration/item/items_list.html'
+    context_object_name = 'items'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super(ItemWithoutExhibition, self).get_context_data(**kwargs)
+        self.request.breadcrumbs([
+            ("Home", reverse('exhibitions_list')),
+        ])
+        return context
+
+    def get_queryset(self):
+        return rest.Item.objects.filter(exhibitions=None)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ItemWithoutExhibition, self).dispatch(*args, **kwargs)

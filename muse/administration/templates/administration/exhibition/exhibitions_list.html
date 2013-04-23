@@ -11,6 +11,17 @@
 
 {% endif %}
 
+<div class='panel_info'>
+    <h6> Information </h6>
+
+    {% if item_without_exhibition > 0 %}
+         <p>
+         Sorry but one of your exhibitions deletion cause
+         {{ item_without_exhibition }} to have no exhibition,
+         please check the <a href={% url 'item_no_exhibition_list'%}>list</a>
+         </p>
+    {% endif %}
+</div>
 <div class='table'>
     {% for exhibition in exhibitions %}
     <div class='table-row'>

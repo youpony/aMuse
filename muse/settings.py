@@ -197,7 +197,8 @@ if os.getenv('JENKINS_URL', False):
         PORT = os.getenv('DBA_SQL_PORT'),
     ))
 
-LOGIN_REDIRECT_URL='/administration/'
+LOGIN_REDIRECT_URL = '/administration/'
+LOGIN_URL = '/administration/login/'
 
 try:
     from settings_local import *

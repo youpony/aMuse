@@ -1,10 +1,9 @@
 {% extends "administration/site_base.html" %}
 
 {% block content %}
-
-{% if perms.rest.add_item %}
+{% if perms.rest.add_item and exhibition_pk %}
 <div class='add_button'>
-    <a href={% url 'item_add' exhibition_id%}>add item</a>
+    <a href="{% url 'item_add' exhibition_pk %}">add item</a>
 </div>
 {% endif %}
 
@@ -12,16 +11,29 @@
     {% for item in items %}
     <div class='table-row'>
         {% if perms.rest.change_item %}
-        <a href={% url 'item_edit' exhibition_id item.pk %}>
-           {{ item.name }} || {{ item.year }} || {{ item.author }}
-        </a>
-        {% else %}
-            {{ item.name }} || {{ item.year }} || {{ item.author }}
+            <a href="
+                {% if exhibition_pk %}
+                    {% url 'item_edit' exhibition_pk item.pk %}
+                {% else %}
+                    {% url 'item_no_exhibition_edit' item.pk %}
+                {% endif %}
+            ">
         {% endif %}
+
+        {{ item.name }} || {{ item.year }} || {{ item.author }}
+
+        {% if perms.rest.change_item %}
+            </a>
+        {% endif %}
+
         {% if perms.rest.delete_item %}
-        <a href={% url 'item_delete' exhibition_id item.pk %}>
-            delete
-        </a>
+        <a href="
+            {% if exhibition_pk %}
+                {% url 'item_delete' exhibition_pk item.pk %}
+            {%else%}
+                {% url 'item_no_exhibition_delete' item.pk  %}
+            {% endif %}
+        ">delete</a>
         {% endif %}
     </div>
     {% endfor %}
