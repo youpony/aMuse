@@ -15,6 +15,7 @@ API in json
  - link per edit storytelling PUT /s/<numero_casuale>/
 
 """
+from __future__ import division
 import datetime
 import hashlib
 import base64
@@ -28,9 +29,12 @@ from django.http import Http404, HttpResponseBadRequest
 from django.core.files.base import ContentFile
 from ajaxutils.decorators import ajax
 from ajaxutils.views import AjaxMixin
+from pattern.web import Twitter
+from pattern.en import sentiment
 
 from muse.rest import models
 
+twengine = Twitter(language='en')
 
 @ajax(require_GET=True)
 def exhibitions_publiclist(request):
@@ -78,6 +82,12 @@ def exhibition_details(request, pk):
     return response
 
 
+def _average(v):
+    """
+    Return the mean of `v`.
+    """
+    return sum(v) / len(v)
+
 @ajax(require_GET=True)
 def exhibition_items(request, pk):
     """
@@ -87,13 +97,20 @@ def exhibition_items(request, pk):
     e = get_object_or_404(models.Exhibition, pk=pk)  # TODO[ml]: ?
     items = models.Item.objects.filter(
         exhibitions__pk__contains=pk
-    ).order_by('name').values('pk', 'name', )
+    ).order_by('name').values('pk', 'name', 'city')
 
     for item in items:
         item['images'] = [
             request.build_absolute_uri(itemimage.image.url) for itemimage in
             models.ItemImage.objects.filter(item__pk=item['pk'])
         ]
+        if not item.get('city'):
+            item['sentiment'] = 0.0
+        else:
+            item['sentiment'] = _average(
+                [sentiment(tweet.text)[0] for tweet in
+                 twengine.search('#{[city]}'.format(item), count=50, cached=True)]
+            )
 
     return {'data': list(items)}
 

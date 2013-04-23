@@ -66,6 +66,7 @@ class Item(models.Model):
     desc = models.TextField()
     author = models.CharField(max_length=50, blank=True)
     year = models.CharField(max_length=9)
+    city = models.CharField(max_length=50, blank=True)
     exhibitions = models.ManyToManyField(
         Exhibition,
         verbose_name='exhibitions where this item is available'

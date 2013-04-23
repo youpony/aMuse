@@ -1,6 +1,7 @@
 # pylint: disable=R0904
 
 import datetime
+from itertools import cycle
 from mock import patch, ANY
 from os.path import join, dirname
 
@@ -109,6 +110,38 @@ class TestExhibitions(TestCase):
         self.assertEqual(items[0]['name'], self.item.name)
         self.assertEqual(len(items[0]['images']),
                          self.item.itemimage_set.count())
+
+    def test_exhibition_items_sentiment(self):
+        """
+        Assert casati's bullshits works.
+        """
+        from pattern.web import Result
+
+        def mock_search(name, cached=0, count=False):
+            results = []
+            for text in ['I love #ponies',
+                         'I am really #happy',
+                         '#life is good'] * 10:
+                result = Result('')
+                result.text = text
+                results.append(result)
+            return results
+
+        self.item.exhibitions.add(self.exhibition)
+        items = models.Item.objects.filter(
+            exhibitions__pk__contains=self.exhibition.pk
+        )
+        for item, city in zip(items, cycle(('rome', 'london', 'paris'))):
+            item.city = city
+            item.save()
+
+        with patch('muse.rest.views.twengine', search=mock_search):
+            response = self.client.get('/api/m/{}/o/'.format(self.exhibition.pk))
+
+        self.assertEqual(response.status_code, 200)
+        items = json.loads(response.content).get('data')
+        for item in items:
+            self.assertGreater(item['sentiment'], 0.5)
 
 
 class TestStory(TestCase):
