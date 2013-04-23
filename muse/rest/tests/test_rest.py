@@ -113,7 +113,7 @@ class TestExhibitions(TestCase):
 
     def test_exhibition_items_sentiment(self):
         """
-        Assert casati's bullshits works.
+        Assert sentiment analysis properly search and recognizes tweets.
         """
         from pattern.web import Result
 
