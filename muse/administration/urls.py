@@ -49,7 +49,7 @@ urlpatterns = patterns(
     url(
         r'^items/no_exhibition/$',
         views.ItemWithoutExhibition.as_view(),
-        name='item_no_exhibition'
+        name='item_no_exhibition_list'
     ),
     url(
         r'^items/edit/(?P<pk>\d+)/$',
