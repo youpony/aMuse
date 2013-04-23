@@ -104,7 +104,7 @@ class ExhibitionDelete(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(ExhibitionDelete, self).get_context_data(**kwargs)
-        context['undu_url'] = reverse('exhibitions_list')
+        context['undo_url'] = reverse('exhibitions_list')
         return context
 
     def delete(self, request, *args, **kwargs):
@@ -283,11 +283,11 @@ class ItemDelete(DeleteView):
                 "Exhibition",
                 reverse('items_list', args=[kwargs['exhibition_pk']])
             )
-            context['undu_url'] = reverse(
+            context['undo_url'] = reverse(
                 'items_list', args=[kwargs['exhibition_pk']]
             )
         else:
-            context['undu_url'] = reverse('item_no_exhibition_list')
+            context['undo_url'] = reverse('item_no_exhibition_list')
 
         return context
 
