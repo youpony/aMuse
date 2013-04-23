@@ -5,9 +5,16 @@
 
 {% block content %}
 
-<p>Thanks for spending some quality time with me, see you soon</p>
+<div class="hero-unit">
+	<h3>Thanks for spending some quality time with me, see you soon.</h1>
+	
+	<p>
+		<a href="{% url "login" %}">
+			<button class="btn btn-large btn-primary" type="button">Login</button>
+		</a>
+	</p>
 
-<a href="{% url "login" %}">login</a>
+</div>
 
 {% endblock content %}
 

@@ -3,9 +3,12 @@
 {% block content %}
 
 {% if perms.rest.add_exhibition %}
-<div class='add_button'>
-    <a href={% url 'exhibition_add'%}>add exhibition</a>
-</div>
+<a href={% url 'exhibition_add'%}>
+	<button class='btn'>
+	   Add exhibition
+	</button>
+</a>
+
 {% endif %}
 
 <div class='table'>
