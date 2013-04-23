@@ -26,6 +26,9 @@ class ExhibitionList(ListView):
         self.request.breadcrumbs([
             ("Home", reverse('exhibitions_list')),
         ])
+        context['item_without_exhibition'] = (
+            rest.Item.objects.filter(exhibitions=None).count()
+        )
         return context
 
     @method_decorator(login_required)
@@ -126,7 +129,7 @@ class ItemList(ListView):
         self.request.breadcrumbs([
             ("Home", reverse('exhibitions_list')),
         ])
-        context['exhibition_id'] = self.kwargs['pk']
+        context['exhibition_pk'] = self.kwargs['pk']
         return context
 
     def get_queryset(self):
@@ -216,12 +219,13 @@ class ItemEdit(UpdateView):
                 instance=self.object
             )
 
-        self.request.breadcrumbs([
-            ("Home", reverse('exhibitions_list')),
-            ("Exhibition", reverse(
-                'items_list', args=[self.kwargs['exhibition_pk']]
-            ))
-        ])
+        self.request.breadcrumbs("Home", reverse('exhibitions_list'))
+
+        if 'exhibition_pk' in kwargs:
+            self.request.breadcrumbs(
+                "Exhibition",
+                reverse('items_list', args=[kwargs['exhibition_pk']])
+            )
 
         return context
 
@@ -262,12 +266,14 @@ class ItemDelete(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(ItemDelete, self).get_context_data(**kwargs)
-        self.request.breadcrumbs([
-            ("Home", reverse('exhibitions_list')),
-            ("Exhibition", reverse(
-                'items_list', args=[self.kwargs['exhibition_pk']]
-            ))
-        ])
+        self.request.breadcrumbs("Home", reverse('exhibitions_list'))
+
+        if 'exhibition_pk' in kwargs:
+            self.request.breadcrumbs(
+                "Exhibition",
+                reverse('items_list', args=[kwargs['exhibition_pk']])
+            )
+
         return context
 
     def delete(self, request, *args, **kwargs):
@@ -284,3 +290,24 @@ class ItemDelete(DeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ItemDelete, self).dispatch(*args, **kwargs)
+
+
+class ItemWithoutExhibition(ListView):
+    model = rest.Item
+    template_name = 'administration/item/items_list.html'
+    context_object_name = 'items'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super(ItemWithoutExhibition, self).get_context_data(**kwargs)
+        self.request.breadcrumbs([
+            ("Home", reverse('exhibitions_list')),
+        ])
+        return context
+
+    def get_queryset(self):
+        return rest.Item.objects.filter(exhibitions=None)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ItemWithoutExhibition, self).dispatch(*args, **kwargs)
