@@ -7,5 +7,4 @@ def tour(request, public_id):
     p = t.post_set.all()
     return render(request,
                   'papacastoro/index.html',
-                  {'tour': t, 'posts': p})
-
+                  {'tour': t, 'posts': p, 'host': request.get_host()})
