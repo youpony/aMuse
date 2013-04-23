@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 
 from muse.administration import views
 
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = patterns(
     'muse.administration.views',
@@ -46,7 +46,23 @@ urlpatterns = patterns(
         views.ItemDelete.as_view(),
         name='item_delete'
     ),
-
+    url(
+        r'^items/no_exhibition/$',
+        views.ItemWithoutExhibition.as_view(),
+        name='item_no_exhibition'
+    ),
+    url(
+        r'^items/edit/(?P<pk>\d+)/$',
+        views.ItemEdit.as_view(success_url=reverse_lazy('item_no_exhibition')),
+        name='item_no_exhibition_edit'
+    ),
+    url(
+        r'^items/delete/(?P<pk>\d+)/$',
+        views.ItemDelete.as_view(
+            success_url=reverse_lazy('item_no_exhibition')
+        ),
+        name='item_no_exhibition_delete'
+    ),
 )
 
 urlpatterns += patterns(
