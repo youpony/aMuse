@@ -10,8 +10,8 @@ API in json
  x creare oggetto POST /o/
  √ dettagli oggetto  GET /o/<id>/
  x edit oggetto  PUT /o/<id>/
- - inviare i preferiti segnati POST /s/
- - link pubblico visualizzazione story GET /s/<numero_casuale>/
+ √ inviare i preferiti segnati POST /s/
+ √ link pubblico visualizzazione story GET /s/<numero_casuale>/
  - link per edit storytelling PUT /s/<numero_casuale>/
 
 """
@@ -166,7 +166,12 @@ class StoryView(AjaxMixin, View):
 
         # fire up the notification system
         # TODO. fire using django's Signals, not directly.
-        models.notify_email(sender='story_view', museum=m, tour=t)
+        models.notify_email(sender='story_view',
+                            tour=t,
+                            museum=m,
+                            url=lambda pk: request.build_absolute_uri(
+                                'storyteller/{0}/'.format(pk)),
+        )
         return {'status': 'completed'}
 
     def get(self, request, pk):

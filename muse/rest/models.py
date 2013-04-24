@@ -163,6 +163,7 @@ class Post(models.Model):
 def notify_email(sender, **kwargs):
     tour = kwargs['tour']
     museum = kwargs['museum']
+    genurl = kwargs['url']
 
     referral = museum.referral
     sbj = '[{mname}] Created new story: {id}'.format(
@@ -178,8 +179,8 @@ def notify_email(sender, **kwargs):
     '''.format(
         mname=museum.name,
         nickname=tour.name,
-        publink=tour.public_id,
-        privlink=tour.private_id,
+        publink=genurl(pk=tour.public_id),
+        privlink=genurl(pk=tour.private_id),
     )
 
     # XXX. send as mime message? correct format?
