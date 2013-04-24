@@ -166,11 +166,12 @@ class StoryView(AjaxMixin, View):
 
         # fire up the notification system
         # TODO. fire using django's Signals, not directly.
-        models.notify_email(sender='story_view',
-                            tour=t,
-                            museum=m,
-                            url=lambda pk: request.build_absolute_uri(
-                                'storyteller/{0}/'.format(pk)),
+        models.notify_email(
+            sender='story_view',
+            tour=t,
+            museum=m,
+            url=lambda pk: (str(request.get_host()) +
+                            '/storyteller/{0}/'.format(pk)),
         )
         return {'status': 'completed'}
 
