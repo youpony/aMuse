@@ -159,6 +159,7 @@ class Post(models.Model):
 
 #story_created = Signal(providing_args=['tour', 'museum'])
 
+
 #@receiver(story_created, sender=Tour)
 def notify_email(sender, **kwargs):
     tour = kwargs['tour']
