@@ -15,7 +15,7 @@
         <tbody>
                 {% for form in itemimage_formset.forms %}
                 <tr id="{{ form.prefix }}-row">
-                        <td>{{ form.image }}</td>
+                        <td>{{ form.as_p }}</td>
                     </tr>
                 {% endfor %}
         </tbody>
@@ -32,11 +32,13 @@
 <script src="{% static "js/jquery-1.9.1.min.js"%}" type="text/javascript"></script>
 <script src="{% static "js/jquery.formset.min.js"%}" type="text/javascript"></script>
 
+{% comment %}
 <script type="text/javascript">
 $(function() {
-        $('#edit_item table tr').formset({
-            prefix: 'itemimage'
-        });
+    $('##edit_item tbody tr').formset({
+        prefix: 'id_itemimage'
     })
+})
 </script>
+{%endcomment%}
 {% endblock %}
