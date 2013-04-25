@@ -27,6 +27,7 @@ from django.http import HttpResponseBadRequest
 from django.core.files.base import ContentFile
 from ajaxutils.decorators import ajax
 from ajaxutils.views import AjaxMixin
+from django.core.exceptions import ValidationError
 
 from muse.rest import models
 
@@ -147,6 +148,12 @@ class StoryView(AjaxMixin, View):
 
         m = models.Museum.objects.latest('pk')
         t = models.Tour(name=name, email=email, museum=m)
+
+        try:
+            t.full_clean()
+        except ValidationError:
+            raise HttpResponseBadRequest('name, email or fileds invalid.')
+
         t.save()
 
         for i, post in enumerate(posts):
