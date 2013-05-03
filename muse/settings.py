@@ -4,10 +4,7 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    ('Mattia Larentis', 'mattia@larentis.eu'),
-
-)
+ADMINS = []
 MANAGERS = ADMINS
 DATABASE_ENGINE = 'django.db.backends.postgresql_psycopg2'
 DATABASE_NAME = 'aMuse'
@@ -51,6 +48,15 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
+
+# Set a mock email backend on develop
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'youponydev@gmail.com
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
