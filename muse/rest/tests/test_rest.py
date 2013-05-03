@@ -244,7 +244,23 @@ class TestItem(TestCase):
 
         response = self.client.get('/api/o/{}/'.format(self.item.pk))
         self.assertEqual(response.status_code, 200)
-        item = json.loads(response.content)
-        self.assertTrue(
-            all(key in models.Item._meta_fields) for key in item.keys()
-        )
+        item = json.loads(response.content).get('data')
+        keys = ['city', 'author', 'year', 'exhibitions', 'name', 'images']
+        self.assertTrue(all(item.has_key(key) for key in keys))
+
+    def test_item_sentiment(self):
+        self.item.city = ''
+        self.item.save()
+
+        response = self.client.get('/api/o/{}/'.format(self.item.pk))
+        self.assertEqual(response.status_code, 200)
+        item = json.loads(response.content).get('data')
+        self.assertEqual(item['sentiment'], 0.0)
+
+        self.item.city = 'Rome'
+        self.item.save()
+        with patch('muse.rest.views._sentiment') as mock:
+            mock.return_value = .0
+            response = self.client.get('/api/o/{}/'.format(self.item.pk))
+            self.assertEqual(response.status_code, 200)
+            mock.assert_called_with('Rome')
