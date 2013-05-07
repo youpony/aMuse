@@ -2,19 +2,55 @@ from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.http import HttpResponseRedirect
-
+from django.http import HttpResponseRedirect, HttpResponseBadRequest
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
+
+from ajaxutils.decorators import ajax
 from muse.rest.models import Tour, Post
 from muse.papacastoro import forms
 
 
 def tour(request, public_id):
+    """
+    Given a tour public id return an animated visit of the museum.
+    """
     t = get_object_or_404(Tour, public_id=public_id)
     p = t.post_set.all()
     return render(request,
                   'papacastoro/index.html',
                   {'tour': t, 'posts': p, 'host': request.get_host()})
+
+
+@csrf_exempt
+@ajax(require_POST=True)
+def sort_post(request):
+    """
+    POST /sort_post/
+    Given a tour_private_id and order, sort post object of tour according to
+    order.
+
+    order example: "post[]=40&post[]=52".
+    """
+    tour_private_id = request.POST.get('tour_private_id', None)
+    order = request.POST.get('order', None)
+
+    if not all((tour_private_id, order)):
+        return HttpResponseBadRequest('order, tour_private_id fields invalid.')
+
+    tour = get_object_or_404(Tour, private_id=tour_private_id)
+    post_list = ('&'+order).split('&post[]=')[1:]
+
+    if (len(post_list) != tour.post_set.count()):
+        return HttpResponseBadRequest('Not enougth data received.')
+
+    for index, post_pk in enumerate(post_list):
+        post = get_object_or_404(Post, pk=int(post_pk), tour=tour)
+
+        post.ordering_index = index
+        post.save()
+
+    return {'status': 'completed'}
 
 
 class PostList(ListView):
@@ -54,7 +90,6 @@ class PostDelete(DeleteView):
         tour = get_object_or_404(Tour, private_id=self.kwargs['private_id'])
         index = self.get_object().ordering_index
         result = super(PostDelete, self).delete(request, *args, **kwargs)
-
         posts = Post.objects.filter(tour=tour)[index:]
 
         for post in posts:

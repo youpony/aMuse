@@ -154,7 +154,6 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['ordering_index']
-        unique_together = (('tour', 'ordering_index'),)
 
 
 #story_created = Signal(providing_args=['tour', 'museum'])

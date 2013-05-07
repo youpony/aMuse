@@ -1,40 +1,74 @@
 {% extends "papacastoro/site_base.html" %}
 
+{% load staticfiles %}
+
 {% block extra-styles %}
+
+<link rel="stylesheet" href={% static "papacastoro/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.min.css" %} />
+
 <style>
-img.preview{
-    heigth:50px;
-    width:50px;
+    img.preview{
+        heigth:50px;
+        width:50px;
     }
+
+    #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+    #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+    #sortable li span { position: absolute; margin-left: -1.3em; }
 </style>
+
 {% endblock %}
+
 {% block content %}
 
 <div class='add_button'>
     <a href='{% url 'post_add' tour_private_id %}'>add image</a>
 </div>
 
-
-<div class='table'>
+<div class='posts-list'>
+    <ul id="sortable">
     {% for post in posts %}
-    <div class='table-row'>
-
+    <li id="post_{{ post.pk }}" class="ui-state-default">
         <a href='{% url 'post_comment' tour_private_id post.pk %}'>
             {% if post.item %}
+                {{ post.item.name }} {% if post.image %} and Personal image {% endif %}
                 {% with post.item.itemimage_set.all|first as image %}
-                    {{ post.item.name }} || <img class='preview' src='{{ image.image.url }}' alt='{{ image.title }}'>
+                    <img class='preview' src='{{ image.image.url }}' alt='{{ image.title }}'/>
                 {% endwith %}
             {% else %}
-                Immagine personale <img class='preview' src='{{ post.image.url }}' alt='Immagine personale'>
+                Personal image <img class='preview' src='{{ post.image.url }}' alt='Immagine personale'/>
             {% endif %}
         </a>
 
         <a href='{% url 'post_delete' tour_private_id post.pk %}'>
             delete
         </a>
-    </div>
+    </li>
     {% endfor %}
 </div>
 
 
+{% endblock %}
+
+{% block extra-script %}
+<script type="text/javascript"
+    src="{% static "papacastoro/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js" %}">
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        $("#sortable").sortable({
+            placeholder: "ui-state-highlight",
+            update: function(event, ui) {
+                var serial = $('#sortable').sortable('serialize');
+ 	            $.ajax({
+                    url: "{% url 'sort_post'%}",
+                    type: "post",
+                    datatype: "json",
+                    data: { order:serial, tour_private_id:'{{ tour_private_id }}'}
+	            });
+        },
+        }).disableSelection();
+  });
+</script>
 {% endblock %}
