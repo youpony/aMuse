@@ -1,0 +1,40 @@
+{% extends "papacastoro/site_base.html" %}
+
+{% block extra-styles %}
+<style>
+img.preview{
+    heigth:50px;
+    width:50px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class='add_button'>
+    <a href='{% url 'post_add' tour_private_id %}'>add image</a>
+</div>
+
+
+<div class='table'>
+    {% for post in posts %}
+    <div class='table-row'>
+
+        <a href='{% url 'post_comment' tour_private_id post.pk %}'>
+            {% if post.item %}
+                {% with post.item.itemimage_set.all|first as image %}
+                    {{ post.item.name }} || <img class='preview' src='{{ image.image.url }}' alt='{{ image.title }}'>
+                {% endwith %}
+            {% else %}
+                Immagine personale <img class='preview' src='{{ post.image.url }}' alt='Immagine personale'>
+            {% endif %}
+        </a>
+
+        <a href='{% url 'post_delete' tour_private_id post.pk %}'>
+            delete
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

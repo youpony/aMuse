@@ -163,7 +163,7 @@ class Post(models.Model):
 #@receiver(story_created, sender=Tour)
 def notify_email(sender, **kwargs):
     tour = kwargs['tour']
-    
+
     genurl = kwargs['url']
     museum = tour.exhibition.museum
 

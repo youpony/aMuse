@@ -10,6 +10,16 @@ urlpatterns = patterns(
         name='posts_list'
     ),
     url(
+        r'add/(?P<private_id>\w+)/$',
+        views.PostAddPersonal.as_view(),
+        name='post_add'
+    ),
+    url(
+        r'comment/(?P<private_id>\w+)/(?P<pk>\w+)/$',
+        views.PostComment.as_view(),
+        name='post_comment'
+    ),
+    url(
         r'delete/(?P<private_id>\w+)/(?P<pk>\w+)/$',
         views.PostDelete.as_view(),
         name='post_delete'
