@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>aMuse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="kiosk">
+    <meta name="author" content="YouPony">
+
+</head>
+<body>
+    {% block logout %}
+    <div calss='top_bar'>
+        {{ user.username }}
+        <a href={% url 'logout' %}>logout</a>
+    </div>
+    {% endblock %}
+    {% block breadcrumbs %}
+        {% include 'administration/breadcrumps.html' %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block templates %}{% endblock %}
+    {% block extra-script %}{% endblock %}
+</body>
+</html>

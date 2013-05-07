@@ -68,7 +68,50 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-.reveal .item-image {
+.reveal .image-wrapper {
+  display: inline-block;
   float: left;
-  margin: 20px 30px 20px 20px;
+  width: 50%;
+  text-align: center;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.text {
+  display: inline-block;
+  float: left;
+  width: 50%;
+}
+
+.reveal .other-images {
+
+  img {
+    vertical-align: middle;
+    width: 30%;
+  }
+}
+
+.reveal .item-image {
+  margin: 20px;
+  max-width: 80%;
+}
+
+.tour-share a {
+  text-decoration: none;
+}
+
+.icon-facebook, .icon-twitter {
+  color: white;
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.icon-facebook:hover {
+  color: #455EA4;
+}
+
+.icon-twitter:hover {
+  color: #1FC1F1;
 }

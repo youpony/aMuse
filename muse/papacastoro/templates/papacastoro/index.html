@@ -1,4 +1,5 @@
 {% extends "papacastoro/site_base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="reveal">
@@ -7,32 +8,62 @@
       {% for p in posts %}
         {% if p.image %}
         <section class="tour-post user-image">
-            <img src="{{ p.image.url }}">
-            <p class="comment">
-              <i class="icon-user"></i>
-              {{ p.text }}
-            </p>
+          <img src="{{ p.image.url }}">
+          <p class="comment">
+            <i class="icon-user"></i>
+            {{ p.text }}
+          </p>
         {% else %}
         <section class="tour-post tour-item">
-            <h2>{{ p.item.name }}</h2>
-            {% for image in  p.item.itemimage_set.all %}
-            <img src="{{ image.image.url }}" class="item-image">
-            {% endfor %}
+          <h2>{{ p.item.name }}</h2>
+          <div class="image-wrapper">
+            {% with images=p.item.itemimage_set.all %}
+              {% if images|length > 1 %}
+              <div class="other-images">
+                {% for image in images %}
+                  <img src="{{ image.image.url }}">
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% with firstimage=images|first %}
+                <img src="{{ firstimage.image.url }}" class="item-image">
+              {% endwith %}
+            {% endwith %}
+          </div>
+          <div class="text">
             <p>{{ p.item.desc }}</p>
-            <p class="comment">
-              <i class="icon-user"></i>
-              {{ p.text }}
-            </p>
+            {% if p.text %}
+              <p class="comment">
+                <i class="icon-user"></i>
+                {{ p.text }}
+              </p>
+            {% endif %}
+          </div>
         {% endif %}
         </section>
       {% endfor %}
     <section class="tour-post tour-share">
       <h2>Share this tour!</h2>
-      <!-- Facebook -->
-      <div class="fb-send" data-href="http://youpony.pittoni.org/storyteller/{{ tour.public_id }}" data-font="lucida grande"></div>
-      <!-- Twitter -->
-      <a href="https://twitter.com/share" class="twitter-share-button" data-dnt="true">{{ tour }} - aMuse</a>
+      <a href="http://www.facebook.com/sharer.php?u=http://youpony.pittoni.org/storyteller/{{ tour.public_id }}">
+            <i class="icon-facebook icon-4x"></i>
+        </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="http://twitter.com/share?text=Check%20out%20my%20last%20tour!&url=http://youpony.pittoni.org/storyteller/{{ tour.public_id }}">
+            <i class="icon-twitter icon-4x"></i>
+        </a>
     </section>
   </div>
 </div>
 {% endblock content %}
+
+{% block extra-script %}
+  <script src="{% static "papacastoro/js/functions.js" %}"></script>
+  <script>
+    $(function() {
+      $('#wrapper').tubular({
+        videoId: 'ouygVDstZwg',
+        mute: true,
+        repeat: true
+      });
+    });
+  </script>
+{% endblock %}

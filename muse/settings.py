@@ -4,10 +4,7 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    ('Mattia Larentis', 'mattia@larentis.eu'),
-
-)
+ADMINS = []
 MANAGERS = ADMINS
 DATABASE_ENGINE = 'django.db.backends.postgresql_psycopg2'
 DATABASE_NAME = 'aMuse'
@@ -51,6 +48,15 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
+
+# Set a mock email backend on develop
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'youponydev@gmail.com
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -104,6 +110,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'breadcrumbs.middleware.BreadcrumbsMiddleware',
+
 )
 
 ROOT_URLCONF = 'muse.urls'
@@ -115,13 +123,27 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    # os.path.join(PROJECT_ROOT, 'templates')
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+    "django.core.context_processors.request"
 )
 
 INSTALLED_APPS = (
     'muse.kiosk',
     'muse.rest',
     'muse.papacastoro',
+    'muse.administration',
 
+    'breadcrumbs',
     'south',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -180,6 +202,24 @@ if os.getenv('JENKINS_URL', False):
         HOST = os.getenv('DBA_SQL_HOST'),
         PORT = os.getenv('DBA_SQL_PORT'),
     ))
+
+LOGIN_REDIRECT_URL = '/administration/'
+LOGIN_URL = '/administration/login/'
+
+#configure smtp for debug
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Host for sending e-mail.
+EMAIL_HOST = 'localhost'
+
+# Port for sending e-mail.
+EMAIL_PORT = 1025
+
+# Optional SMTP authentication information for EMAIL_HOST.
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+
 
 try:
     from settings_local import *

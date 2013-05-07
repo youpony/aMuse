@@ -52,9 +52,9 @@ class TestModels(TestCase):
             self.fail('saving exhibition.start_date == exhibition.end_date')
 
         exhibition.start_date = datetime.datetime.now()
-        exhibition.end_date = datetime.datetime.now()-datetime.timedelta(days=1)
+        exhibition.end_date = (datetime.datetime.now() -
+                               datetime.timedelta(days=1))
         self.assertRaises(ValidationError, exhibition.save)
-
 
 
 class TestExhibitions(TestCase):
@@ -198,9 +198,9 @@ class TestStory(TestCase):
         with open(join(dirname(__file__), 'image64')) as f:
             image = f.read()
         story['posts'] = json.dumps([
-                {'item_pk': item_pk, 'image': image},
-                {'item_pk': item_pk1},
-                { 'image': image},
+            {'item_pk': item_pk, 'image': image},
+            {'item_pk': item_pk1},
+            {'image': image},
         ])
         response = self.client.post('/api/s/', story)
         self.assertEqual(response.status_code, 200)
@@ -211,10 +211,12 @@ class TestStory(TestCase):
 
         response = self.client.get('/api/s/lalalal/')
         self.assertEqual(response.status_code, 404)
-        response = self.client.get('/api/s/lalalal/', {'edit':'lalalala'})
+        response = self.client.get('/api/s/lalalal/', {'edit': 'lalalala'})
         self.assertEqual(response.status_code, 404)
 
-        response = self.client.get('/api/s/{}/'.format(story.public_id), {'edit':'false'})
+        response = self.client.get('/api/s/{}/'.format(
+            story.public_id), {'edit': 'false'}
+        )
         self.assertEqual(response.status_code, 200)
         response = json.loads(response.content)
         self.assertIn('posts', response)

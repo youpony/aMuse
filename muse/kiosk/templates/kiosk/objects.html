@@ -33,6 +33,7 @@
             data = {
                 "email": $('#inputEmail').val(),
                 "name": $("#inputFullname").val(),
+                "exhibition": "{{ pk }}",
                 "posts": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
                     return {
                         'item_pk': $(el).closest('article').data('pk')
@@ -41,18 +42,10 @@
             };
 
             $.post(window.urls.story, data).done(function (r) {
-                alert('andato a buon fine!\nid: ' + r.public_id);
-                $('#end_exhibition_form').find('button')
-                    .attr({disabled: true})
-                    .after(
-                        '<a href="' + window.urls.kiosk +
-                            '" class="btn btn-danger">Done</a>' +
-                            '<p>  id: ' + r.public_id + '</p>'
-                    )
-                // window.location.href = window.urls.kiosk;
+                window.location.href = window.urls.kiosk;
             }).fail(function () {
-                    alert('NON andato a buon fine');
-                });
+                alert('Sorry, something went wrong!');
+            });
         });
     </script>
 {% endblock %}
