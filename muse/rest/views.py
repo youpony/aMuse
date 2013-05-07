@@ -178,7 +178,6 @@ class StoryView(AjaxMixin, View):
         models.notify_email(
             sender='story_view',
             tour=t,
-            museum=m,
             url=lambda pk: (str(request.get_host()) +
                             '/storyteller/{0}/'.format(pk)),
         )

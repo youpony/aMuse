@@ -33,6 +33,7 @@
             data = {
                 "email": $('#inputEmail').val(),
                 "name": $("#inputFullname").val(),
+                "exhibition": "{{ pk }}",
                 "posts": JSON.stringify($.map($('.item').find('.icon-star-active'), function (el) {
                     return {
                         'item_pk': $(el).closest('article').data('pk')
