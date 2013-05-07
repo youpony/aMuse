@@ -1,0 +1,44 @@
+{% extends "administration/site_base.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+
+<form id="edit_item" action="." method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <table>
+        <tbody>
+                {% for form in itemimage_formset.forms %}
+                <tr id="{{ form.prefix }}-row">
+                        <td>{{ form.as_p }}</td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+
+    {{ itemimage_formset.management_form }}
+    <input type="submit" value="Submit" />
+</form>
+
+{% endblock content %}
+
+
+{% block extra-script %}
+<script src="{% static "js/jquery-1.9.1.min.js"%}" type="text/javascript"></script>
+<script src="{% static "js/jquery.formset.min.js"%}" type="text/javascript"></script>
+
+{% comment %}
+<script type="text/javascript">
+$(function() {
+    $('##edit_item tbody tr').formset({
+        prefix: 'id_itemimage'
+    })
+})
+</script>
+{%endcomment%}
+{% endblock %}

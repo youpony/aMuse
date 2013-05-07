@@ -177,8 +177,8 @@ $(function () {
         }
       },
       endButtonClick: function (e) {
-        var startCounter = $('.icon-star-active').length;
         $(this).hide();
+        $('#main, #sidebar-detail').removeClass('slide-left');
         $('#item-list-template, #item_detail_template_placeholder').hide();
         $('#end_exhibition_form').show();
       },

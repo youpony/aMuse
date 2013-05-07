@@ -7,4 +7,3 @@ settings_local.py
 .DS_Store
 migrations
 reports
-media

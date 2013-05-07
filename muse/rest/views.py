@@ -16,7 +16,6 @@ API in json
 
 """
 import datetime
-import hashlib
 import base64
 import simplejson as json
 
@@ -24,10 +23,11 @@ from django.shortcuts import get_object_or_404
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
-from django.http import Http404, HttpResponseBadRequest
+from django.http import HttpResponseBadRequest
 from django.core.files.base import ContentFile
 from ajaxutils.decorators import ajax
 from ajaxutils.views import AjaxMixin
+from django.core.exceptions import ValidationError
 
 from muse.rest import models
 
@@ -121,7 +121,6 @@ def item_details(request, pk):
     return {'data': response}
 
 
-
 class StoryView(AjaxMixin, View):
     def post(self, request, *args, **kwargs):
         """
@@ -151,6 +150,12 @@ class StoryView(AjaxMixin, View):
 
         exhibition = get_object_or_404(models.Exhibition, pk=exhibition)
         t = models.Tour(name=name, email=email, exhibition=exhibition)
+
+        try:
+            t.full_clean()
+        except ValidationError:
+            raise HttpResponseBadRequest('name, email or fileds invalid.')
+
         t.save()
 
         for i, post in enumerate(posts):
@@ -170,10 +175,12 @@ class StoryView(AjaxMixin, View):
 
         # fire up the notification system
         # TODO. fire using django's Signals, not directly.
-        models.notify_email(sender='story_view',
-                            tour=t,
-                            url=lambda pk: request.build_absolute_uri(
-                                'storyteller/{0}/'.format(pk)),
+        models.notify_email(
+            sender='story_view',
+            tour=t,
+            museum=m,
+            url=lambda pk: (str(request.get_host()) +
+                            '/storyteller/{0}/'.format(pk)),
         )
         return {'status': 'completed'}
 

@@ -47,6 +47,7 @@ class Exhibition(models.Model):
     def __unicode__(self):
         return u'{title}-{museum}'.format(title=self.title,
                                           museum=self.museum)
+
     def save(self, *args, **kwargs):
         """
         Override save method to ensure that end_date is equal or greather
@@ -111,7 +112,7 @@ class ItemImage(models.Model):
     so it rapresent official images.
     """
     title = models.CharField(max_length=80)
-    item = models.ForeignKey(Item)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='item_images/{.title:.80}'.format)
     description = models.CharField(max_length=250, blank=True, null=True)
 
@@ -126,19 +127,26 @@ class Post(models.Model):
     """
     ordering_index = models.IntegerField()
     tour = models.ForeignKey(Tour)
-    item = models.ForeignKey(Item, blank=True, null=True)
-    image = models.ImageField(upload_to='people_uploads', blank=True, null=True)
+    item = models.ForeignKey(
+        Item, on_delete=models.PROTECT, blank=True, null=True
+    )
+    image = models.ImageField(
+        upload_to='people_uploads', blank=True, null=True
+    )
     text = models.TextField()
     # XXX. add pointer to the current exhibition.
 
-    def clean(self):
+    def save(self, *args, **kwargs):
         """
-        This method ensure that a Post is referred to at least one object or an
-        image, and ensure that only one of this two possibility is set.
+        Override save method to ensure that a Post is referred to at least
+        one object or an image, and ensure that at least one of this
+        two possibility is set.
         """
         if ((self.item is None and self.image is None)):
             raise ValidationError('A Post must refer to an image or '
                                   'to an item')
+
+        super(Post, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return u'{index}-{tour}'.format(index=self.ordering_index,
@@ -151,9 +159,11 @@ class Post(models.Model):
 
 #story_created = Signal(providing_args=['tour', 'museum'])
 
+
 #@receiver(story_created, sender=Tour)
 def notify_email(sender, **kwargs):
     tour = kwargs['tour']
+    
     genurl = kwargs['url']
     museum = tour.exhibition.museum
 

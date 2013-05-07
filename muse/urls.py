@@ -11,11 +11,15 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('muse.rest.urls')),
     url(r'^storyteller/', include('muse.papacastoro.urls')),
+    url(r'^administration/', include('muse.administration.urls')),
+
 )
 
 if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-            'document_root': settings.MEDIA_ROOT,
-        }),
-   )
+    urlpatterns += patterns(
+        '',
+        url(
+            r'^media/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.MEDIA_ROOT}
+        ),
+    )
