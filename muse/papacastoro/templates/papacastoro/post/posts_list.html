@@ -11,8 +11,7 @@
 {% block content %}
 
 <header>
-  <!-- XXX. I don't know how to get the tour's title :( -pitt -->
-  <h1>Titolo del tour</h1>
+  <h1>{{ tour_name }}</h1>
 </header>
 <div id="post-list">
     {% for post in posts %}
@@ -27,7 +26,7 @@
                 {% endwith %}
             {% else %}
             <img class="thumb" src="{{ post.image.url }}" alt="Immagine personale">
-            <span class="user-item">Immagine personale</span> 
+            <span class="user-item">Immagine personale</span>
             {% endif %}
         </a>
 

@@ -68,6 +68,7 @@ class PostList(ListView):
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
         context['tour_private_id'] = self.kwargs['private_id']
+        context['tour_name'] = unicode(self.tour)
         return context
 
 
