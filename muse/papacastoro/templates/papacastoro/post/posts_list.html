@@ -1,40 +1,70 @@
 {% extends "papacastoro/site_base.html" %}
+{% load static %}
 
 {% block extra-styles %}
-<style>
-img.preview{
-    heigth:50px;
-    width:50px;
-    }
-</style>
+<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+<link href="{% static "papacastoro/less/manage.less" %}" rel="stylesheet/less" type="text/css">
 {% endblock %}
+
 {% block content %}
 
-<div class='add_button'>
-    <a href='{% url 'post_add' tour_private_id %}'>add image</a>
-</div>
-
-
-<div class='table'>
+<header>
+  <h1>Titolo del tour</h1>
+</header>
+<div id="post-list">
     {% for post in posts %}
-    <div class='table-row'>
+    <div class="post well" data-order="{{ post.ordering_index }}">
 
-        <a href='{% url 'post_comment' tour_private_id post.pk %}'>
+        <i class="icon-resize-vertical"></i>
+        <a href="{% url 'post_comment' tour_private_id post.pk %}">
             {% if post.item %}
                 {% with post.item.itemimage_set.all|first as image %}
-                    {{ post.item.name }} || <img class='preview' src='{{ image.image.url }}' alt='{{ image.title }}'>
+                <img class="thumb" src="{{ image.image.url }}" alt="{{ image.title }}">
+                {{ post.item.name }}
                 {% endwith %}
             {% else %}
-                Immagine personale <img class='preview' src='{{ post.image.url }}' alt='Immagine personale'>
+            <img class="thumb" src="{{ post.image.url }}" alt="Immagine personale">
+            <span class="user-item">Immagine personale</span> 
             {% endif %}
         </a>
 
-        <a href='{% url 'post_delete' tour_private_id post.pk %}'>
-            delete
+        <a href="{% url 'post_delete' tour_private_id post.pk %}" class="btn btn-danger btn-delete">
+          <i class="icon-remove"></i> rimuovi
         </a>
     </div>
     {% endfor %}
+
+  <div class="new-post post well">
+    <a href="{% url 'post_add' tour_private_id %}" class="btn">
+      <i class="icon-picture"></i> aggiungi immagine
+    </a>
+  </div>
+
 </div>
 
+<div id="form-controls">
+  <a href="#" id="reset" class="btn">Annulla</a>
+  <a href="#" id="submit" class="btn btn-primary">Salva</a>
+</div>
 
+{% endblock %}
+
+{% block extra-script %}
+<script src="{% static "papacastoro/js/deps/jquery-ui-1.10.3.custom.min.js" %}"></script>
+<script>
+  var list = $('#post-list').sortable({
+    items: ".post:not(.new-post)",
+    update: function(e,ui) {
+      $('#form-controls').show();
+    },
+  });
+  var controls = $('#form-controls');
+  controls.find('#reset').on('click', function() {
+    location.reload();
+  });
+  controls.find('#submit').on('click', function() {
+    var result = list.sortable('toArray', { attribute: 'data-order' });
+    console.log(result);
+  });
+</script>
 {% endblock %}
