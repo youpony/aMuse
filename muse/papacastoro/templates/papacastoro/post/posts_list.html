@@ -1,7 +1,10 @@
 {% extends "papacastoro/site_base.html" %}
 {% load static %}
 
+{% load staticfiles %}
+
 {% block extra-styles %}
+<<<<<<< HEAD
 <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
 <link href="{% static "papacastoro/less/manage.less" %}" rel="stylesheet/less" type="text/css">
 {% endblock %}
@@ -13,11 +16,12 @@
 </header>
 <div id="post-list">
     {% for post in posts %}
-    <div class="post well" data-order="{{ post.ordering_index }}">
+    <div class="post well" data-order="post_{{ post.pk }}">
 
         <i class="icon-resize-vertical"></i>
         <a href="{% url 'post_comment' tour_private_id post.pk %}">
             {% if post.item %}
+                {{ post.item.name }} {% if post.image %} and Personal image {% endif %}
                 {% with post.item.itemimage_set.all|first as image %}
                 <img class="thumb" src="{{ image.image.url }}" alt="{{ image.title }}">
                 {{ post.item.name }}
@@ -31,7 +35,7 @@
         <a href="{% url 'post_delete' tour_private_id post.pk %}" class="btn btn-danger btn-delete">
           <i class="icon-remove"></i> rimuovi
         </a>
-    </div>
+    </li>
     {% endfor %}
 
   <div class="new-post post well">
@@ -63,8 +67,37 @@
     location.reload();
   });
   controls.find('#submit').on('click', function() {
-    var result = list.sortable('toArray', { attribute: 'data-order' });
+    var result = list.sortable('serialize', { attribute: 'data-order' });
+    $.ajax({
+      url: "{% url 'sort_post'%}",
+      type: "post",
+      datatype: "json",
+      data: { order:result, tour_private_id:'{{ tour_private_id }}'}
+    });
     console.log(result);
+  });
+</script>
+{% endblock %}
+
+{% block extra-script %}
+<script type="text/javascript"
+    src="{% static "papacastoro/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js" %}">
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        $("#sortable").sortable({
+            placeholder: "ui-state-highlight",
+            update: function(event, ui) {
+                var serial = $('#sortable').sortable('serialize');
+ 	            $.ajax({
+                    url: "{% url 'sort_post'%}",
+                    type: "post",
+                    datatype: "json",
+                    data: { order:serial, tour_private_id:'{{ tour_private_id }}'}
+	            });
+        },
+        }).disableSelection();
   });
 </script>
 {% endblock %}

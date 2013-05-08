@@ -24,5 +24,6 @@ urlpatterns = patterns(
         views.PostDelete.as_view(),
         name='post_delete'
     ),
+    url(r'sort_post/$', 'sort_post', name='sort_post'),
     url(r'(?P<public_id>\w+)/$', 'tour', name='tour'),
 )
