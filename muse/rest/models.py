@@ -114,7 +114,6 @@ class ItemImage(models.Model):
     title = models.CharField(max_length=80)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='item_images/{.title:.80}'.format)
-    description = models.CharField(max_length=250, blank=True, null=True)
 
     def __unicode__(self):
         return self.title
