@@ -133,7 +133,7 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to='people_uploads', blank=True, null=True
     )
-    text = models.TextField()
+    text = models.TextField(blank=True, null=True)
     # XXX. add pointer to the current exhibition.
 
     def save(self, *args, **kwargs):

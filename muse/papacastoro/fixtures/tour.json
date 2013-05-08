@@ -1,0 +1,705 @@
+[
+{
+  "pk": 1,
+  "model": "rest.museum",
+  "fields": {
+    "referral": "youponydev@gmail.com",
+    "name": "MUseo delle ScienzE",
+    "address": "Via Calepina 14, Trento"
+  }
+},
+{
+  "pk": 4,
+  "model": "rest.exhibition",
+  "fields": {
+    "description": "Esposizione di armi da fuoco impiegate nei maggiori conflitti bellici",
+    "end_date": "2013-03-13",
+    "title": "Mostra armi da fuoco",
+    "image": "uploads/Armi_II_Guerra_Mondiale_1.jpg",
+    "start_date": "2013-03-11",
+    "video": "",
+    "museum": 1
+  }
+},
+{
+  "pk": 5,
+  "model": "rest.exhibition",
+  "fields": {
+    "description": "Un persorso attraverso, quadri e pitture di ogni tempo",
+    "end_date": "2015-03-14",
+    "title": "Mostra Dipinti",
+    "image": "uploads/1233155575g.jpg",
+    "start_date": "2011-03-14",
+    "video": "",
+    "museum": 1
+  }
+},
+{
+  "pk": 6,
+  "model": "rest.exhibition",
+  "fields": {
+    "description": "Un percorso attraverso la storia della tecnologia",
+    "end_date": "2016-02-21",
+    "title": "Mostar tecnologia",
+    "image": "uploads/Computer-aj_aj_ashton_01.svg.png",
+    "start_date": "2013-03-13",
+    "video": "",
+    "museum": 1
+  }
+},
+{
+  "pk": 7,
+  "model": "rest.exhibition",
+  "fields": {
+    "description": "Una grandiosa collezzione dei gioielli pi\u00f9 famosi al mondo",
+    "end_date": "2013-09-01",
+    "title": "Mostra gioielli",
+    "image": "uploads/jewel_crown_london.jpg",
+    "start_date": "2012-11-13",
+    "video": "",
+    "museum": 1
+  }
+},
+{
+  "pk": 1,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      5
+    ],
+    "author": "Raffaello Sanzio",
+    "year": "1509",
+    "name": "Scuola d' Atene",
+    "desc": "Rappresenta una delle opere pittoriche pi\u00f9 rilevanti dello Stato della Citt\u00e0 del Vaticano, visitabile all'interno dei Musei Vaticani."
+  }
+},
+{
+  "pk": 2,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      4
+    ],
+    "author": "Mauser",
+    "year": "1930",
+    "name": "Mauser Karabiner 98k",
+    "desc": "Il Mauser Karabiner 98k \u00e8 un fucile bolt-action progettato negli anni trenta dalla Mauser sviluppando il progetto Kar98b. Adottato nel 1935 dalla Wehrmacht, in molti casi adattando vecchi Mauser 98. La seconda \"k\" deriva dal termine tedesco kurz (corto), in quanto presentava una canna pi\u00f9 corta rispetto ai modelli precedenti, per avere un'arma maggiormente adatta alle mutate tattiche di guerra."
+  }
+},
+{
+  "pk": 3,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      5
+    ],
+    "author": "Leonardo da Vinci",
+    "year": "1510",
+    "name": "La Gioconda",
+    "desc": "La Gioconda, nota anche come Monna Lisa, \u00e8 un dipinto a olio su tavola di pioppo (77x53 cm) di Leonardo da Vinci, databile al 1503-1514 circa e conservata nel Museo del Louvre di Parigi. Opera emblematica ed enigmatica, si tratta sicuramente del ritratto pi\u00f9 celebre del mondo[1], nonch\u00e9 di una delle opere d'arte pi\u00f9 note in assoluto, oggetto di infiniti omaggi, tributi, ma anche parodie e sberleffi."
+  }
+},
+{
+  "pk": 4,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      5
+    ],
+    "author": "Edvard Munch",
+    "year": "1893",
+    "name": "L'urlo",
+    "desc": "L'urlo, o anche Il grido, \u00e8 un celebre dipinto di Edvard Munch (titolo originale in norvegese: Skrik).\r\nRealizzato nel 1893 su cartone con olio, tempera e pastello, come per altre opere di Munch \u00e8 stato dipinto in pi\u00f9 versioni, quattro in totale; quella collocata alla Nasjonalgalleriet di Oslo ha dimensioni 83,5 x 66 centimetri."
+  }
+},
+{
+  "pk": 5,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      5
+    ],
+    "author": "Gustav Klimt",
+    "year": "1907",
+    "name": "Il bacio (Klimt)",
+    "desc": "Il bacio \u00e8 un olio su tela di 180 \u00d7 180 cm, realizzato nel 1907-08 dal pittore austriaco Gustav Klimt.\r\nQuest'opera, in pieno accordo con i canoni dello stile Liberty, \u00e8 dipinta su tela con decorazioni e mosaici (Klimt aveva un debole per i mosaici di Ravenna) in color oro sullo sfondo."
+  }
+},
+{
+  "pk": 6,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      5
+    ],
+    "author": "Sandro Botticelli",
+    "year": "1482",
+    "name": "Nascita di Venere",
+    "desc": "La Nascita di Venere \u00e8 un dipinto a tempera su tela di lino (172\u00d7278 cm) di Sandro Botticelli, databile al 1482-1485 circa e conservato nella Galleria degli Uffizi a Firenze.\r\nOpera iconica del Rinascimento italiano, spesso assunta come simbolo della stessa Firenze e della sua arte, faceva forse anticamente pendant con l'altrettanto celebre Primavera sempre di Botticelli, con cui condivide la provenienza storica, il formato e alcuni riferimenti filosofici. Rappresenta una delle creazioni pi\u00f9 elevate dell'estetica del pittore fiorentino, oltre che un ideale universale di bellezza femminile."
+  }
+},
+{
+  "pk": 7,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      5
+    ],
+    "author": "Vincent van Gogh",
+    "year": "1890",
+    "name": "Campo di grano con volo di cor",
+    "desc": "Campo di grano con volo di corvi \u00e8 un dipinto ad olio su tela di cm 50,5 x 103 realizzato nel luglio del 1890 da Vincent van Gogh. \u00c8 conservato al Van Gogh Museum di Amsterdam.\r\nSi ritiene comunemente, ma probabilmente erroneamente, che questo sia stato l'ultimo quadro dipinto da Van Gogh prima di morire. Gli storici dell'arte sono infatti incerti su quale sia l'ultimo dipinto di Van Gogh, dal momento che non esistono fonti documentali al riguardo."
+  }
+},
+{
+  "pk": 8,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      4
+    ],
+    "author": "Sergej Ivanovi\u010d Mosin",
+    "year": "1890",
+    "name": "Mosin-Nagant",
+    "desc": "Il Mosin-Nagant (in russo: \u0412\u0438\u043d\u0442\u043e\u0432\u043a\u0430 \u041c\u043e\u0441\u0438\u043d\u0430[?], traslitterato: Vintovka Mosina) \u00e8 un fucile bolt-action di progettazione russa in servizio dal 1891 ed utilizzato sino alla Guerra del Vietnam."
+  }
+},
+{
+  "pk": 9,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Commodore International",
+    "year": "1982",
+    "name": "The Commodore 64",
+    "desc": "Il Commodore 64 (abbreviazioni diffuse: \"C64\", \"C-64\", \"C=64\", \"CBM 64\",[2] \"64\") \u00e8 un home computer della Commodore Business Machines Inc. commercializzato dal 1982 al 1993 in vari Paesi del mondo.\r\nIl Commodore 64 nasce come evoluzione del Commodore VIC-20. Evoluzione in grado di offrire capacit\u00e0 grafiche e sonore migliori rispetto al Commodore VIC-20 a scapito per\u00f2 della compatibilit\u00e0 software.\r\nDel Commodore 64 sono state commercializzate anche tre varianti: il Commodore MAX, il Commodore Educator 64 e il Commodore SX-64, commercializzati rispettivamente a partire dal 1982, 1983 e 1984. Dal Commodore 64 sono inoltre derivate due console per videogiochi: il Commodore 64 Games System e il Commodore 64 DTV. La prima commercializzata a partire dal 1990, la seconda a partire dal 2004. Evoluzioni del Commodore 64 sono invece il Commodore 128, il Commodore 128D e il Commodore 65, tutti compatibili a livello software con il Commodore 64. I primi due sono stati commercializzati a partire dal 1985, il terzo \u00e8 rimasto allo stadio di prototipo."
+  }
+},
+{
+  "pk": 10,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Apple",
+    "year": "1977",
+    "name": "Apple II",
+    "desc": "L'Apple II (a volte scritto anche Apple ][ o Apple //) \u00e8 uno dei primi personal computer di successo prodotti su scala industriale.[2] \u00c8 stato presentato il 16 aprile 1977 alla Fiera del computer della West Coast di San Francisco negli Stati Uniti ed \u00e8 stato messo in commercio il 6 giugno 1977; Il modello pi\u00f9 longevo \u00e8 l'Apple IIe, prodotto fra il 1983 e il 1993."
+  }
+},
+{
+  "pk": 11,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Apple",
+    "year": "1976",
+    "name": "Apple I",
+    "desc": "L'Apple I (conosciuto anche come Apple-1) \u00e8 stato il primo computer prodotto dalla Apple Computer (oggi semplicemente Apple) e uno dei primi microcomputer personali della storia.\r\nL'Apple I rappresenta il primo di una lunga serie di computer commercializzati da quella che oggi \u00e8 una delle maggiori aziende informatiche del pianeta. Concepito da Steve Wozniak e Steve Jobs e progettato da Wozniak, l'Apple I fu presentato nell'aprile 1976 all'Homebrew Computer Club di Palo Alto e fu commercializzato dal luglio 1976 all'agosto 1977 inizialmente al costo di 666,66 dollari,[1] per una produzione complessiva di circa 200 esemplari."
+  }
+},
+{
+  "pk": 12,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      4
+    ],
+    "author": "John Taliaferro Thompson",
+    "year": "1919",
+    "name": "Thompson",
+    "desc": "Il Thompson, anche conosciuto come Tommy Gun o Chopper, \u00e8 un mitra statunitense progettato nel 1919 dal generale John Taliaferro Thompson (Newport 1860 - New York 1940) per la Auto Ordnance Corp. Egli comprese che le munizioni dall'ottimo potere d'arresto calibro .45 sarebbero state devastanti se sparate da un'arma automatica. Quest'arma ebbe numerosi soprannomi: \"Tommy Gun\", \"Trench Broom\" o \"Trench Sweeper\" (la scopa della trincea), \"Chicago Piano\" (il pianoforte di Chicago), e \"Chicago Typewriter\" (la macchina da scrivere di Chicago)."
+  }
+},
+{
+  "pk": 13,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Intel",
+    "year": "1978",
+    "name": "Intel 8086",
+    "desc": "L'Intel 8086 \u00e8 un microprocessore a 16 bit progettato dalla Intel nel 1978, che diede origine all'architettura x86. \u00c8 basato sull'8080 e sull'8085 (\u00e8 compatibile con l'assembly dell'8080), con un insieme di registri simili, ma a 16 bit. L'unit\u00e0 di interfaccia con il bus (detta BIU da Bus Interface Unit) passa le istruzioni all'unit\u00e0 di esecuzione (detta EU da Execution Unit) attraverso una coda FIFO di prefetch (6 byte), in modo che il fetch e l'esecuzione delle istruzioni fosse contemporaneo \u2013 una forma primitiva di pipelining (le istruzioni dell'8086 avevano una dimensione tra 1 e 4 byte).\r\nHa quattro registri a 16 bit per uso generico, a cui si pu\u00f2 accedere come se fossero otto registri a 8 bit, e quattro registri a 16 bit di indice (incluso lo stack pointer). I registri per i dati sono spesso utilizzati implicitamente dalle istruzioni, complicando l'uso degli stessi per memorizzare valori temporanei. Ha uno spazio di indirizzamento a 16 bit per l'I/O, cio\u00e8 pu\u00f2 accedere a 65.536 dispositivi di I/O a 8 bit e dispone di una tabella di vettori per gli interrupt fissa. La maggior parte delle istruzioni possono accedere ad una sola locazione di memoria, perci\u00f2 uno degli operandi deve essere un registro. Il risultato viene memorizzato in uno degli operandi."
+  }
+},
+{
+  "pk": 14,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Intel",
+    "year": "1985",
+    "name": "Intel 80386",
+    "desc": "L'Intel i386 o Intel 80386 (nome in codice: \"P3\"abbreviazioni comuni: \"Intel 386\", \"80386\", \"i386\", \"386\") \u00e8 una famiglia di microprocessori monolitici general purpose x86 dell'Intel Corporation prodotti tra il 1985 e il 2007.\r\nLa famiglia di microprocessori Intel i386 \u00e8 stata utilizzata come CPU per personal computer principalmente tra il 1986 e il 1994. Le schede madri che supportavano i microprocessori Intel i386 erano molto complesse e costose, paragonate a quelle per i suoi predecessori, ma l'adozione su larga scala dei microprocessori Intel i386 ne favor\u00ec la diffusione.\r\nI microprocessori della famiglia Intel i386 sono stati i primi microprocessori Intel dotati di architettura a 32 bit e modalit\u00e0 protetta con supporto hardware alla memoria virtuale paginata. Il successo e il basso costo di questi microprocessori permisero quindi la diffusione su personal computer dei primi sistemi operativi operanti in modalit\u00e0 protetta. L'Intel i386 fu anche la famiglia di microprocessori su cui nacque il kernel Linux."
+  }
+},
+{
+  "pk": 15,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Intel",
+    "year": "1997",
+    "name": "Pentium II",
+    "desc": "Il Pentium II (talvolta abbreviato in \"P2\") fu un microprocessore x86 sviluppato da Intel come successore del Pentium MMX, e arriv\u00f2 sul mercato il 7 maggio 1997.\r\nA differenza del suo diretto predecessore non era pi\u00f9 basato sull'architettura Intel P5 (pi\u00f9 precisamente la sua ultima evoluzione, conosciuta come P55C), ma sulla P6 che era stata introdotta per la prima volta con il processore Pentium Pro, inizialmente destinato a sostituire il primo Pentium ma poi relegato al mercato di fascia alta, specialmente quello server e workstation. Rispetto al Pentium Pro, il Pentium II offriva migliori prestazioni nel codice a 16 bit e supportava le istruzioni MMX introdotte proprio con l'ultima evoluzione del Pentium, il gi\u00e0 citato Pentium MMX.\r\nA differenza dei suoi predecessori, il Pentium II non era fornito di un attacco socket ma era incluso in un involucro che si inseriva in uno slot. Questo era un compromesso che permetteva a Intel di separare la cache L2 dal processore, ed evitare i problemi di produzione avuti col Pentium Pro, mantenendola tuttavia collegata strettamente al processore con un bus molto veloce. Questa cache per\u00f2, a differenza di quella dei precedenti Pentium, funzionava ad una velocit\u00e0 di clock pari alla met\u00e0 di quella del processore."
+  }
+},
+{
+  "pk": 16,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Intel",
+    "year": "1999",
+    "name": "Pentium III",
+    "desc": "Il Pentium III (talvolta abbreviato in \"P3\") fu un microprocessore x86 sviluppato da Intel come successore del Pentium II, e arriv\u00f2 sul mercato il 26 febbraio 1999.\r\nAl pari del suo predecessore era basato sull'architettura P6 che era stata introdotta per la prima volta con il processore Pentium Pro, inizialmente destinato a sostituire il primo Pentium ma poi relegato al mercato di fascia alta, specialmente quello server e workstation.\r\nLe prime versioni erano molto simili ai Pentium II: la maggiore differenza era il supporto delle istruzioni SSE e l'introduzione, nelle prime versioni, di un numero di serie unico per ogni processore; tale caratteristica venne rimossa poi nei modelli successivi a causa delle proteste del pubblico che vedevano in tale codice identificativo una possibile violazione della privacy.\r\nA partire dalla seconda generazione del Pentium III venne anche abbandonato lo Slot 1 per la connessione del processore alla scheda madre, in favore di un ritorno ad un socket di tipo tradizionale, il nuovo 370."
+  }
+},
+{
+  "pk": 17,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Intel",
+    "year": "2000",
+    "name": "Pentium 4",
+    "desc": "Il Pentium 4 \u00e8 un microprocessore x86 di settima generazione prodotto dalla Intel, ed \u00e8 il primo design originale di quest'ultima dai tempi del Pentium Pro, nel 1995. Il processore originale, chiamato Willamette, fu lanciato il 20 novembre del 2000 con frequenze di 1,4 GHz e 1,5 GHz."
+  }
+},
+{
+  "pk": 18,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Intel",
+    "year": "1995",
+    "name": "Pentium Pro",
+    "desc": "Il Pentium Pro \u00e8 un microprocessore x86 di sesta generazione prodotto da Intel, inizialmente destinato a rimpiazzare completamente il predecessore Pentium, poi relegato al ruolo di chip per computer desktop di fascia alta. Fu introdotto il 1 novembre 1995 con l'enorme socket 8 ed \u00e8 stato poi sostituito da Intel con i pi\u00f9 recenti Xeon.\r\nA dispetto del nome, questo processore \u00e8 molto differente dal predecessore, dato che si basa sulla nuova architettura P6 che sarebbe stata poi alla base anche dei successivi Pentium II, Pentium III, e Pentium M. Il Pentium Pro \u00e8 stato il primo processore di tipo i686.\r\nPer informazioni approfondite sulle caratteristiche di questa architettura si consiglia di consultare direttamente la voce Intel P6."
+  }
+},
+{
+  "pk": 19,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      4
+    ],
+    "author": "Beretta",
+    "year": "1934",
+    "name": "Beretta 1934",
+    "desc": "La Beretta modello 1934 \u00e8 una pistola compatta, con funzionamento semiautomatico a chiusura labile; fu concepita per i funzionari di pubblica sicurezza e poi distribuita come arma da fianco al Regio Esercito italiano; rimase in uso presso le Forze Armate della Repubblica Italiana anche nel dopoguerra e sino agli anni novanta del secolo scorso, quando fu progressivamente completata la sua sostituzione con altre armi. Il calibro \u00e8 il 9 x 17 mm, conosciuto anche come 9 Corto o .380 ACP."
+  }
+},
+{
+  "pk": 20,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Commodore International",
+    "year": "1985",
+    "name": "Commodore 900",
+    "desc": "Il Commodore 900, conosciuto anche come Z-8000, \u00e8 un prototipo di microcomputer destinato all'impiego professionale e nell'ambito del CAD. Presentato al CeBIT nel 1985 dalla divisione tedesca della Commodore, il progetto fu cancellato quando Commodore lanci\u00f2 sul mercato il Commodore Amiga. Tutti i prototipi di Commodore 900 furono venduti a distributori terze parti e solo poche di queste unit\u00e0 sono soppravissute.\r\nIl Commodore 900 \u00e8 un computer a 16 bit basato sulla CPU Zilog Z8001 operante alla frequenza di 10 MHz. Il sistema operativo adottato \u00e8 il Coherent, un sistema operativo simile allo UNIX.\r\nSono state prodotte due differenti versioni: un modello Workstation dotato grafica con risoluzione di 1024x800 pixels e un modello Server capace di visualizzare solo testo.\r\nIl case del Commodore 900 \u00e8 simile a quello del Commodore Amiga 2000, solo leggermente pi\u00f9 grande."
+  }
+},
+{
+  "pk": 21,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      7
+    ],
+    "author": "Ignoto",
+    "year": "1722",
+    "name": "Verde di Dresda",
+    "desc": "Il verde di Dresda \u00e8 il diamante di colore verde pi\u00f9 grande del mondo (40, 72 carati).\r\n\u00c8 conservato in un museo all'interno del castello di Dresda. Il colore verde \u00e8 estremamente raro nei diamanti, e si ritiene sia dovuto ad esposizione a materiali radioattivi.\r\nIl diamante proviene molto probabilmente dalle celebri miniere di Golconda in India, ma la data del suo ritrovamento non \u00e8 nota. Le prime notizie della sua esistenza risalgono al 1722, riportate in un articolo di una rivista inglese. Un mercante olandese lo vendette alla fiera di Dresda del 1742 al re Augusto III di Polonia.\r\nNel 1768 il diamante fu inserito in un ornamento estremamente prezioso, comprendente altri due diamanti di grande caratura e 411 pietre preziose di dimensioni medie o piccole.[1]\r\nNel 2000 la gioielleria Winston di New York organizz\u00f2 un'esposizione di gioielli alla Smithsonian Institution di Washington, in cui comparivano anche il diamante verde di Dresda e l'Hope, il diamante blu pi\u00f9 grande del mondo."
+  }
+},
+{
+  "pk": 22,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      7
+    ],
+    "author": "Ignoto",
+    "year": "1600",
+    "name": "Gran Mogol",
+    "desc": "Il Gran Mogol \u00e8 un diamante dal peso di 280 carati, di colore blu chiaro, scoperto in India nel XVII secolo.\r\nPrende il nome da Shah Jahan, che costru\u00ec il Taj Mahal. Si pensa che, allo stato naturale, potesse pesare circa 800 carati. Risulta scomparso."
+  }
+},
+{
+  "pk": 23,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      7
+    ],
+    "author": "ignoto",
+    "year": "1853",
+    "name": "Stella del sud",
+    "desc": "La Stella del Sud (Estrela do Sul in portoghese) \u00e8 un diamante di 128,48 carati con taglio a cuscino, incolore (con leggeri riflessi rosa), trovato in Brasile nel 1853.\r\nIl diamante grezzo (del peso di 261,88 carati) fu trovato da una giovane schiava sulla sponda di un fiume nei pressi della citt\u00e0 di Estrela do Sul, nello stato brasiliano di Minas Gerais. Fu ricompensata dal suo padrone, Casimiro de Moraes, con la libert\u00e0 e un vitalizio. De Moraes lo vendette al prezzo di 3.000 sterline, molto pi\u00f9 basso del suo vero valore. L'acquirente lo deposit\u00f2 in una banca di Rio de Janeiro per un valore di 30.000 sterline.\r\nFu poi acquistato per 35.000 sterline da un gioielliere di Amsterdam, che lo fece tagliare e lo nomin\u00f2 \"Stella del Sud\". Il diamante fu esposto in pubblico alle esposizioni universali di Londra nel 1862 e di Parigi nel 1867, e in seguito fu venduto ad un principe indiano per 80.000 sterline. Egli lo vendette poi ad un ricco commerciante di Mumbai, che a sua volte lo vendette nel 2002 alla gioielleria Cartier di Parigi.\r\nIl valore di mercato attuale della \"Stella del Sud\" \u00e8 stimato in 94 milioni di dollari."
+  }
+},
+{
+  "pk": 24,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      7
+    ],
+    "author": "ignoto",
+    "year": "1600",
+    "name": "Fiorentino",
+    "desc": "Il Fiorentino \u00e8 uno dei diamanti pi\u00f9 celebri, la cui storia \u00e8 documentata almeno dal XVII secolo, esso \u00e8 andato perduto negli anni venti del XX secolo. Dalle descrizioni si sa che \u00e8 un diamante di origine indiana, di colorazione giallo pallida, con un leggero tono verdognolo. Prima della sua scomparsa era tagliato a doppia rosetta a nove lati, con 126 faccette e con un peso complessivo di circa 137,27 carati (pari a 27,454 grammi). La pietra era anche conosciuta come il diamante Toscano, il Granduca di Toscana e, dopo l'acquisizione da parte degli Asburgo, come il diamante Giallo Austriaco."
+  }
+},
+{
+  "pk": 26,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Intel",
+    "year": "2000",
+    "name": "Itanium",
+    "desc": "Itanium \u00e8 il nome commerciale del primo processore con architettura interamente a 64 bit sviluppato da Intel insieme a Hewlett-Packard allo scopo di fare concorrenza ai processori RISC DEC Alpha. Tale architettura prende il nome di IA-64, per differenziarsi dalla IA-32 alla base delle altre CPU Intel, Xeon sempre per i server, Pentium (Pentium 4 compresi i predecessori e Pentium D) e Core.\r\nOriginariamente previsto per il 2000, \u00e8 invece arrivato sul mercato solo a giugno 2001 dopo molti rimandi e alcune smentite che volevano sostenere addirittura l'abbandono del progetto per gli alti costi e le scarse previsioni di rendita."
+  }
+},
+{
+  "pk": 27,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Intel",
+    "year": "2006",
+    "name": "Core Duo",
+    "desc": "Core Duo, insieme a Core Solo \u00e8 il nome commerciale del processore mobile Intel Yonah arrivato sul mercato il 5 gennaio 2006 come successore del Pentium M Dothan alla base della piattaforma Centrino, che in questo caso, data la natura dual core della CPU Yonah, prende il nome di Centrino Duo. Intel ha inoltre dichiarato, per voce del suo presidente Paul Otellini, che Core Duo promette prestazioni 100 volte maggiori rispetto al primo Pentium, con un quarto della grandezza del primo die di un processore Intel."
+  }
+},
+{
+  "pk": 28,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Micro Instrumentation & Teleme",
+    "year": "1975",
+    "name": "MITS Altair 8800",
+    "desc": "Il MITS Altair 8800 \u00e8 stato uno tra i primi microcomputer disponibili sul mercato. \u00c8 stato sviluppato e commercializzato dalla Micro Instrumentation & Telemetry Systems, Inc., azienda con sede ad Albuquerque (Nuovo Messico, USA).\r\nNel 1975 il numero di gennaio della rivista Popular Electronics diede inizio all'era dell'informatica per tutti, presentando in copertina l'Altair 8800. Prima di allora il termine \"computer\" era sinonimo di macchine grandi e costose che potevano permettersi solo le aziende.\r\nIl costo del computer in kit era di 397 US$, mentre la versione assemblata, era di 495 US$. I progettisti del computer non si aspettavano il successo che avrebbe avuto, pensando di poter vendere poche centinaia di esemplari.\r\nEd Roberts, il proprietario della Micro Instrumentation & Telemetry Systems, Inc., fece scegliere il nome del computer a sua figlia: Altair, il nome di una stella usata in un episodio di Star Trek visto quella sera"
+  }
+},
+{
+  "pk": 29,
+  "model": "rest.item",
+  "fields": {
+    "exhibitions": [
+      6
+    ],
+    "author": "Osborne Computer Corporation",
+    "year": "1981",
+    "name": "Osborne 1",
+    "desc": "L'Osborne 1 \u00e8 stato il primo computer portatile di massa della storia.Presentato alla West Coast Computer Faire di San Francisco, fu messo in commercio nell'aprile del 1981 dalla Osborne Computer Corporation; pesava circa 10,7 kg ed aveva un costo di 1795 $.\r\nIl sistema operativo integrato all'interno era il CP/M 2.2. I suoi difetti principali erano il minuscolo schermo da 5 pollici (13 cm) ed i floppy disk a singola faccia e singola densit\u00e0 che non avevano una capacit\u00e0 sufficiente a contenere i dati per le applicazioni aziendali.\r\nIl suo design era molto simile a quello di uno dei primi prototipi di computer portatili, il NoteTaker Xerox, sviluppato presso Xerox PARC nel 1976.\r\nAlcuni difetti di produzione costrinsero l'azienda al richiamo di oltre 100.000 unit\u00e0; ci\u00f2 nonostante, a meno di un anno dal lancio del primo sistema, Osborne ebbe vendite totali per oltre 250 milioni di dollari.[1]\r\nLa concorrenza arriv\u00f2 presto sul mercato con un portatile che correggeva la principale carenza dell'Osborne 1: la dimensione del display. Il prodotto concorrente si chiamava Kaypro II, sistema venduto ad un prezzo minore dell'Osborne e dotato di un display da 9\"."
+  }
+},
+{
+  "pk": 2,
+  "model": "rest.tour",
+  "fields": {
+    "private_id": "dd19980ad95e04d15df1ca7cb6be7e3b375c48b9607a12af3ce5c17c541d4932",
+    "public_id": "aa29e416343761f95dc96897709768d161125caa02f0f7891647fba88d30a8ef",
+    "name": "Marco",
+    "timestamp": "2013-05-08T18:25:20.836Z",
+    "exhibition": 6,
+    "email": "youponydev@gmail.com"
+  }
+},
+{
+  "pk": 3,
+  "model": "rest.tour",
+  "fields": {
+    "private_id": "0ff798a941edde2647f0569a416187b8d2a2dcc8a7b9b562cd3c13be3f058f17",
+    "public_id": "a54a4fe2f15576b7287ccc1f298d1db63691b5fde3708a87149840fb6008c2c3",
+    "name": "Francesco",
+    "timestamp": "2013-05-08T18:27:20.987Z",
+    "exhibition": 7,
+    "email": "youponydev@gmail.com"
+  }
+},
+{
+  "pk": 5,
+  "model": "rest.tour",
+  "fields": {
+    "private_id": "50555646e36cc5a2af2178de7adb6d52c920a43a82e33f5d46e951cc85121ec4",
+    "public_id": "3becb3591d0ff03c94ef5888fbd7ea249a17d502e001f2307cc6698d665c4103",
+    "name": "Paola",
+    "timestamp": "2013-05-08T19:10:47.546Z",
+    "exhibition": 6,
+    "email": "youponydev@gmail.com"
+  }
+},
+{
+  "pk": 4,
+  "model": "rest.post",
+  "fields": {
+    "item": 11,
+    "tour": 2,
+    "text": "Guarda che bel pc",
+    "image": "",
+    "ordering_index": 0
+  }
+},
+{
+  "pk": 5,
+  "model": "rest.post",
+  "fields": {
+    "item": 10,
+    "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 1
+  }
+},
+{
+  "pk": 6,
+  "model": "rest.post",
+  "fields": {
+    "item": 20,
+    "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 2
+  }
+},
+{
+  "pk": 7,
+  "model": "rest.post",
+  "fields": {
+    "item": 27,
+    "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 3
+  }
+},
+{
+  "pk": 8,
+  "model": "rest.post",
+  "fields": {
+    "item": 14,
+    "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 4
+  }
+},
+{
+  "pk": 9,
+  "model": "rest.post",
+  "fields": {
+    "item": 13,
+    "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 5
+  }
+},
+{
+  "pk": 10,
+  "model": "rest.post",
+  "fields": {
+    "item": 26,
+    "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 6
+  }
+},
+{
+  "pk": 11,
+  "model": "rest.post",
+  "fields": {
+    "item": 28,
+    "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 7
+  }
+},
+{
+  "pk": 12,
+  "model": "rest.post",
+  "fields": {
+    "item": 15,
+    "tour": 2,
+    "text": "Un processore un po' vecchiotto",
+    "image": "",
+    "ordering_index": 8
+  }
+},
+{
+  "pk": 13,
+  "model": "rest.post",
+  "fields": {
+    "item": 24,
+    "tour": 3,
+    "text": null,
+    "image": "",
+    "ordering_index": 0
+  }
+},
+{
+  "pk": 14,
+  "model": "rest.post",
+  "fields": {
+    "item": 22,
+    "tour": 3,
+    "text": null,
+    "image": "",
+    "ordering_index": 1
+  }
+},
+{
+  "pk": 15,
+  "model": "rest.post",
+  "fields": {
+    "item": 23,
+    "tour": 3,
+    "text": null,
+    "image": "",
+    "ordering_index": 2
+  }
+},
+{
+  "pk": 16,
+  "model": "rest.post",
+  "fields": {
+    "item": 21,
+    "tour": 3,
+    "text": null,
+    "image": "",
+    "ordering_index": 3
+  }
+},
+{
+  "pk": 25,
+  "model": "rest.post",
+  "fields": {
+    "item": 14,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 0
+  }
+},
+{
+  "pk": 26,
+  "model": "rest.post",
+  "fields": {
+    "item": 26,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 1
+  }
+},
+{
+  "pk": 27,
+  "model": "rest.post",
+  "fields": {
+    "item": 28,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 2
+  }
+},
+{
+  "pk": 28,
+  "model": "rest.post",
+  "fields": {
+    "item": 29,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 3
+  }
+},
+{
+  "pk": 29,
+  "model": "rest.post",
+  "fields": {
+    "item": 17,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 4
+  }
+},
+{
+  "pk": 30,
+  "model": "rest.post",
+  "fields": {
+    "item": 15,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 5
+  }
+},
+{
+  "pk": 31,
+  "model": "rest.post",
+  "fields": {
+    "item": 16,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 6
+  }
+},
+{
+  "pk": 32,
+  "model": "rest.post",
+  "fields": {
+    "item": 18,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 7
+  }
+},
+{
+  "pk": 33,
+  "model": "rest.post",
+  "fields": {
+    "item": 9,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 8
+  }
+}
+]
