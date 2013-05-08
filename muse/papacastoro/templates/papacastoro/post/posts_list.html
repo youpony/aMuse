@@ -78,26 +78,3 @@
   });
 </script>
 {% endblock %}
-
-{% block extra-script %}
-<script type="text/javascript"
-    src="{% static "papacastoro/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js" %}">
-</script>
-
-<script type="text/javascript" language="javascript">
-    $(document).ready(function() {
-        $("#sortable").sortable({
-            placeholder: "ui-state-highlight",
-            update: function(event, ui) {
-                var serial = $('#sortable').sortable('serialize');
- 	            $.ajax({
-                    url: "{% url 'sort_post'%}",
-                    type: "post",
-                    datatype: "json",
-                    data: { order:serial, tour_private_id:'{{ tour_private_id }}'}
-	            });
-        },
-        }).disableSelection();
-  });
-</script>
-{% endblock %}
