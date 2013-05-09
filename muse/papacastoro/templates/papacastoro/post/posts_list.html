@@ -20,11 +20,11 @@
         <a href="{% url 'post_comment' tour_private_id post.pk %}">
             {% if post.item %}
                 {% with post.item.itemimage_set.all|first as image %}
-                <img class="thumb" src="{{ image.image.url }}" alt="{{ image.title }}">
+                <img class="thumb" width="50" height="50" src="{{ image.image.url }}" alt="{{ image.title }}">
                 {{ post.item.name }}
                 {% endwith %}
             {% else %}
-            <img class="thumb" src="{{ post.image.url }}" alt="Immagine personale">
+            <img class="thumb" width="50" height="50" src="{{ post.image.url }}" alt="Immagine personale">
             <span class="user-item">Immagine personale</span>
             {% endif %}
         </a>
