@@ -52,10 +52,17 @@
 
 {% block templates %}
     <script type="text/template" id="item_template">
-        <article class="pin item" data-pk="<%= pk %>">
+        <article class="pin item <% if(sentiment < 0) { %> sentiment-down <% } else if(sentiment > 0) { %> sentiment-up <% } else { %> sentiment-medium <% } %>" data-pk="<%= pk %>">
             <img src="<%= images[0] %>" alt="<%= name %>" />
             <i class="icon-star"></i>
-
+{#            <% if(sentiment < 0) { %>#}
+{#                <i class="icon-caret-down icon-sentiment"></i>#}
+{#            <% } else if(sentiment > 0) { %>#}
+{#                <i class="icon-caret-up icon-sentiment"></i>#}
+{#            <% } else { %>#}
+{#                <i class="icon-minus icon-sentiment"></i>#}
+{#            <% } %>#}
+            <div class="sentiment" style="background: hsl(<%= color %>, 60%, 50%)"></div>
             <p class="text-center"><%= name %></p>
         </article>
     </script>

@@ -15,6 +15,7 @@ API in json
  - link per edit storytelling PUT /s/<numero_casuale>/
 
 """
+from __future__ import division
 import datetime
 import base64
 import simplejson as json
@@ -27,10 +28,13 @@ from django.http import HttpResponseBadRequest
 from django.core.files.base import ContentFile
 from ajaxutils.decorators import ajax
 from ajaxutils.views import AjaxMixin
+from pattern.web import Twitter
+from pattern.en import sentiment
 from django.core.exceptions import ValidationError
 
 from muse.rest import models
 
+twengine = Twitter(language='en')
 
 @ajax(require_GET=True)
 def exhibitions_publiclist(request):
@@ -78,6 +82,18 @@ def exhibition_details(request, pk):
     return response
 
 
+def _sentiment(city):
+    """
+    Return the sentiment for a specific city.
+    """
+    if not city:
+        return .0
+
+    _avg = lambda v: sum(v) / len(v)
+    return _avg([sentiment(tweet.text)[0] for tweet in
+                 twengine.search('#' + city.lower(), count=100, cached=True)])
+
+
 @ajax(require_GET=True)
 def exhibition_items(request, pk):
     """
@@ -87,14 +103,14 @@ def exhibition_items(request, pk):
     e = get_object_or_404(models.Exhibition, pk=pk)  # TODO[ml]: ?
     items = models.Item.objects.filter(
         exhibitions__pk__contains=pk
-    ).order_by('name').values('pk', 'name', )
+    ).order_by('name').values('pk', 'name', 'city')
 
     for item in items:
+        item['sentiment'] = _sentiment(item['city'])
         item['images'] = [
             request.build_absolute_uri(itemimage.image.url) for itemimage in
             models.ItemImage.objects.filter(item__pk=item['pk'])
         ]
-
     return {'data': list(items)}
 
 
@@ -107,11 +123,11 @@ def item_details(request, pk):
     item = get_object_or_404(models.Item.objects, pk=pk)
     response = model_to_dict(
         item,
-        fields=('name', 'desc', 'author', 'year')
+        fields=('name', 'desc', 'city', 'author', 'year')
     )
+    response['sentiment'] = _sentiment(item.city)
     response['exhibitions'] = [{'name': e.title, 'id': e.pk}
                                for e in item.exhibitions.all()]
-
     response['images'] = [
         request.build_absolute_uri(itemimage.image.url) for itemimage in
         models.ItemImage.objects.filter(item__pk=item.pk)

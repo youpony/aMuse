@@ -6,7 +6,8 @@ $(function () {
 
   var Item = Backbone.Model.extend({
       defaults: {
-        images: []
+        images: [],
+        sentiment: 0.4
       }
     })
 
@@ -49,7 +50,7 @@ $(function () {
         else $endButton.hide();
       },
       render: function () {
-        var tmplData = this.model.toJSON();
+        var tmplData = $.extend({}, this.model.toJSON(), {'color': 0});
         $(this.el).html(this.template(tmplData));
         return this;
       }
