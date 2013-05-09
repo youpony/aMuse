@@ -7,14 +7,6 @@ from django import forms
 from muse.rest import models
 
 
-class ItemImageAdminForm(forms.ModelForm):
-    class Meta:
-        model = models.ItemImage
-        widgets = {
-            'description': forms.Textarea,
-        }
-
-
 class MuseumAdmin(admin.ModelAdmin):
     fieldsets = (
         (
@@ -30,7 +22,6 @@ class MuseumAdmin(admin.ModelAdmin):
 
 
 class ItemImageInline(admin.TabularInline):
-    form = ItemImageAdminForm
     model = models.ItemImage
     extra = 1
     max_num = 3
