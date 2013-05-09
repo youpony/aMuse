@@ -50,7 +50,10 @@ $(function () {
         else $endButton.hide();
       },
       render: function () {
-        var tmplData = $.extend({}, this.model.toJSON(), {'color': 0});
+        console.log(this.model.toJSON())
+        var tmplData = $.extend({}, this.model.toJSON(), {
+          'color': (this.model.get('sentiment') +1)/2*100
+        });
         $(this.el).html(this.template(tmplData));
         return this;
       }
