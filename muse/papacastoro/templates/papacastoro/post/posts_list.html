@@ -17,7 +17,6 @@
     {% for post in posts %}
     <div class="post well" data-order="post_{{ post.pk }}">
 
-        <i class="icon-resize-vertical"></i>
         <a href="{% url 'post_comment' tour_private_id post.pk %}">
             {% if post.item %}
                 {% with post.item.itemimage_set.all|first as image %}
@@ -31,7 +30,7 @@
         </a>
 
         <a href="{% url 'post_delete' tour_private_id post.pk %}" class="btn btn-danger btn-delete">
-          <i class="icon-remove"></i> rimuovi
+          <i class="icon-trash"></i> rimuovi
         </a>
       </div>
     {% endfor %}
@@ -59,6 +58,7 @@
     update: function(e,ui) {
       $('#form-controls').show();
     },
+    placeholder: "post placeholder well",
   });
   var controls = $('#form-controls');
   controls.find('#reset').on('click', function() {
