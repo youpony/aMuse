@@ -2,7 +2,6 @@
 
 import datetime
 from django.contrib import admin
-from django import forms
 
 from muse.rest import models
 
@@ -32,7 +31,7 @@ class ItemAdmin(admin.ModelAdmin):
         (
             'Item info',
             {
-                'fields': ['name', 'desc', 'author', 'year']
+                'fields': ['name', 'desc', 'author', 'year', 'city']
             }
         ),
         (
