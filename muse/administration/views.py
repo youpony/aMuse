@@ -279,7 +279,12 @@ class ItemDelete(DeleteView):
     unsuccess_template = 'administration/unable_to_delete.html'
 
     def get_success_url(self):
-        return reverse_lazy('items_list', args=[self.kwargs['exhibition_pk']])
+        if self.item_exhibitions:
+            return reverse_lazy(
+                'items_list', args=[self.kwargs['exhibition_pk']]
+            )
+        else:
+            return reverse_lazy('item_no_exhibition_list')
 
     def get_context_data(self, **kwargs):
         context = super(ItemDelete, self).get_context_data(**kwargs)
@@ -299,6 +304,7 @@ class ItemDelete(DeleteView):
         return context
 
     def delete(self, request, *args, **kwargs):
+        self.item_exhibitions = self.get_object().exhibitions.all()
         try:
             return super(ItemDelete, self).delete(request, *args, **kwargs)
         except ProtectedError as e:
