@@ -13,11 +13,13 @@
 
     {{ itemimage_formset.management_form }}
     <table>
-        {% for form in itemimage_formset %}
-        <tr>
-            {{ form.as_p }}
-        </tr>
-    {% endfor %}
+        <tbody>
+                {% for form in itemimage_formset.forms %}
+                <tr id="{{ form.prefix }}-row">
+                        <td>{{ form.as_p }}</td>
+                    </tr>
+                {% endfor %}
+        </tbody>
     </table>
 
     <input type="submit" value="Submit" />
@@ -28,14 +30,7 @@
 
 
 {% block extra-script %}
-<script src="{% static "js/jquery-1.9.1.min.js"%}" type="text/javascript"></script>
-<script src="{% static "js/jquery.formset.min.js"%}" type="text/javascript"></script>
+<script src="{% static "deps/js/jquery-1.9.1.min.js"%}" type="text/javascript"></script>
+<script src="{% static "deps/js/jquery.formset.min.js"%}" type="text/javascript"></script>
 
-<script type="text/javascript">
-$(function() {
-        $('#edit_item tbody tr').formset({
-            prefix: '{{ formset.prefix }}'
-        });
-    })
-</script>
 {% endblock %}

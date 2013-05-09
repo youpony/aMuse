@@ -119,12 +119,14 @@ class TestStory(TestCase):
 
     @patch('muse.rest.models.send_mail')
     def test_story_sendmail(self, mock_send_mail):
+        e = models.Exhibition.objects.get(pk=6)
         story = {
             'name': 'test test',
             'email': 'test@example.com',
+            'exhibition': e.pk,
             'posts': json.dumps(
                 [{'item_pk': i.pk}
-                 for i in models.Item.objects.all()[:20:2]]),
+                 for i in e.item_set.all()[:20:2]]),
         }
         response = self.client.post('/api/s/', story)
         self.assertEqual(response.status_code, 200)
@@ -136,8 +138,10 @@ class TestStory(TestCase):
 
     @patch('muse.rest.models.send_mail')
     def test_story_posts(self, mock_send_mail):
+        e = models.Exhibition.objects.get(pk=6)
         story = {
             'name': 'test test',
+            'exhibition': e.pk,
             'email': 'test@example.com',
         }
 

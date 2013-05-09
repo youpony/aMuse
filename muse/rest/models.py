@@ -99,7 +99,7 @@ class Tour(models.Model):
                                   unique=True, editable=False)
     name = models.CharField(max_length=60)
     email = models.EmailField(max_length=254)
-    museum = models.ForeignKey(Museum)
+    exhibition = models.ForeignKey(Exhibition)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -163,8 +163,9 @@ class Post(models.Model):
 #@receiver(story_created, sender=Tour)
 def notify_email(sender, **kwargs):
     tour = kwargs['tour']
-    museum = kwargs['museum']
+    
     genurl = kwargs['url']
+    museum = tour.exhibition.museum
 
     referral = museum.referral
     sbj = '[{mname}] Created new story: {id}'.format(

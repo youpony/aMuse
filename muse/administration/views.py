@@ -10,6 +10,7 @@ from django.forms.forms import NON_FIELD_ERRORS
 from django.shortcuts import render_to_response
 from django.db.models.deletion import ProtectedError
 from django.template import RequestContext
+from django.db import transaction
 
 from muse.administration.forms import ItemImageFormSet
 import muse.rest.models as rest
@@ -178,26 +179,32 @@ class ItemCreate(CreateView):
         return context
 
     def form_valid(self, form):
-        try:
-            super(ItemCreate, self).form_valid(form)
-        except ValidationError as e:
-            errors = ErrorList()
-            for error in e.messages:
-                errors.append(error)
-            errors = form._errors.setdefault(NON_FIELD_ERRORS, errors)
+        # some hack i will fix for next release
+        with transaction.commit_manually():
+            try:
+                super(ItemCreate, self).form_valid(form)
+            except ValidationError as e:
+                transaction.rollback()
+                errors = ErrorList()
+                for error in e.messages:
+                    errors.append(error)
+                errors = form._errors.setdefault(NON_FIELD_ERRORS, errors)
 
-            return super(ItemCreate, self).form_invalid(form)
+                return super(ItemCreate, self).form_invalid(form)
 
-        context = self.get_context_data()
+            context = self.get_context_data()
 
-        itemimage_form = context['itemimage_formset']
+            itemimage_form = context['itemimage_formset']
 
-        if itemimage_form.is_valid():
-            itemimage_form.save()
-
-            return redirect(self.get_success_url())
-        else:
-            return self.render_to_response(self.get_context_data(form=form))
+            if itemimage_form.is_valid():
+                itemimage_form.save()
+                transaction.commit()
+                return redirect(self.get_success_url())
+            else:
+                transaction.rollback()
+                return self.render_to_response(
+                    self.get_context_data(form=form)
+                )
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form))
