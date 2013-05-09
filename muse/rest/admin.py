@@ -2,17 +2,8 @@
 
 import datetime
 from django.contrib import admin
-from django import forms
 
 from muse.rest import models
-
-
-class ItemImageAdminForm(forms.ModelForm):
-    class Meta:
-        model = models.ItemImage
-        widgets = {
-            'description': forms.Textarea,
-        }
 
 
 class MuseumAdmin(admin.ModelAdmin):
@@ -30,7 +21,6 @@ class MuseumAdmin(admin.ModelAdmin):
 
 
 class ItemImageInline(admin.TabularInline):
-    form = ItemImageAdminForm
     model = models.ItemImage
     extra = 1
     max_num = 3
@@ -41,7 +31,7 @@ class ItemAdmin(admin.ModelAdmin):
         (
             'Item info',
             {
-                'fields': ['name', 'desc', 'author', 'year']
+                'fields': ['name', 'desc', 'author', 'year', 'city']
             }
         ),
         (
