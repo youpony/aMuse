@@ -1,6 +1,7 @@
 # pylint: disable=R0904
 
 import datetime
+from itertools import cycle
 from mock import patch, ANY
 from os.path import join, dirname
 
@@ -110,6 +111,38 @@ class TestExhibitions(TestCase):
         self.assertEqual(len(items[0]['images']),
                          self.item.itemimage_set.count())
 
+    def test_exhibition_items_sentiment(self):
+        """
+        Assert sentiment analysis properly search and recognizes tweets.
+        """
+        from pattern.web import Result
+
+        def mock_search(name, cached=0, count=False):
+            results = []
+            for text in ['I love #ponies',
+                         'I am really #happy',
+                         '#life is good'] * 10:
+                result = Result('')
+                result.text = text
+                results.append(result)
+            return results
+
+        self.item.exhibitions.add(self.exhibition)
+        items = models.Item.objects.filter(
+            exhibitions__pk__contains=self.exhibition.pk
+        )
+        for item, city in zip(items, cycle(('rome', 'london', 'paris'))):
+            item.city = city
+            item.save()
+
+        with patch('muse.rest.views.twengine', search=mock_search):
+            response = self.client.get('/api/m/{}/o/'.format(self.exhibition.pk))
+
+        self.assertEqual(response.status_code, 200)
+        items = json.loads(response.content).get('data')
+        for item in items:
+            self.assertGreater(item['sentiment'], 0.5)
+
 
 class TestStory(TestCase):
     fixtures = ['item.json']
@@ -119,12 +152,14 @@ class TestStory(TestCase):
 
     @patch('muse.rest.models.send_mail')
     def test_story_sendmail(self, mock_send_mail):
+        e = models.Exhibition.objects.get(pk=6)
         story = {
             'name': 'test test',
             'email': 'test@example.com',
+            'exhibition': e.pk,
             'posts': json.dumps(
                 [{'item_pk': i.pk}
-                 for i in models.Item.objects.all()[:20:2]]),
+                 for i in e.item_set.all()[:20:2]]),
         }
         response = self.client.post('/api/s/', story)
         self.assertEqual(response.status_code, 200)
@@ -136,8 +171,10 @@ class TestStory(TestCase):
 
     @patch('muse.rest.models.send_mail')
     def test_story_posts(self, mock_send_mail):
+        e = models.Exhibition.objects.get(pk=6)
         story = {
             'name': 'test test',
+            'exhibition': e.pk,
             'email': 'test@example.com',
         }
 
@@ -209,7 +246,23 @@ class TestItem(TestCase):
 
         response = self.client.get('/api/o/{}/'.format(self.item.pk))
         self.assertEqual(response.status_code, 200)
-        item = json.loads(response.content)
-        self.assertTrue(
-            all(key in models.Item._meta_fields) for key in item.keys()
-        )
+        item = json.loads(response.content).get('data')
+        keys = ['city', 'author', 'year', 'exhibitions', 'name', 'images']
+        self.assertTrue(all(item.has_key(key) for key in keys))
+
+    def test_item_sentiment(self):
+        self.item.city = ''
+        self.item.save()
+
+        response = self.client.get('/api/o/{}/'.format(self.item.pk))
+        self.assertEqual(response.status_code, 200)
+        item = json.loads(response.content).get('data')
+        self.assertEqual(item['sentiment'], 0.0)
+
+        self.item.city = 'Rome'
+        self.item.save()
+        with patch('muse.rest.views._sentiment') as mock:
+            mock.return_value = .0
+            response = self.client.get('/api/o/{}/'.format(self.item.pk))
+            self.assertEqual(response.status_code, 200)
+            mock.assert_called_with('Rome')

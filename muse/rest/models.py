@@ -67,6 +67,7 @@ class Item(models.Model):
     desc = models.TextField()
     author = models.CharField(max_length=50, blank=True)
     year = models.CharField(max_length=9)
+    city = models.CharField(max_length=50, blank=True)
     exhibitions = models.ManyToManyField(
         Exhibition,
         verbose_name='exhibitions where this item is available'
@@ -99,7 +100,7 @@ class Tour(models.Model):
                                   unique=True, editable=False)
     name = models.CharField(max_length=60)
     email = models.EmailField(max_length=254)
-    museum = models.ForeignKey(Museum)
+    exhibition = models.ForeignKey(Exhibition)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -163,8 +164,9 @@ class Post(models.Model):
 #@receiver(story_created, sender=Tour)
 def notify_email(sender, **kwargs):
     tour = kwargs['tour']
-    museum = kwargs['museum']
+    
     genurl = kwargs['url']
+    museum = tour.exhibition.museum
 
     referral = museum.referral
     sbj = '[{mname}] Created new story: {id}'.format(

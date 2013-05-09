@@ -1,4 +1,5 @@
 {% extends "papacastoro/site_base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="reveal">
@@ -7,22 +8,37 @@
       {% for p in posts %}
         {% if p.image %}
         <section class="tour-post user-image">
-            <img src="{{ p.image.url }}">
-            <p class="comment">
-              <i class="icon-user"></i>
-              {{ p.text }}
-            </p>
+          <img src="{{ p.image.url }}">
+          <p class="comment">
+            <i class="icon-user"></i>
+            {{ p.text }}
+          </p>
         {% else %}
         <section class="tour-post tour-item">
-            <h2>{{ p.item.name }}</h2>
-            {% for image in  p.item.itemimage_set.all %}
-            <img src="{{ image.image.url }}" class="item-image">
-            {% endfor %}
+          <h2>{{ p.item.name }}</h2>
+          <div class="image-wrapper">
+            {% with images=p.item.itemimage_set.all %}
+              {% if images|length > 1 %}
+              <div class="other-images">
+                {% for image in images %}
+                  <img src="{{ image.image.url }}">
+                {% endfor %}
+              </div>
+              {% endif %}
+              {% with firstimage=images|first %}
+                <img src="{{ firstimage.image.url }}" class="item-image">
+              {% endwith %}
+            {% endwith %}
+          </div>
+          <div class="text">
             <p>{{ p.item.desc }}</p>
-            <p class="comment">
-              <i class="icon-user"></i>
-              {{ p.text }}
-            </p>
+            {% if p.text %}
+              <p class="comment">
+                <i class="icon-user"></i>
+                {{ p.text }}
+              </p>
+            {% endif %}
+          </div>
         {% endif %}
         </section>
       {% endfor %}
@@ -38,3 +54,16 @@
   </div>
 </div>
 {% endblock content %}
+
+{% block extra-script %}
+  <script src="{% static "papacastoro/js/functions.js" %}"></script>
+  <script>
+    $(function() {
+      $('#wrapper').tubular({
+        videoId: 'ouygVDstZwg',
+        mute: true,
+        repeat: true
+      });
+    });
+  </script>
+{% endblock %}

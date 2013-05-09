@@ -106,8 +106,7 @@ $(function () {
       }
     })
 
-    ,
-    ItemListView = Backbone.View.extend({
+    , ItemListView = Backbone.View.extend({
       tagName: "div",
       el: $("#item-list-template"),
       initialize: function () {
