@@ -55,8 +55,16 @@
 <script>
   var list = $('#post-list').sortable({
     items: ".post:not(.new-post)",
-    update: function(e,ui) {
-      $('#form-controls').show();
+    update: function(ev, ui) {
+      var result = $('#post-list')
+        .sortable('refresh')
+        .sortable('serialize', { attribute: 'data-order' });
+      $.ajax({
+        url: "{% url 'sort_post'%}",
+        type: "post",
+        datatype: "json",
+        data: { order:result, tour_private_id:'{{ tour_private_id }}'}
+      });
     },
     placeholder: "post placeholder well",
   });
