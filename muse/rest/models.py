@@ -115,7 +115,6 @@ class ItemImage(models.Model):
     title = models.CharField(max_length=80)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='item_images/{.title:.80}'.format)
-    description = models.CharField(max_length=250, blank=True, null=True)
 
     def __unicode__(self):
         return self.title
@@ -134,7 +133,7 @@ class Post(models.Model):
     image = models.ImageField(
         upload_to='people_uploads', blank=True, null=True
     )
-    text = models.TextField()
+    text = models.TextField(blank=True, null=True)
     # XXX. add pointer to the current exhibition.
 
     def save(self, *args, **kwargs):
@@ -155,7 +154,6 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['ordering_index']
-        unique_together = (('tour', 'ordering_index'),)
 
 
 #story_created = Signal(providing_args=['tour', 'museum'])
@@ -164,7 +162,7 @@ class Post(models.Model):
 #@receiver(story_created, sender=Tour)
 def notify_email(sender, **kwargs):
     tour = kwargs['tour']
-    
+
     genurl = kwargs['url']
     museum = tour.exhibition.museum
 

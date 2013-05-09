@@ -99,7 +99,7 @@ class ExhibitionEdit(UpdateView):
 
 class ExhibitionDelete(DeleteView):
     model = rest.Exhibition
-    template_name = 'administration/exhibition/exhibition_confirm_delete.html'
+    template_name = 'administration/confirm_delete.html'
     success_url = reverse_lazy('exhibitions_list')
     unsuccess_template = 'administration/unable_to_delete.html'
 
@@ -236,15 +236,11 @@ class ItemEdit(UpdateView):
             )
 
         self.request.breadcrumbs("Home", reverse('exhibitions_list'))
-        if 'exhibition_pk' in self.kwargs:
+
+        if 'exhibition_pk' in kwargs:
             self.request.breadcrumbs(
                 "Exhibition",
-                reverse('items_list', args=[self.kwargs['exhibition_pk']])
-            )
-        else:
-            self.request.breadcrumbs(
-                "Exhibition",
-                reverse('item_no_exhibition_list')
+                reverse('items_list', args=[kwargs['exhibition_pk']])
             )
 
         return context
@@ -279,7 +275,7 @@ class ItemEdit(UpdateView):
 
 class ItemDelete(DeleteView):
     model = rest.Item
-    template_name = 'administration/item/item_confirm_delete.html'
+    template_name = 'administration/confirm_delete.html'
     unsuccess_template = 'administration/unable_to_delete.html'
 
     def get_success_url(self):
@@ -289,13 +285,13 @@ class ItemDelete(DeleteView):
         context = super(ItemDelete, self).get_context_data(**kwargs)
         self.request.breadcrumbs("Home", reverse('exhibitions_list'))
 
-        if 'exhibition_pk' in self.kwargs:
+        if 'exhibition_pk' in kwargs:
             self.request.breadcrumbs(
                 "Exhibition",
-                reverse('items_list', args=[self.kwargs['exhibition_pk']])
+                reverse('items_list', args=[kwargs['exhibition_pk']])
             )
             context['undo_url'] = reverse(
-                'items_list', args=[self.kwargs['exhibition_pk']]
+                'items_list', args=[kwargs['exhibition_pk']]
             )
         else:
             context['undo_url'] = reverse('item_no_exhibition_list')

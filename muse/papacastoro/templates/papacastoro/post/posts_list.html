@@ -1,0 +1,78 @@
+{% extends "papacastoro/site_base.html" %}
+{% load static %}
+
+{% load staticfiles %}
+
+{% block extra-styles %}
+<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+<link href="{% static "papacastoro/less/manage.less" %}" rel="stylesheet/less" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+<header>
+  <h1>{{ tour_name }}</h1>
+</header>
+<div id="post-list">
+    {% for post in posts %}
+    <div class="post well" data-order="post_{{ post.pk }}">
+
+        <i class="icon-resize-vertical"></i>
+        <a href="{% url 'post_comment' tour_private_id post.pk %}">
+            {% if post.item %}
+                {% with post.item.itemimage_set.all|first as image %}
+                <img class="thumb" src="{{ image.image.url }}" alt="{{ image.title }}">
+                {{ post.item.name }}
+                {% endwith %}
+            {% else %}
+            <img class="thumb" src="{{ post.image.url }}" alt="Immagine personale">
+            <span class="user-item">Immagine personale</span>
+            {% endif %}
+        </a>
+
+        <a href="{% url 'post_delete' tour_private_id post.pk %}" class="btn btn-danger btn-delete">
+          <i class="icon-remove"></i> rimuovi
+        </a>
+      </div>
+    {% endfor %}
+
+  <div class="new-post post well">
+    <a href="{% url 'post_add' tour_private_id %}" class="btn">
+      <i class="icon-picture"></i> aggiungi immagine
+    </a>
+  </div>
+
+</div>
+
+<div id="form-controls">
+  <a href="#" id="reset" class="btn">Annulla</a>
+  <a href="#" id="submit" class="btn btn-primary">Salva</a>
+</div>
+
+{% endblock %}
+
+{% block extra-script %}
+<script src="{% static "papacastoro/js/deps/jquery-ui-1.10.3.custom.min.js" %}"></script>
+<script>
+  var list = $('#post-list').sortable({
+    items: ".post:not(.new-post)",
+    update: function(e,ui) {
+      $('#form-controls').show();
+    },
+  });
+  var controls = $('#form-controls');
+  controls.find('#reset').on('click', function() {
+    location.reload();
+  });
+  controls.find('#submit').on('click', function() {
+    var result = list.sortable('serialize', { attribute: 'data-order' });
+    $.ajax({
+      url: "{% url 'sort_post'%}",
+      type: "post",
+      datatype: "json",
+      data: { order:result, tour_private_id:'{{ tour_private_id }}'}
+    });
+    console.log(result);
+  });
+</script>
+{% endblock %}

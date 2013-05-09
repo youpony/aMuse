@@ -1,0 +1,21 @@
+{% extends "papacastoro/site_base.html" %}
+
+{% block content %}
+
+{% for itemimage in itemimages %}
+    <img src="{{ itemimage.image.url }}" alt="{{ itemimage.title }}">
+{% endfor %}
+
+{% if userimage %}
+    <img src={{ userimage.url }} alt="Immagine personale">
+{% endif %}
+
+<div class="content_form">
+    <form id= "edit_form" action="{{ request.get_full_path }}" method="post"
+        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
+</div>
+{% endblock %}

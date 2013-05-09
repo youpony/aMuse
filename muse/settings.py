@@ -142,7 +142,8 @@ INSTALLED_APPS = (
     'muse.rest',
     'muse.papacastoro',
     'muse.administration',
-
+    
+    'crispy_forms',
     'breadcrumbs',
     'south',
     'django.contrib.auth',

@@ -1,6 +1,10 @@
 {% extends "papacastoro/site_base.html" %}
 {% load static %}
 
+{% block extra-styles %}
+    <link rel="stylesheet" type="text/css" href="{% static "papacastoro/css/reveal.css" %}" />
+{%endblock%}
+
 {% block content %}
 <div class="reveal">
   <div class="slides">
@@ -44,10 +48,10 @@
       {% endfor %}
     <section class="tour-post tour-share">
       <h2>Share this tour!</h2>
-      <a href="http://www.facebook.com/sharer.php?u=http://youpony.pittoni.org/storyteller/{{ tour.public_id }}">
+      <a href="http://www.facebook.com/sharer.php?u=http://{{ host }}/storyteller/{{ tour.public_id }}">
             <i class="icon-facebook icon-4x"></i>
         </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="http://twitter.com/share?text=Check%20out%20my%20last%20tour!&url=http://youpony.pittoni.org/storyteller/{{ tour.public_id }}">
+        <a href="http://twitter.com/share?text=Check%20out%20my%20last%20tour!&url=http://{{ host }}/storyteller/{{ tour.public_id }}">
             <i class="icon-twitter icon-4x"></i>
         </a>
     </section>
@@ -56,14 +60,52 @@
 {% endblock content %}
 
 {% block extra-script %}
-  <script src="{% static "papacastoro/js/functions.js" %}"></script>
+   <script src="{% static "js/deps/jquery.tubular.1.0.js" %}"></script>
+   <script src="{% static "papacastoro/js/deps/reveal.min.js" %}"></script>
+   <script src="{% static "papacastoro/js/functions.js" %}"></script>
+
+   <!-- Facebook sharing -->
+   <div id="fb-root"></div>
+   <script>(function(d, s, id) {
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) return;
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+       fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+   </script>
+   <!-- /Facebook -->
+   <!-- Twitter sharing -->
+   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+   <!-- /Twitter -->
+   <script>
+       window.urls = {
+           'kiosk': "/k/",
+           'story': "/api/s/",
+           'exhibition': "/api/m/",
+           'exhibitionitem': "/api/m/<%= pk_m =>/o/",
+           'item': "/api/o/"
+       };
+   </script>
+   <script>
+       Reveal.initialize({
+           controls: false,
+           progress: true,
+           history: true,
+           center: true,
+           transition: 'page',
+       });
+   </script>
+
   <script>
     $(function() {
       $('#wrapper').tubular({
-        videoId: 'ouygVDstZwg',
+        videoId: '{{ tour.exhibition.video }}',
         mute: true,
         repeat: true
       });
     });
   </script>
 {% endblock %}
+
+
