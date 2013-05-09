@@ -1,50 +1,61 @@
-{% extends "administration/site_base.html" %}
+	{% extends "administration/site_base.html" %}
+	
+	{% block content %}
+	
+	{% if perms.rest.add_exhibition %}
+	<a href={% url 'exhibition_add'%}>
+		<button class='btn'>
+		   Add exhibition
+		</button>
+	</a>
+	
+	{% endif %}
 
-{% block content %}
-
-{% if perms.rest.add_exhibition %}
-<a href={% url 'exhibition_add'%}>
-	<button class='btn'>
-	   Add exhibition
-	</button>
-</a>
-
-{% endif %}
-
-<div class='panel_info'>
-    <h6> Information </h6>
-
+	<div>
     {% if item_without_exhibition > 0 %}
-         <p>
-         Sorry but one of your exhibitions deletion cause
-         {{ item_without_exhibition }} to have no exhibition,
-         please check the <a href={% url 'item_no_exhibition_list'%}>list</a>
-         </p>
+    	<div class="alert">
+	        <p>
+	             	<b>Information: </b>
+	             	Sorry but one of your exhibitions deletion cause
+	         {{ item_without_exhibition }} to have no exhibition,
+	         please check the <a href={% url 'item_no_exhibition_list'%}>list</a>
+	         </p>
+    	</div>
     {% endif %}
-</div>
-<div class='table'>
+
     {% for exhibition in exhibitions %}
-    <div class='table-row'>
-
-        {% if perms.rest.change_exhibition %}
-        <a href={% url 'exhibition_edit' exhibition.pk %}>
-            {{ exhibition.title }} || {{ exhibition.museum }}
-        </a>
-        {% else %}
-            {{ exhibition.title }} || {{ exhibition.museum }}
-        {% endif %}
-        <a href={% url 'items_list' exhibition.pk %}>
-            objects
-        </a>
-        {% if perms.rest.delete_item %}
-            <a href={% url 'exhibition_delete' exhibition.pk %}>
-                delete
-            </a>
-        {% endif %}
-    </div>
-    {% endfor %}
-</div>
-
+	    {% if forloop.counter0|divisibleby:"3" %}
+	    	<div class="row-fluid">
+	    {% endif %}
+	    <div class="well span4">
+			<div class="sinistrone">		    
+		        {% if perms.rest.change_exhibition %}
+		        <a href={% url 'exhibition_edit' exhibition.pk %}>
+		            {{ exhibition.title }} • {{ exhibition.museum }}
+		        </a>
+		        {% else %}
+		            {{ exhibition.title }} • {{ exhibition.museum }}
+		        {% endif %}
+			</div>	
+				
+			<div class="destrone">	        
+		        <a href={% url 'items_list' exhibition.pk %} class="btn">
+		            objects
+		        </a>
+		        {% if perms.rest.delete_item %}
+		        <a href={% url 'exhibition_delete' exhibition.pk %} class="btn btn-danger">
+		        	delete
+		        </a>
+		        {% endif %}
+			</div>
+		</div>
+		{% if forloop.counter0|add:"1"|divisibleby:"3" %}
+	    	</div>
+		{% endif %}
+	{% endfor %}
+	{% if not exhibitions.count|divisibleby:"3" %}
+		</div>
+	{% endif %}
 <br/>
 
 {% if is_paginated %}
@@ -68,5 +79,6 @@
 </div>
 {% endif %}
 
+</div>
 {% endblock content %}
 

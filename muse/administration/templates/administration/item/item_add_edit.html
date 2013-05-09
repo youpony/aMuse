@@ -11,18 +11,17 @@
     {% csrf_token %}
     {{ form.as_p }}
 
+    {{ itemimage_formset.management_form }}
     <table>
-        <tbody>
-                {% for form in itemimage_formset.forms %}
-                <tr id="{{ form.prefix }}-row">
-                        <td>{{ form.image }}</td>
-                    </tr>
-                {% endfor %}
-        </tbody>
+        {% for form in itemimage_formset %}
+        <tr>
+            {{ form.as_p }}
+        </tr>
+    {% endfor %}
     </table>
 
-    {{ itemimage_formset.management_form }}
     <input type="submit" value="Submit" />
+
 </form>
 
 {% endblock content %}
@@ -34,8 +33,8 @@
 
 <script type="text/javascript">
 $(function() {
-        $('#edit_item table tr').formset({
-            prefix: 'itemimage'
+        $('#edit_item tbody tr').formset({
+            prefix: '{{ formset.prefix }}'
         });
     })
 </script>

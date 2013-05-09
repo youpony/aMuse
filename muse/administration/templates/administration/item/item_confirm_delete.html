@@ -6,7 +6,10 @@
     <p> Sei sicuro di voler eliminare {{ object }} ? </p>
     <form action="." method="post">
         {% csrf_token %}
-        <button type="submit" value="Submit class="btn">No</button>
+        <a href="{{ undo_url }}" class="btn">
+       		No
+        </a>
+        
         <button type="submit" value="Submit" class="btn btn-danger">Yes</button>
     </form>
 </div>

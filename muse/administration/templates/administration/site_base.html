@@ -11,25 +11,34 @@
 	<link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.min.css"%}">
 	<link rel="stylesheet" type="text/css" href="{% static "style.css"%}">
 </head>
+
 <body>
 	<div class="casababbo">
-		{% block logout %}
-		<strong>
-			{{ user.username }}
-		</strong>
-		<a href={% url 'logout' %}>
-			<button class="btn">
-		        Logout
-			</button>
-		</a>
-		
-	    {% endblock %}
-	    {% block breadcrumbs %}
-	        {% include 'administration/breadcrumps.html' %}
-	    {% endblock %}
-	    {% block content %}{% endblock %}
-	    {% block templates %}{% endblock %}
-	    {% block extra-script %}{% endblock %}
+		<div class="navbar navbar-inverse">
+			<div class="navbar-inner">	
+				{% block logout %}
+					<ul class="nav">
+						<li>
+							<a>
+								{{ user.username }}
+							</a>
+						</li>
+					</ul>
+				<a href={% url 'logout' %}>
+					<button class="btn">
+				        Logout
+					</button>
+				</a>
+			</div>
+				    
 	</div>
+			    {% endblock %}
+			    {% block breadcrumbs %}
+			        {% include 'administration/breadcrumps.html' %}
+			    {% endblock %}
+			    {% block content %}{% endblock %}
+			    {% block templates %}{% endblock %}
+			    {% block extra-script %}{% endblock %}
+		</div>
 </body>
 </html>
