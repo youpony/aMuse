@@ -50,8 +50,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .tour-post p {
   font-size: 18px;
-  padding: 20px 0;
   text-align: left;
+  margin: 0;
+}
+
+.image-wrapper, .text {
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .comment {
@@ -84,16 +89,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .reveal .other-images {
+  margin-bottom: 30px;
 
   img {
     vertical-align: middle;
     width: 30%;
+    margin: 0 1%;
+    border: 6px solid white;
+    box-sizing: border-box;
   }
 }
 
 .reveal .item-image {
-  margin: 20px;
   max-width: 80%;
+  border: 12px solid white;
+  box-sizing: border-box;
 }
 
 .tour-share a {

@@ -9,28 +9,54 @@
   }
 },
 {
+  "pk": 4,
+  "model": "rest.exhibition",
+  "fields": {
+    "description": "Esposizione di armi da fuoco impiegate nei maggiori conflitti bellici",
+    "end_date": "2013-03-13",
+    "title": "Mostra armi da fuoco",
+    "image": "uploads/Armi_II_Guerra_Mondiale_1.jpg",
+    "start_date": "2013-03-11",
+    "video": "",
+    "museum": 1
+  }
+},
+{
   "pk": 5,
   "model": "rest.exhibition",
   "fields": {
     "description": "Un persorso attraverso, quadri e pitture di ogni tempo",
     "end_date": "2015-03-14",
     "title": "Mostra Dipinti",
-    "image": "uploads/Paintings_feathers.jpg",
+    "image": "uploads/1233155575g.jpg",
     "start_date": "2011-03-14",
-    "video": "cn6MwYAYlj0",
+    "video": "",
     "museum": 1
   }
 },
 {
-  "pk": 10,
+  "pk": 6,
   "model": "rest.exhibition",
   "fields": {
-    "description": "Un viaggio tra le stelle e pianeti dello spazio.",
-    "end_date": "2013-06-30",
-    "title": "Museo Spazio",
-    "image": "uploads/1-15terra_dallo_spazio.jpg",
-    "start_date": "2013-04-16",
-    "video": "Un5SEJ8MyPc",
+    "description": "Un percorso attraverso la storia della tecnologia",
+    "end_date": "2016-02-21",
+    "title": "Mostar tecnologia",
+    "image": "uploads/Computer-aj_aj_ashton_01.svg.png",
+    "start_date": "2013-03-13",
+    "video": "",
+    "museum": 1
+  }
+},
+{
+  "pk": 7,
+  "model": "rest.exhibition",
+  "fields": {
+    "description": "Una grandiosa collezzione dei gioielli pi\u00f9 famosi al mondo",
+    "end_date": "2013-09-01",
+    "title": "Mostra gioielli",
+    "image": "uploads/jewel_crown_london.jpg",
+    "start_date": "2012-11-13",
+    "video": "",
     "museum": 1
   }
 },
@@ -51,7 +77,9 @@
   "pk": 2,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      4
+    ],
     "author": "Mauser",
     "year": "1930",
     "name": "Mauser Karabiner 98k",
@@ -119,7 +147,7 @@
     ],
     "author": "Vincent van Gogh",
     "year": "1890",
-    "name": "Campo di grano con volo di corvi",
+    "name": "Campo di grano con volo di cor",
     "desc": "Campo di grano con volo di corvi \u00e8 un dipinto ad olio su tela di cm 50,5 x 103 realizzato nel luglio del 1890 da Vincent van Gogh. \u00c8 conservato al Van Gogh Museum di Amsterdam.\r\nSi ritiene comunemente, ma probabilmente erroneamente, che questo sia stato l'ultimo quadro dipinto da Van Gogh prima di morire. Gli storici dell'arte sono infatti incerti su quale sia l'ultimo dipinto di Van Gogh, dal momento che non esistono fonti documentali al riguardo."
   }
 },
@@ -127,7 +155,9 @@
   "pk": 8,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      4
+    ],
     "author": "Sergej Ivanovi\u010d Mosin",
     "year": "1890",
     "name": "Mosin-Nagant",
@@ -138,7 +168,9 @@
   "pk": 9,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Commodore International",
     "year": "1982",
     "name": "The Commodore 64",
@@ -149,7 +181,9 @@
   "pk": 10,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Apple",
     "year": "1977",
     "name": "Apple II",
@@ -160,7 +194,9 @@
   "pk": 11,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Apple",
     "year": "1976",
     "name": "Apple I",
@@ -171,7 +207,9 @@
   "pk": 12,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      4
+    ],
     "author": "John Taliaferro Thompson",
     "year": "1919",
     "name": "Thompson",
@@ -182,7 +220,9 @@
   "pk": 13,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Intel",
     "year": "1978",
     "name": "Intel 8086",
@@ -193,7 +233,9 @@
   "pk": 14,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Intel",
     "year": "1985",
     "name": "Intel 80386",
@@ -204,7 +246,9 @@
   "pk": 15,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Intel",
     "year": "1997",
     "name": "Pentium II",
@@ -215,7 +259,9 @@
   "pk": 16,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Intel",
     "year": "1999",
     "name": "Pentium III",
@@ -226,7 +272,9 @@
   "pk": 17,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Intel",
     "year": "2000",
     "name": "Pentium 4",
@@ -237,7 +285,9 @@
   "pk": 18,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Intel",
     "year": "1995",
     "name": "Pentium Pro",
@@ -248,7 +298,9 @@
   "pk": 19,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      4
+    ],
     "author": "Beretta",
     "year": "1934",
     "name": "Beretta 1934",
@@ -259,7 +311,9 @@
   "pk": 20,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Commodore International",
     "year": "1985",
     "name": "Commodore 900",
@@ -270,7 +324,9 @@
   "pk": 21,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      7
+    ],
     "author": "Ignoto",
     "year": "1722",
     "name": "Verde di Dresda",
@@ -281,7 +337,9 @@
   "pk": 22,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      7
+    ],
     "author": "Ignoto",
     "year": "1600",
     "name": "Gran Mogol",
@@ -292,7 +350,9 @@
   "pk": 23,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      7
+    ],
     "author": "ignoto",
     "year": "1853",
     "name": "Stella del sud",
@@ -303,7 +363,9 @@
   "pk": 24,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      7
+    ],
     "author": "ignoto",
     "year": "1600",
     "name": "Fiorentino",
@@ -314,7 +376,9 @@
   "pk": 26,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Intel",
     "year": "2000",
     "name": "Itanium",
@@ -325,7 +389,9 @@
   "pk": 27,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Intel",
     "year": "2006",
     "name": "Core Duo",
@@ -336,7 +402,9 @@
   "pk": 28,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Micro Instrumentation & Teleme",
     "year": "1975",
     "name": "MITS Altair 8800",
@@ -347,7 +415,9 @@
   "pk": 29,
   "model": "rest.item",
   "fields": {
-    "exhibitions": [],
+    "exhibitions": [
+      6
+    ],
     "author": "Osborne Computer Corporation",
     "year": "1981",
     "name": "Osborne 1",
@@ -355,614 +425,281 @@
   }
 },
 {
-  "pk": 30,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "NASA",
-    "year": "1981",
-    "name": "Space Shuttle",
-    "desc": "Lo Space Transportation System (abbreviazione diffusa nel linguaggio comune: \"STS\"), comunemente noto come Space Shuttle \u00e8 stato un sistema di lancio riutilizzabile e di navette spaziali della NASA, l'ente governativo statunitense responsabile dei programmi spaziali. Lanciato in orbita per la prima volta il 12 aprile 1981, ha portato a termine la sua ultima missione il 21 luglio 2011."
-  }
-},
-{
-  "pk": 31,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Big Bang",
-    "desc": "Il Big Bang \u00e8 il modello cosmologico riguardante lo sviluppo e l'espansione dell'universo predominante nella comunit\u00e0 scientifica e che ha le maggiori conferme dal punto di vista delle prove e delle osservazioni.[2] Con il termine Big Bang i cosmologi si riferiscono generalmente all'idea che l'universo inizi\u00f2 ad espandersi a partire da una condizione iniziale estremamente calda e densa e che questo processo di espansione \u00e8 durato per un intervallo di tempo finito e continua tuttora."
-  }
-},
-{
-  "pk": 32,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "1930",
-    "name": "Astronauta",
-    "desc": "La camera a campo ultra profondo di Hubble mostra galassie di un'epoca antica, nella quale l'universo era pi\u00f9 giovane, pi\u00f9 denso e pi\u00f9 caldo in base alla teoria del Big Bang."
-  }
-},
-{
-  "pk": 33,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Sistema Solare",
-    "desc": "Il sistema solare \u00e8 il sistema planetario costituito da una variet\u00e0 di corpi celesti mantenuti in orbita dalla forza di gravit\u00e0 del Sole; vi appartiene anche la Terra. \u00c8 costituito da otto pianeti, dai rispettivi satelliti naturali[1], da cinque pianeti nani e da miliardi di corpi minori."
-  }
-},
-{
-  "pk": 34,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Terra",
-    "desc": "La Terra \u00e8 il terzo pianeta in ordine di distanza dal Sole ed il pi\u00f9 grande dei pianeti terrestri del sistema solare, sia per quanto riguarda la massa sia per il diametro."
-  }
-},
-{
-  "pk": 41,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Sole",
-    "desc": "Il Sole (dal latino Sol) \u00e8 la stella madre del sistema solare, attorno alla quale orbitano gli otto pianeti principali (tra cui la Terra), i pianeti nani, i loro satelliti, innumerevoli altri corpi minori e la polvere diffusa per lo spazio, che forma il mezzo interplanetario. La massa del Sole, che ammonta a circa 2 \u00d7 1030 kg, rappresenta da sola il 99,9% della massa complessiva del sistema solare."
-  }
-},
-{
-  "pk": 42,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Pianeta",
-    "desc": "Un pianeta \u00e8 un corpo celeste che orbita attorno ad una stella, ma che, a differenza di questa, non produce energia tramite fusione nucleare, e la cui massa \u00e8 sufficiente a conferirgli una forma sferoidale, laddove la propria dominanza gravitazionale gli permette di mantenere libera la sua fascia orbitale da altri corpi di dimensioni comparabili o superiori."
-  }
-},
-{
-  "pk": 43,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Stella",
-    "desc": "Una stella \u00e8 un corpo celeste che brilla di luce propria. In astronomia e astrofisica il termine designa uno sferoide luminoso di plasma che genera energia nel proprio nucleo attraverso processi di fusione nucleare; tale energia \u00e8 irradiata nello spazio sotto forma di radiazione elettromagnetica, flusso di particelle elementari (vento stellare) e neutrini. Buona parte degli elementi chimici pi\u00f9 pesanti dell'idrogeno e dell'elio, i pi\u00f9 abbondanti nell'Universo, vengono sintetizzati nei nuclei delle stelle tramite il processo di nucleosintesi."
-  }
-},
-{
-  "pk": 44,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Costellazione",
-    "desc": "Una costellazione \u00e8 ognuna delle 88 parti in cui la sfera celeste \u00e8 convenzionalmente suddivisa allo scopo di mappare le stelle."
-  }
-},
-{
-  "pk": 45,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "Kubrik",
-    "year": "1968",
-    "name": "2001: Odissea nello spazio",
-    "desc": "2001: Odissea nello spazio (2001: A Space Odyssey) \u00e8 un film di Stanley Kubrick del 1968 ispirato al racconto di Arthur C. Clarke La sentinella. Lo stesso scrittore ha poi a sua volta tratto dalla sceneggiatura un romanzo dal titolo omonimo e con la medesima trama."
-  }
-},
-{
-  "pk": 46,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Luna",
-    "desc": "La Luna \u00e8 l'unico satellite naturale della Terra. Il suo nome proprio viene talvolta utilizzato, per estensione e con l'iniziale minuscola (una luna), come sinonimo di \"satellite naturale\" anche per i satelliti di altri pianeti.\r\n"
-  }
-},
-{
-  "pk": 47,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Via Lattea",
-    "desc": "La Via Lattea (dal latino Via Lactea) \u00e8 la galassia alla quale appartiene il sistema solare; \u00e8 la Galassia per antonomasia, poich\u00e9 il nome deriva dal greco \u0393\u03b1\u03bb\u03b1\u03be\u03af\u03b1\u03c2 (Galaxias), che significa \"latteo\", utilizzato in epoca greca per designarla. In base agli studi pi\u00f9 recenti pare che la Galassia sia, da un punto di vista strettamente morfologico, una galassia spirale barrata, ovvero una galassia composta da un nucleo attraversato da una struttura a forma di barra dalla quale si dipartono i bracci di spirale che seguono un andamento logaritmico; \u00e8 il membro principale, insieme alla Galassia di Andromeda, del Gruppo Locale, un insieme di galassie comprendente, oltre alle due precedentemente citate, la Galassia del Triangolo ed una cinquantina di galassie minori, principalmente nane."
-  }
-},
-{
-  "pk": 48,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "ignoto",
-    "year": "0",
-    "name": "Stonehenge",
-    "desc": "Stonehenge (pietra sospesa, da stone, pietra, ed henge, che deriva da hang, sospendere: in riferimento agli architravi) \u00e8 un sito neolitico che si trova vicino ad Amesbury nello Wiltshire, Inghilterra, circa 13 chilometri a nord-ovest di Salisbury sulla Piana di Salisbury. \u00c8 composto da un insieme circolare di grosse pietre erette, conosciute come megaliti.\r\nIl sito \u00e8 stato aggiunto alla lista dei patrimoni dell'umanit\u00e0 dell'UNESCO nel 1986. Le pietre di Stonehenge sono allineate con un significato particolare ai punti di solstizio ed equinozio. Di conseguenza alcuni sostengono che Stonehenge rappresenti un \"antico osservatorio astronomico\", anche se l'importanza del suo uso per tale scopo \u00e8 dibattuta."
-  }
-},
-{
-  "pk": 49,
-  "model": "rest.item",
-  "fields": {
-    "exhibitions": [
-      10
-    ],
-    "author": "Stati Uniti",
-    "year": "1958",
-    "name": "NASA",
-    "desc": "La NASA, acronimo di National Aeronautics and Space Administration (in italiano Ente Nazionale per le attivit\u00e0 Spaziali e Aeronautiche) - \u00e8 l'agenzia governativa civile responsabile del programma spaziale degli Stati Uniti d'America e della ricerca aerospaziale."
-  }
-},
-{
-  "pk": 1,
-  "model": "rest.tour",
-  "fields": {
-    "private_id": "4438ed864e7cf29783044ba3057ebe489eb3d559211acd628dcda185c53897f6",
-    "public_id": "feaa449ccf4a7832ca7d71e4195fd60a47c29decc75bd15b758eca008de3643c",
-    "name": "Aldo",
-    "timestamp": "2013-05-09T10:05:55.991Z",
-    "exhibition": 10,
-    "email": "youponydev@gmail.com"
-  }
-},
-{
   "pk": 2,
   "model": "rest.tour",
   "fields": {
-    "private_id": "cf4903bd587a864cd0d7afd5a44e8f9bbfc9ba1a3dcb1c405479de8dc540fee6",
-    "public_id": "5f682ff9dac476d6cadb63f1536d9c7f90dfc9484ea2b3df58a6a7d2e590c65f",
-    "name": "Francesca",
-    "timestamp": "2013-05-09T10:06:19.037Z",
-    "exhibition": 5,
+    "private_id": "dd19980ad95e04d15df1ca7cb6be7e3b375c48b9607a12af3ce5c17c541d4932",
+    "public_id": "aa29e416343761f95dc96897709768d161125caa02f0f7891647fba88d30a8ef",
+    "name": "Marco",
+    "timestamp": "2013-05-08T18:25:20.836Z",
+    "exhibition": 6,
     "email": "youponydev@gmail.com"
-  }
-},
-{
-  "pk": 1,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 30,
-    "image": "item_images/STS120LaunchHiRes.jpg",
-    "title": "Discovery Departure"
-  }
-},
-{
-  "pk": 2,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 30,
-    "image": "item_images/800px-STS-73_landing.jpg",
-    "title": "Columbia Landing"
   }
 },
 {
   "pk": 3,
-  "model": "rest.itemimage",
+  "model": "rest.tour",
   "fields": {
-    "item": 30,
-    "image": "item_images/800px-Atlantis_on_Crawler_Transporter_with_Pad_39A_in_background.jpg",
-    "title": "Atlantis"
-  }
-},
-{
-  "pk": 4,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 31,
-    "image": "item_images/800px-Linea_temporale_della_radiazione_di_fondo.png",
-    "title": "Big Bang"
+    "private_id": "0ff798a941edde2647f0569a416187b8d2a2dcc8a7b9b562cd3c13be3f058f17",
+    "public_id": "a54a4fe2f15576b7287ccc1f298d1db63691b5fde3708a87149840fb6008c2c3",
+    "name": "Francesco",
+    "timestamp": "2013-05-08T18:27:20.987Z",
+    "exhibition": 7,
+    "email": "youponydev@gmail.com"
   }
 },
 {
   "pk": 5,
-  "model": "rest.itemimage",
+  "model": "rest.tour",
   "fields": {
-    "item": 31,
-    "image": "item_images/800px-WMAP2.jpg",
-    "title": "WMAP"
+    "private_id": "50555646e36cc5a2af2178de7adb6d52c920a43a82e33f5d46e951cc85121ec4",
+    "public_id": "3becb3591d0ff03c94ef5888fbd7ea249a17d502e001f2307cc6698d665c4103",
+    "name": "Paola",
+    "timestamp": "2013-05-08T19:10:47.546Z",
+    "exhibition": 6,
+    "email": "youponydev@gmail.com"
   }
 },
 {
-  "pk": 6,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 31,
-    "image": "item_images/Hubble_ultra_deep_field_high_rez_edit1.jpg",
-    "title": "Big Bang"
-  }
-},
-{
-  "pk": 7,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 5,
-    "image": "item_images/Gustav_Klimt_016.jpg",
-    "title": "Il bacio"
-  }
-},
-{
-  "pk": 8,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 5,
-    "image": "item_images/il-bacio-di-klimt-dettaglio.jpg",
-    "title": "Dettaglio"
-  }
-},
-{
-  "pk": 9,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 32,
-    "image": "item_images/Astronaut-EVA.jpg",
-    "title": "Astronauta"
-  }
-},
-{
-  "pk": 10,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 32,
-    "image": "item_images/800px-Foale_ZeroG.jpg",
-    "title": "Astronauti"
-  }
-},
-{
-  "pk": 11,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 32,
-    "image": "item_images/Neil_Armstrong_pose.jpg",
-    "title": "Neil"
-  }
-},
-{
-  "pk": 12,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 6,
-    "image": "item_images/La_nascita_di_Venere_Botticelli.jpg",
-    "title": "La nascita di Venere"
-  }
-},
-{
-  "pk": 13,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 4,
-    "image": "item_images/urlo-munch.jpg",
-    "title": "L'urlo"
-  }
-},
-{
-  "pk": 14,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 4,
-    "image": "item_images/AP01vo6a_280xFree.jpg",
-    "title": "Altro"
-  }
-},
-{
-  "pk": 15,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 3,
-    "image": "item_images/Foto-Gioconda-La-Monnalisa-di-Leonardo-da-Vinci.jpg",
-    "title": "La gioconda"
-  }
-},
-{
-  "pk": 16,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 3,
-    "image": "item_images/mash-up.jpg",
-    "title": "Confronto volti"
-  }
-},
-{
-  "pk": 17,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 3,
-    "image": "item_images/07-gioconda-botero_672-458_resize.jpg",
-    "title": "Gioconda di Botero"
-  }
-},
-{
-  "pk": 18,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 33,
-    "image": "item_images/Sistema_solare_2006.png",
-    "title": "Sistema Solare"
-  }
-},
-{
-  "pk": 19,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 33,
-    "image": "item_images/Protoplanetary_disk.jpg",
-    "title": "Sistema Solare"
-  }
-},
-{
-  "pk": 20,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 33,
-    "image": "item_images/Solar_sys.jpg",
-    "title": "Sistema Solare"
-  }
-},
-{
-  "pk": 21,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 1,
-    "image": "item_images/Sanzio_Scuola_di_Atene.jpg",
-    "title": "Scuola di Atene"
-  }
-},
-{
-  "pk": 22,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 7,
-    "image": "item_images/Campo.jpg",
-    "title": "campo"
-  }
-},
-{
-  "pk": 23,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 34,
-    "image": "item_images/800px-Size_planets_comparison.jpg",
-    "title": "Planets"
-  }
-},
-{
-  "pk": 24,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 34,
-    "image": "item_images/The_Earth_seen_from_Apollo_17.jpg",
-    "title": "Terra"
-  }
-},
-{
-  "pk": 25,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 34,
-    "image": "item_images/AS8-13-2329.jpg",
-    "title": "Terra"
-  }
-},
-{
-  "pk": 26,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 41,
-    "image": "item_images/sole.jpg",
-    "title": "Sole"
-  }
-},
-{
-  "pk": 27,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 42,
-    "image": "item_images/Oceane.JPG",
-    "title": "Pianeta"
-  }
-},
-{
-  "pk": 28,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 43,
-    "image": "item_images/800px-Hubble_heic0206j.jpg",
-    "title": "Stelle"
-  }
-},
-{
-  "pk": 29,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 44,
-    "image": "item_images/399px-Big_dipper_from_the_kalalau_lookout_at_the_kokee_state_park_in_hawaii.jpg",
-    "title": "Carro"
-  }
-},
-{
-  "pk": 30,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 45,
-    "image": "item_images/2001Style_B.jpg",
-    "title": "Locandina"
-  }
-},
-{
-  "pk": 31,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 46,
-    "image": "item_images/631px-FullMoon2010.jpg",
-    "title": "Luna"
-  }
-},
-{
-  "pk": 32,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 47,
-    "image": "item_images/662px-Perseid_Meteor.jpg",
-    "title": "Via Lattea"
-  }
-},
-{
-  "pk": 33,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 48,
-    "image": "item_images/800px-Stonehenge-2009.jpg",
-    "title": "Stonehenge"
-  }
-},
-{
-  "pk": 34,
-  "model": "rest.itemimage",
-  "fields": {
-    "item": 49,
-    "image": "item_images/NASA_logo.png",
-    "title": "Logo Nasa"
-  }
-},
-{
-  "pk": 1,
+  "pk": 4,
   "model": "rest.post",
   "fields": {
-    "item": 32,
-    "tour": 1,
-    "text": null,
+    "item": 11,
+    "tour": 2,
+    "text": "Guarda che bel pc",
     "image": "",
     "ordering_index": 0
   }
 },
 {
-  "pk": 2,
+  "pk": 5,
   "model": "rest.post",
   "fields": {
-    "item": 31,
-    "tour": 1,
+    "item": 10,
+    "tour": 2,
     "text": null,
     "image": "",
     "ordering_index": 1
   }
 },
 {
-  "pk": 3,
+  "pk": 6,
   "model": "rest.post",
   "fields": {
-    "item": 44,
-    "tour": 1,
+    "item": 20,
+    "tour": 2,
     "text": null,
     "image": "",
     "ordering_index": 2
   }
 },
 {
-  "pk": 4,
+  "pk": 7,
   "model": "rest.post",
   "fields": {
-    "item": 49,
-    "tour": 1,
+    "item": 27,
+    "tour": 2,
     "text": null,
     "image": "",
     "ordering_index": 3
   }
 },
 {
-  "pk": 5,
+  "pk": 8,
   "model": "rest.post",
   "fields": {
-    "item": 42,
-    "tour": 1,
+    "item": 14,
+    "tour": 2,
     "text": null,
     "image": "",
     "ordering_index": 4
   }
 },
 {
-  "pk": 6,
+  "pk": 9,
   "model": "rest.post",
   "fields": {
-    "item": 41,
-    "tour": 1,
+    "item": 13,
+    "tour": 2,
     "text": null,
     "image": "",
     "ordering_index": 5
   }
 },
 {
-  "pk": 7,
+  "pk": 10,
   "model": "rest.post",
   "fields": {
-    "item": 5,
+    "item": 26,
     "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 6
+  }
+},
+{
+  "pk": 11,
+  "model": "rest.post",
+  "fields": {
+    "item": 28,
+    "tour": 2,
+    "text": null,
+    "image": "",
+    "ordering_index": 7
+  }
+},
+{
+  "pk": 12,
+  "model": "rest.post",
+  "fields": {
+    "item": 15,
+    "tour": 2,
+    "text": "Un processore un po' vecchiotto",
+    "image": "",
+    "ordering_index": 8
+  }
+},
+{
+  "pk": 13,
+  "model": "rest.post",
+  "fields": {
+    "item": 24,
+    "tour": 3,
     "text": null,
     "image": "",
     "ordering_index": 0
   }
 },
 {
-  "pk": 8,
+  "pk": 14,
   "model": "rest.post",
   "fields": {
-    "item": 4,
-    "tour": 2,
+    "item": 22,
+    "tour": 3,
     "text": null,
     "image": "",
     "ordering_index": 1
   }
 },
 {
-  "pk": 9,
+  "pk": 15,
   "model": "rest.post",
   "fields": {
-    "item": 3,
-    "tour": 2,
+    "item": 23,
+    "tour": 3,
     "text": null,
     "image": "",
     "ordering_index": 2
+  }
+},
+{
+  "pk": 16,
+  "model": "rest.post",
+  "fields": {
+    "item": 21,
+    "tour": 3,
+    "text": null,
+    "image": "",
+    "ordering_index": 3
+  }
+},
+{
+  "pk": 25,
+  "model": "rest.post",
+  "fields": {
+    "item": 14,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 0
+  }
+},
+{
+  "pk": 26,
+  "model": "rest.post",
+  "fields": {
+    "item": 26,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 1
+  }
+},
+{
+  "pk": 27,
+  "model": "rest.post",
+  "fields": {
+    "item": 28,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 2
+  }
+},
+{
+  "pk": 28,
+  "model": "rest.post",
+  "fields": {
+    "item": 29,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 3
+  }
+},
+{
+  "pk": 29,
+  "model": "rest.post",
+  "fields": {
+    "item": 17,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 4
+  }
+},
+{
+  "pk": 30,
+  "model": "rest.post",
+  "fields": {
+    "item": 15,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 5
+  }
+},
+{
+  "pk": 31,
+  "model": "rest.post",
+  "fields": {
+    "item": 16,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 6
+  }
+},
+{
+  "pk": 32,
+  "model": "rest.post",
+  "fields": {
+    "item": 18,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 7
+  }
+},
+{
+  "pk": 33,
+  "model": "rest.post",
+  "fields": {
+    "item": 9,
+    "tour": 5,
+    "text": null,
+    "image": "",
+    "ordering_index": 8
   }
 }
 ]
