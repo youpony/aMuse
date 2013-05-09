@@ -9,12 +9,9 @@
     <meta name="description" content="storyteller">
     <meta name="author" content="YouPony">
 
-    {# <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" /> #}
-
     <link href='http://fonts.googleapis.com/css?family=Oxygen:400,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="{% static "papacastoro/css/reveal.css" %}" />
     <link rel="stylesheet/less" type="text/css" href="{% static "papacastoro/less/style.less" %}" />
-    
+    {% block extra-styles %}{% endblock %}
 </head>
 <body>
     <div id="wrapper"></div>
@@ -22,40 +19,6 @@
 
     <script src="{% static "js/deps/jquery-1.9.1.min.js" %}"></script>
     <script src="{% static "js/deps/less-1.3.3.min.js" %}"></script>
-    <script src="{% static "js/deps/jquery.tubular.1.0.js" %}"></script>
-    <script src="{% static "papacastoro/js/deps/reveal.min.js" %}"></script>
-    <!-- Facebook sharing -->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <!-- /Facebook -->
-    <!-- Twitter sharing -->
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    <!-- /Twitter -->
-    <script>
-        window.urls = {
-            'kiosk': "/k/",
-            'story': "/api/s/",
-            'exhibition': "/api/m/",
-            'exhibitionitem': "/api/m/<%= pk_m =>/o/",
-            'item': "/api/o/"
-        };
-    </script>
-    <script>
-        Reveal.initialize({
-            controls: false,
-            progress: true,
-            history: true,
-            center: true,
-            transition: 'page',
-        });
-    </script>
     {% block extra-script %}{% endblock %}
 </body>
 </html>

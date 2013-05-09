@@ -1,0 +1,16 @@
+{% extends "papacastoro/site_base.html" %}
+
+{% block content %}
+
+<div>
+    <p> Are you sure to delete {{ object }} ? </p>
+    <form action="." method="post">
+        {% csrf_token %}
+        <a href="{{ undo_url }}" >
+       		No
+        </a>
+        <button type="submit" value="Submit">Yes</button>
+    </form>
+</div>
+
+{% endblock content %}
