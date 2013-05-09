@@ -99,7 +99,7 @@ class ExhibitionEdit(UpdateView):
 
 class ExhibitionDelete(DeleteView):
     model = rest.Exhibition
-    template_name = 'administration/exhibition/exhibition_confirm_delete.html'
+    template_name = 'administration/confirm_delete.html'
     success_url = reverse_lazy('exhibitions_list')
     unsuccess_template = 'administration/unable_to_delete.html'
 
@@ -275,7 +275,7 @@ class ItemEdit(UpdateView):
 
 class ItemDelete(DeleteView):
     model = rest.Item
-    template_name = 'administration/item/item_confirm_delete.html'
+    template_name = 'administration/confirm_delete.html'
     unsuccess_template = 'administration/unable_to_delete.html'
 
     def get_success_url(self):
