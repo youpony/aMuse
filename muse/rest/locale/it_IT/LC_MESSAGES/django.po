@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-10 21:00+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: models.py:27 models.py:114
+msgid "name"
+msgstr "nome"
+
+#: models.py:28
+msgid "address"
+msgstr "indirizzo"
+
+#: models.py:29
+msgid "referral"
+msgstr "riferimento"
+
+#: models.py:35 models.py:44
+msgid "museum"
+msgstr "museo"
+
+#: models.py:36
+msgid "museums"
+msgstr "musei"
+
+#: models.py:45 models.py:128
+msgid "title"
+msgstr "titolo"
+
+#: models.py:46 models.py:76
+msgid "description"
+msgstr "descrizione"
+
+#: models.py:47
+msgid "start date"
+msgstr "data di inizio"
+
+#: models.py:48
+msgid "end date"
+msgstr "data di fine"
+
+#: models.py:49 models.py:131 models.py:154
+msgid "image"
+msgstr "immagine"
+
+#: models.py:67 models.py:116
+msgid "exhibition"
+msgstr "mostra"
+
+#: models.py:68
+msgid "exhibitions"
+msgstr "mostre"
+
+#: models.py:75 models.py:102 models.py:151
+msgid "item"
+msgstr "oggetto"
+
+#: models.py:77
+msgid "author"
+msgstr "autore"
+
+#: models.py:78
+msgid "year"
+msgstr "anno"
+
+#: models.py:79
+msgid "city"
+msgstr "città"
+
+#: models.py:82
+msgid "exhibitions where this item is available"
+msgstr "mostre dove é esposto l'pggetto"
+
+#: models.py:103
+msgid "items"
+msgstr "oggetti"
+
+#: models.py:110
+msgid "pubblic id"
+msgstr "id pubblico"
+
+#: models.py:112
+msgid "private id"
+msgstr "id privato"
+
+#: models.py:120
+msgid "{user}'s tour"
+msgstr "tour di {user}"
+
+#: models.py:130 models.py:138
+msgid "item image"
+msgstr "immagine dell'oggetto"
+
+#: models.py:139
+msgid "item images"
+msgstr "immagini dell'oggetto"
+
+#: models.py:147
+msgid "ordering index"
+msgstr ""
+
+#: models.py:157
+msgid "text"
+msgstr "test"
+
+#: models.py:178
+msgid "post"
+msgstr "paletto"
+
+#: models.py:179
+msgid "posts"
+msgstr "paletti"

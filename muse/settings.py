@@ -111,7 +111,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'breadcrumbs.middleware.BreadcrumbsMiddleware',
-
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'muse.urls'
@@ -137,12 +137,19 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request"
 )
 
+_ = lambda s: s
+
+LANGUAGES = (
+  ('en', _('English')),
+  ('it', _('Italian')),
+)
+
 INSTALLED_APPS = (
     'muse.kiosk',
     'muse.rest',
     'muse.papacastoro',
     'muse.administration',
-    
+
     'crispy_forms',
     'breadcrumbs',
     'south',
