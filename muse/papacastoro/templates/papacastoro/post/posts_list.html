@@ -1,4 +1,5 @@
 {% extends "papacastoro/site_base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% load staticfiles %}
@@ -11,10 +12,10 @@
 {% block content %}
 
 <header>
-  <h1>{{ tour_name }}</h1>
-  <!-- TODO. It would be nice to have the public_id here to show a preview link -pitt
-  <a href="/storyteller/XXX" target="_blank">Anteprima <i class="icon-external-link"></i></a>
-  -->
+<h1>
+    {% blocktrans %} {{ name }}'s tour {% endblocktrans %}
+    <a href="{% url 'tour' tour_public_id %}" target="_blank">{% trans "Preview" %}<i class="icon-external-link"></i></a>
+</h1>
 </header>
 <div id="post-list">
     {% for post in posts %}
@@ -28,27 +29,28 @@
                 {% endwith %}
             {% else %}
             <img class="thumb" width="50" height="50" src="{{ post.image.url }}" alt="Immagine personale">
-            <span class="user-item">Immagine personale</span>
+            <span class="user-item">{% trans "Personal image" %}</span>
             {% endif %}
         </a>
 
         <a href="{% url 'post_delete' tour_private_id post.pk %}" class="btn btn-danger btn-delete">
-          <i class="icon-trash"></i> rimuovi
+          <i class="icon-trash"></i> {% trans "Remove" %}
         </a>
       </div>
     {% endfor %}
 
   <div class="new-post post well">
     <a href="{% url 'post_add' tour_private_id %}" class="btn">
-      <i class="icon-picture"></i> aggiungi immagine
+      <i class="icon-picture"></i> {% trans "Add image" %}
     </a>
   </div>
 
 </div>
 
-<div id="form-controls" class="controls">
-  <a href="#" id="reset" class="btn">Annulla</a>
-  <a href="#" id="submit" class="btn btn-primary">Salva</a>
+
+<div id="form-controls">
+  <a href="#" id="reset" class="btn">{% trans "Undo" %}</a>
+  <a href="#" id="submit" class="btn btn-primary">{% trans "Save" %}</a>
 </div>
 
 {% endblock %}

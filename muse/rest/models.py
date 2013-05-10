@@ -135,6 +135,7 @@ class Post(models.Model):
     text = models.TextField(blank=True, null=True)
     # XXX. add pointer to the current exhibition.
 
+
     def save(self, *args, **kwargs):
         """
         Override save method to ensure that a Post is referred to at least

@@ -1,4 +1,5 @@
 {% extends "papacastoro/site_base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block extra-styles %}
@@ -13,7 +14,7 @@
   {% endfor %}
 
   {% if userimage %}
-      <img class="thumb" src={{ userimage.url }} alt="Immagine personale">
+      <img class="thumb" src={{ userimage.url }} alt="{% trans "Personal image" %}">
   {% endif %}
 
   <div class="content_form">
@@ -21,7 +22,7 @@
           {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
           {% csrf_token %}
           {{ form.as_p }}
-          <input type="submit" value="Submit" class="btn btn-primary">
+          <input type="submit" value="{% trans "Submit" %}" class="btn btn-primary">
       </form>
   </div>
 </div>
