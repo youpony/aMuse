@@ -1,9 +1,9 @@
 {% extends "administration/site_base.html" %}
-
+{% load i18n %}
 {% block content %}
 {% if perms.rest.add_item and exhibition_pk %}
 <div class='add_button'>
-    <a href="{% url 'item_add' exhibition_pk %}">add item</a>
+    <a href="{% url 'item_add' exhibition_pk %}">{% trans "add item" %}</a>
 </div>
 {% endif %}
 
@@ -33,7 +33,7 @@
             {%else%}
                 {% url 'item_no_exhibition_delete' item.pk  %}
             {% endif %}
-        ">delete</a>
+            ">{% trans "remove" %}</a>
         {% endif %}
     </div>
     {% endfor %}
@@ -41,26 +41,7 @@
 
 <br/>
 
-{% if is_paginated %}
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">
-                previous
-            </a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ page_obj.number }}
-            of {{ page_obj.paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-</div>
-{% endif %}
+{% include "administration/paginated.html" %}
 
 {% endblock content %}
 

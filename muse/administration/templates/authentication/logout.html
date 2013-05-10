@@ -1,13 +1,13 @@
 {% extends "administration/site_base.html" %}
-
+{% load i18n %}
 {% block logout %}
 {% endblock logout %}
 
 {% block content %}
 
 <div class="hero-unit">
-	<h3>Thanks for spending some quality time with me, see you soon.</h1>
-	
+    <h3>{% trans "Thanks for spending some quality time with me, see you soon." %}</h1>
+
 	<p>
 		<a href="{% url "login" %}">
 			<button class="btn btn-large btn-primary" type="button">Login</button>

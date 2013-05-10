@@ -1,16 +1,16 @@
 {% extends "administration/site_base.html" %}
-
+{% load i18n %}
 {% block content %}
 
 <div class="hero-unit centrone">
-    <p> Sei sicuro di voler eliminare {{ object }} ? </p>
+    <p>{% trans "Are you sure to delete" %} {{ object }} ? </p>
     <form action="." method="post">
         {% csrf_token %}
         <a href="{{ undo_url }}" class="btn">
        		No
         </a>
 
-        <button type="submit" value="Submit" class="btn btn-danger">Yes</button>
+        <button type="submit" value="Submit" class="btn btn-danger">{% trans "Yes" %}</button>
     </form>
 </div>
 {% endblock content %}

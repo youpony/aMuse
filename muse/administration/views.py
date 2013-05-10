@@ -11,6 +11,7 @@ from django.shortcuts import render_to_response
 from django.db.models.deletion import ProtectedError
 from django.template import RequestContext
 from django.db import transaction
+from django.utils.translation import ugettext as _
 
 from muse.administration.forms import ItemImageFormSet
 import muse.rest.models as rest
@@ -44,7 +45,7 @@ class ExhibitionCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExhibitionCreate, self).get_context_data(**kwargs)
-        context['title'] = 'Add exhibition'
+        context['title'] = _('Add exhibition')
         self.request.breadcrumbs([
             ("Home", reverse('exhibitions_list')),
         ])
@@ -74,7 +75,7 @@ class ExhibitionEdit(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExhibitionEdit, self).get_context_data(**kwargs)
-        context['title'] = 'Update exhibition'
+        context['title'] = _('Update exhibition')
         self.request.breadcrumbs([
             ("Home", reverse('exhibitions_list')),
         ])
@@ -159,7 +160,7 @@ class ItemCreate(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(ItemCreate, self).get_context_data(**kwargs)
-        context['title'] = 'Add item'
+        context['title'] = _('Add item')
 
         if self.request.POST:
             context['itemimage_formset'] = ItemImageFormSet(
@@ -172,14 +173,13 @@ class ItemCreate(CreateView):
 
         self.request.breadcrumbs([
             ("Home", reverse('exhibitions_list')),
-            ("Exhibition", reverse(
+            (_("Exhibition"), reverse(
                 'items_list', args=[self.kwargs['exhibition_pk']]
             ))
         ])
         return context
 
     def form_valid(self, form):
-        # some hack i will fix for next release
         with transaction.commit_manually():
             try:
                 super(ItemCreate, self).form_valid(form)
@@ -224,7 +224,7 @@ class ItemEdit(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ItemEdit, self).get_context_data(**kwargs)
-        context['title'] = 'Update item'
+        context['title'] = _('Update item')
 
         if self.request.POST:
             context['itemimage_formset'] = ItemImageFormSet(
@@ -239,7 +239,7 @@ class ItemEdit(UpdateView):
 
         if 'exhibition_pk' in kwargs:
             self.request.breadcrumbs(
-                "Exhibition",
+                _("Exhibition"),
                 reverse('items_list', args=[kwargs['exhibition_pk']])
             )
 
@@ -292,7 +292,7 @@ class ItemDelete(DeleteView):
 
         if 'exhibition_pk' in kwargs:
             self.request.breadcrumbs(
-                "Exhibition",
+                _("Exhibition"),
                 reverse('items_list', args=[kwargs['exhibition_pk']])
             )
             context['undo_url'] = reverse(

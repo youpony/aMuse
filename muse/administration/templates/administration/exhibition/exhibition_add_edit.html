@@ -1,15 +1,15 @@
 {% extends "administration/site_base.html" %}
 {% load crispy_forms_tags %}
-
+{% load i18n %}
 {% block content %}
-<div class="well">	
+<div class="well">
 	<h2>{{ title }}</h2>
-	
+
 	<form class="form-horizontal" action="{{ request.get_full_path }}" method="post"
 	        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
 	    {% csrf_token %}
 	    {% crispy form %}
-	    <button type="submit" value="Submit" class="btn">Submit</button>
+        <button type="submit" value="Submit" class="btn">{% trans "Submit" %}</button>
 	</form>
 </div>
 

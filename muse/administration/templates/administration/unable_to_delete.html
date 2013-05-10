@@ -1,10 +1,10 @@
 {% extends "administration/site_base.html" %}
 
-
+{% load i18n %}
 {% block content %}
 
 <div class="hero-unit">
-    <h3>Unable to delete item due to database constraint:</h3>
+    <h3>{% trans "Unable to delete item due to database constraint" %}: </h3>
 
     <p>{{error}}</p>
 </div>

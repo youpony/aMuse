@@ -1,0 +1,118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-10 21:34+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: views.py:48
+msgid "Add exhibition"
+msgstr "Aggiungi mostra"
+
+#: views.py:78
+msgid "Update exhibition"
+msgstr "Aggiorna mostra"
+
+#: views.py:163
+msgid "Add item"
+msgstr "Aggiungi oggetto"
+
+#: views.py:176 views.py:242 views.py:295
+msgid "Exhibition"
+msgstr "Mostra"
+
+#: views.py:227
+msgid "Update item"
+msgstr "Aggiorna oggetto"
+
+#: templates/administration/confirm_delete.html:6
+msgid "Are you sure to delete"
+msgstr "Sei sicuro di voler eliminare"
+
+#: templates/administration/confirm_delete.html:13
+msgid "Yes"
+msgstr "Si"
+
+#: templates/administration/paginated.html:8
+msgid "previous"
+msgstr "precedente"
+
+#: templates/administration/paginated.html:13
+msgid "Page"
+msgstr "Pagina"
+
+#: templates/administration/paginated.html:14
+msgid "of"
+msgstr "di"
+
+#: templates/administration/paginated.html:18
+msgid "next"
+msgstr "successivo"
+
+#: templates/administration/unable_to_delete.html:7
+msgid "Unable to delete item due to database constraint"
+msgstr ""
+"Impossibile eliminare l'elemento a causa di violazione dei vincoli del "
+"database"
+
+#: templates/administration/exhibition/exhibition_add_edit.html:12
+#: templates/administration/item/item_add_edit.html:25
+msgid "Submit"
+msgstr "Invia"
+
+#: templates/administration/exhibition/exhibitions_list.html:8
+msgid "add exhibition"
+msgstr "aggiungi mostra"
+
+#: templates/administration/exhibition/exhibitions_list.html:18
+msgid "Information"
+msgstr "Informazioni"
+
+#: templates/administration/exhibition/exhibitions_list.html:19
+#, python-format
+msgid ""
+"Sorry but one of your exhibitions deletion cause\n"
+"                %(item_without_exhibition)s items to have no exhibition,\n"
+"                please check the  "
+msgstr ""
+"Siamo spiacenti ma la cancellazione di alcune sue mostre a portato\n"
+"                %(item_without_exhibition)s oggetti a non aver una mostra,\n"
+"                prego controllare   "
+
+#: templates/administration/exhibition/exhibitions_list.html:22
+msgid "list"
+msgstr "lista"
+
+#: templates/administration/exhibition/exhibitions_list.html:44
+msgid "items"
+msgstr "oggetti"
+
+#: templates/administration/exhibition/exhibitions_list.html:48
+#: templates/administration/item/items_list.html:36
+msgid "remove"
+msgstr "rimuovi"
+
+#: templates/administration/item/items_list.html:6
+msgid "add item"
+msgstr "aggiungi oggetto"
+
+#: templates/authentication/login.html:6
+msgid "Your username and password didn't match. Please try again."
+msgstr ""
+"Il nome utente e la password inseriti non sono validi. Prego riprovare."
+
+#: templates/authentication/logout.html:9
+msgid "Thanks for spending some quality time with me, see you soon."
+msgstr "Grazie di aver passato del tempo con me, ci vediamo presto."
