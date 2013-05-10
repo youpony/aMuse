@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-10 19:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: templates/papacastoro/post/post_comment.html:17
+#: templates/papacastoro/post/post_confirm_delete.html:13
+#: templates/papacastoro/post/posts_list.html:32
+msgid "Personal image"
+msgstr "Immagine personale"
+
+#: templates/papacastoro/post/post_comment.html:25
+#: templates/papacastoro/post/post_confirm_delete.html:19
+#: templates/papacastoro/post/post_personal.html:18
+msgid "Submit"
+msgstr "Invia"
+
+#: templates/papacastoro/post/post_confirm_delete.html:13
+msgid "Are you sure to delete"
+msgstr "Sei sicuro di voler eliminare"
+
+#: templates/papacastoro/post/post_confirm_delete.html:20
+msgid "Yes"
+msgstr "Si"
+
+#: templates/papacastoro/post/posts_list.html:16
+#, python-format
+msgid " %(name)s's tour "
+msgstr " Tour di %(name)s "
+
+#: templates/papacastoro/post/posts_list.html:17
+msgid "Preview"
+msgstr "Anteprima"
+
+#: templates/papacastoro/post/posts_list.html:37
+msgid "Remove"
+msgstr "Rimuovi"
+
+#: templates/papacastoro/post/posts_list.html:44
+msgid "Add image"
+msgstr "Aggiungi immagine"
+
+#: templates/papacastoro/post/posts_list.html:52
+msgid "Undo"
+msgstr "Annulla"
+
+#: templates/papacastoro/post/posts_list.html:53
+msgid "Save"
+msgstr "Salva"
