@@ -113,7 +113,8 @@ class Tour(models.Model):
                                   max_length=64, unique=True, editable=False)
     name = models.CharField(_('name'), max_length=60)
     email = models.EmailField(max_length=254)
-    exhibition = models.ForeignKey(Exhibition, verbose_name=_('exhibition'))
+    exhibition = models.ForeignKey(Exhibition, on_delete=models.PROTECT,
+                                   verbose_name=_('exhibition'))
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
