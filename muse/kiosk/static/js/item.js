@@ -49,10 +49,12 @@ $(function () {
           $endButton.show();
         else $endButton.hide();
       },
+      generateColor: function (x) {
+        return x < 0 ? Math.pow((x + 1), 6) * 50 : 100 - Math.pow((1 - x), 6) * 50;
+      },
       render: function () {
-        console.log(this.model.toJSON())
         var tmplData = $.extend({}, this.model.toJSON(), {
-          'color': (this.model.get('sentiment') +1)/2*100
+          'color': this.generateColor(this.model.get('sentiment'))
         });
         $(this.el).html(this.template(tmplData));
         return this;
