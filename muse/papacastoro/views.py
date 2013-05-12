@@ -117,6 +117,7 @@ class PostComment(UpdateView):
             post.item.itemimage_set.all() if post.item else None
         )
         context['userimage'] = post.image
+        context['title'] = post.item.name
         return context
 
 

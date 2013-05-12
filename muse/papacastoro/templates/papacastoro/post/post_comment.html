@@ -9,12 +9,13 @@
 
 {% block content %}
 <div id="post-edit" class="well">
+  <h3>{{ title }}</h3>
   {% for itemimage in itemimages %}
       <img class="thumb" src="{{ itemimage.image.url }}" alt="{{ itemimage.title }}">
   {% endfor %}
 
   {% if userimage %}
-      <img class="thumb" src={{ userimage.url }} alt="{% trans "Personal image" %}">
+      <img class="thumb" src="{{ userimage.url }}" alt="{% trans "Personal image" %}">
   {% endif %}
 
   <div class="content_form">
@@ -22,7 +23,10 @@
           {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
           {% csrf_token %}
           {{ form.as_p }}
-          <input type="submit" value="{% trans "Submit" %}" class="btn btn-primary">
+          <div class="text-right">
+              <a href="javascript:history.go(-1)" class="btn">{% trans "Back" %}</a>
+              <input type="submit" value="{% trans "Submit" %}" class="btn btn-primary">
+          </div>
       </form>
   </div>
 </div>
