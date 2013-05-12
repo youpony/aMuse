@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
 
 from ajaxutils.decorators import ajax
 from muse.rest.models import Tour, Post
@@ -117,7 +118,7 @@ class PostComment(UpdateView):
             post.item.itemimage_set.all() if post.item else None
         )
         context['userimage'] = post.image
-        context['title'] = post.item.name
+        context['title'] = post.item.name if post.item else _("Personal image")
         context['url'] = post.tour.private_id
         return context
 
