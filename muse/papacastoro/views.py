@@ -118,6 +118,7 @@ class PostComment(UpdateView):
         )
         context['userimage'] = post.image
         context['title'] = post.item.name
+        context['url'] = post.tour.private_id
         return context
 
 

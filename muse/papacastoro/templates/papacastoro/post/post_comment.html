@@ -24,7 +24,7 @@
           {% csrf_token %}
           {{ form.as_p }}
           <div class="text-right">
-              <a href="javascript:history.go(-1)" class="btn">{% trans "Back" %}</a>
+              <a href="{% url "posts_list" url %}" class="btn">{% trans "Back" %}</a>
               <input type="submit" value="{% trans "Submit" %}" class="btn btn-primary">
           </div>
       </form>
