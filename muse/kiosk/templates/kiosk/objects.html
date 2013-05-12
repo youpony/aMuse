@@ -69,24 +69,26 @@
             </h1>
             <h4 class="text-center"> <%= author %> <%= year %></h4>
 
+
             <div class="first-image-wrapper">
                 <% if(images.length !==1) { %>
-                <p class="text-center">
-                    <% for(var i in images) { %>
-                    <div style="position: relative; height: 70px; width: 70px; display: inline-block;">
-                        <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" />
+                    <div class="text-center" style="margin-bottom: 10px;">
+                        <% for(var i in images) { %>
+                        <div style="position: relative; height: 50px; width: 50px; display: inline-block; vertical-align: top; overflow: hidden;">
+                            <img class="other-images" src="<%= images[i] %>" alt="<%= name %>" />
+                        </div>
+                        <% } %>
                     </div>
-                    <% } %>
-                </p>
                 <% } %>
                 <div style="position: relative;">
                     <i class="icon-star <% if(active){ %>icon-star-active<% } %>"></i>
                     <img class="first-image" src="<%= images[0] %>" alt="<%= name %>" width="250" /><br>
                 </div>
             </div>
-
             <blockquote><%= desc %></blockquote>
         </article>
+            <div class="clearfix"></div>
+            <p style="margin-left: 10px; padding-left: 10px; border-left: 5px solid hsl(<%= color %>, 60%, 50%);">L' elaborazione dei tweet riguardo quest'opera hanno valore <%= sentiment > 0 ? "positivo" : "negativo" %></p>
     </script>
 
     <script type="text/template" id="exhibition_detail_template">

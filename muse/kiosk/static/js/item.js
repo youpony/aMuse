@@ -4,7 +4,10 @@
 $(function () {
   "use strict";
 
-  var Item = Backbone.Model.extend({
+  var generateColor = function (x) {
+      return x < 0 ? Math.pow((x + 1), 6) * 50 : 100 - Math.pow((1 - x), 6) * 50;
+    }
+    , Item = Backbone.Model.extend({
       defaults: {
         images: [],
         sentiment: 0.4
@@ -49,12 +52,9 @@ $(function () {
           $endButton.show();
         else $endButton.hide();
       },
-      generateColor: function (x) {
-        return x < 0 ? Math.pow((x + 1), 6) * 50 : 100 - Math.pow((1 - x), 6) * 50;
-      },
       render: function () {
         var tmplData = $.extend({}, this.model.toJSON(), {
-          'color': this.generateColor(this.model.get('sentiment'))
+          'color': generateColor(this.model.get('sentiment'))
         });
         $(this.el).html(this.template(tmplData));
         return this;
@@ -105,7 +105,11 @@ $(function () {
       render: function (e) {
         var $this = $(this.el)
           , $star = $('article[data-pk=' + this.model.id + ']')
-          , tmplData = $.extend({}, this.model.toJSON(), {'active': $star.find('i').is('.icon-star-active')});
+          , tmplData = $.extend({}, this.model.toJSON(), {
+            'active': $star.find('i').is('.icon-star-active'),
+            'color': generateColor(this.model.get('sentiment')),
+            'sentiment': Math.round(this.model.get('sentiment') * 100) / 100
+          });
         $('#sidebar-detail').html($this.html(this.template(tmplData)));
         return this;
       }
