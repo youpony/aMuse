@@ -15,7 +15,7 @@
 <h1>
     {% blocktrans %} {{ name }}'s tour {% endblocktrans %}
 </h1>
-<a href="{% url 'tour' tour_public_id %}" target="_blank">{% trans "Preview" %}<i class="icon-external-link"></i></a>
+<a href="{% url 'tour' tour_public_id %}" target="_blank">{% trans "Preview" %} <i class="icon-external-link"></i></a>
 </header>
 <div id="post-list">
     {% for post in posts %}
