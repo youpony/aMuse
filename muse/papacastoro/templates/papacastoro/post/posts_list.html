@@ -14,8 +14,8 @@
 <header>
 <h1>
     {% blocktrans %} {{ name }}'s tour {% endblocktrans %}
-    <a href="{% url 'tour' tour_public_id %}" target="_blank">{% trans "Preview" %}<i class="icon-external-link"></i></a>
 </h1>
+<a href="{% url 'tour' tour_public_id %}" target="_blank">{% trans "Preview" %}<i class="icon-external-link"></i></a>
 </header>
 <div id="post-list">
     {% for post in posts %}
@@ -47,12 +47,6 @@
 
 </div>
 
-
-<div id="form-controls">
-  <a href="#" id="reset" class="btn">{% trans "Undo" %}</a>
-  <a href="#" id="submit" class="btn btn-primary">{% trans "Save" %}</a>
-</div>
-
 {% endblock %}
 
 {% block extra-script %}
@@ -77,26 +71,6 @@
             });
         },
         placeholder: "post placeholder well"
-    });
-
-    var controls = $('#form-controls');
-    controls.find('#reset').on('click', function () {
-        location.reload();
-    });
-    controls.find('#submit').on('click', function () {
-        var result = list.sortable('serialize', {
-            attribute: 'data-order'
-        });
-        $.ajax({
-            url: "{% url 'sort_post'%}",
-            type: "post",
-            datatype: "json",
-            data: {
-                order: result,
-                tour_private_id: '{{ tour_private_id }}'
-            }
-        });
-        console.log(result);
     });
 </script>
 {% endblock %}
