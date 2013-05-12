@@ -8,24 +8,27 @@
 {% endblock %}
 
 {% block content %}
-<div id="post-edit" class="well">
-  <h3>{{ title }}</h3>
-  {% for itemimage in itemimages %}
-      <img class="thumb" src="{{ itemimage.image.url }}" alt="{{ itemimage.title }}">
-  {% endfor %}
+  <h3><a href="{% url "posts_list" url %}">list</a> > {{ title }}</h3>
+    <hr>
+<div id="post-edit" class="row-fluid">
+    <div class="span4">
+        {% if itemimages %}
+            <img class="thumb" src="{{ itemimages.0.image.url }}" alt="{{ itemimages.0.title }}">
+        {% endif %}
+        {% if userimage %}
+            <img class="thumb" src="{{ userimage.url }}" alt="{% trans "Personal image" %}">
+        {% endif %}
+    </div>
 
-  {% if userimage %}
-      <img class="thumb" src="{{ userimage.url }}" alt="{% trans "Personal image" %}">
-  {% endif %}
 
-  <div class="content_form">
+  <div class="content_form span8">
       <form id="edit_form" action="{{ request.get_full_path }}" method="post"
           {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
           {% csrf_token %}
-          {{ form.as_p }}
-          <div class="text-right">
+          {{ form.text }}
+          <div class="text-right well border-box">
               <a href="{% url "posts_list" url %}" class="btn">{% trans "Back" %}</a>
-              <input type="submit" value="{% trans "Submit" %}" class="btn btn-primary">
+              <input type="submit" value="{% trans "Save" %}" class="btn btn-primary">
           </div>
       </form>
   </div>

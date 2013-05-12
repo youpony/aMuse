@@ -71,17 +71,17 @@ header {
 #post-edit {
   text-align: center;
 
-  .thumb {
-    max-width: 250px;
-    max-height: 250px;
-  }
-
-  label[for=id_text] {
+  label[for="id_text"] {
     display: none;
   }
 
   #id_text {
-    width: 90%;
-    margin: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
   }
+}
+
+.border-box {
+  box-sizing: border-box;
 }
