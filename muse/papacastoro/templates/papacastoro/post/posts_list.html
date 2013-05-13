@@ -17,9 +17,9 @@
 </h1>
 <a href="{% url 'tour' tour_public_id %}" target="_blank">{% trans "Preview" %} <i class="icon-external-link"></i></a>
 </header>
-<div id="post-list">
+<ul id="post-list">
     {% for post in posts %}
-    <div class="post well" data-order="post_{{ post.pk }}">
+    <li class="post well" data-order="post_{{ post.pk }}">
 
         <a href="{% url 'post_comment' tour_private_id post.pk %}">
             {% if post.item %}
@@ -33,19 +33,25 @@
             {% endif %}
         </a>
 
-        <a href="{% url 'post_delete' tour_private_id post.pk %}" class="btn btn-danger btn-delete">
-          <i class="icon-trash"></i> {% trans "Remove" %}
-        </a>
-      </div>
+        <span class="post-actions">
+          <a href="{% url 'post_comment' tour_private_id post.pk %}" class="btn btn-primary">
+            <i class="icon-edit"></i> {% trans "Edit" %}
+          </a>
+          <a href="{% url 'post_delete' tour_private_id post.pk %}" class="btn btn-danger">
+            <i class="icon-trash"></i> {% trans "Remove" %}
+          </a>
+        </span>
+        <a href="{% url 'post_comment' tour_private_id post.pk %}" class="wrap"></a>
+      </li>
     {% endfor %}
 
-  <div class="new-post post well">
+  <li class="new-post post well">
     <a href="{% url 'post_add' tour_private_id %}" class="btn">
       <i class="icon-picture"></i> {% trans "Add image" %}
     </a>
-  </div>
+  </li>
 
-</div>
+</ul>
 
 {% endblock %}
 

@@ -14,11 +14,26 @@ header {
 }
 
 #post-list {
+  margin: 0;
 
   .post {
     height: 3.5em;
     vertical-align: middle;
     cursor: move;
+    list-style: none;
+    position: relative;
+  }
+
+  a.wrap {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    cursor: move;
+    z-index: 1;
   }
 
   .new-post {
@@ -39,8 +54,10 @@ header {
     font-style: italic;
   }
 
-  .btn-delete {
+  .post-actions {
     float: right;
+    z-index: 2;
+    position: relative;
   }
 
   .btn {
