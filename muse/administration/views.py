@@ -107,6 +107,7 @@ class ExhibitionDelete(DeleteView):
     def get_context_data(self, **kwargs):
         context = super(ExhibitionDelete, self).get_context_data(**kwargs)
         context['undo_url'] = reverse('exhibitions_list')
+        self.request.breadcrumbs("Home", reverse('exhibitions_list'))
         return context
 
     def delete(self, request, *args, **kwargs):
@@ -171,12 +172,18 @@ class ItemCreate(CreateView):
                 instance=self.object
             )
 
-        self.request.breadcrumbs([
-            ("Home", reverse('exhibitions_list')),
-            (_("Exhibition"), reverse(
-                'items_list', args=[self.kwargs['exhibition_pk']]
-            ))
-        ])
+        self.request.breadcrumbs("Home", reverse('exhibitions_list'))
+
+        if 'exhibition_pk' in self.kwargs:
+            self.request.breadcrumbs(
+                _("Exhibition"),
+                reverse('items_list', args=[self.kwargs['exhibition_pk']])
+            )
+        else:
+            self.request.breadcrumbs(
+                _("Items"),
+                reverse('item_no_exhibition_list')
+            )
         return context
 
     def form_valid(self, form):
@@ -237,10 +244,15 @@ class ItemEdit(UpdateView):
 
         self.request.breadcrumbs("Home", reverse('exhibitions_list'))
 
-        if 'exhibition_pk' in kwargs:
+        if 'exhibition_pk' in self.kwargs:
             self.request.breadcrumbs(
                 _("Exhibition"),
-                reverse('items_list', args=[kwargs['exhibition_pk']])
+                reverse('items_list', args=[self.kwargs['exhibition_pk']])
+            )
+        else:
+            self.request.breadcrumbs(
+                _("Items"),
+                reverse('item_no_exhibition_list')
             )
 
         return context
@@ -290,15 +302,19 @@ class ItemDelete(DeleteView):
         context = super(ItemDelete, self).get_context_data(**kwargs)
         self.request.breadcrumbs("Home", reverse('exhibitions_list'))
 
-        if 'exhibition_pk' in kwargs:
+        if 'exhibition_pk' in self.kwargs:
             self.request.breadcrumbs(
                 _("Exhibition"),
-                reverse('items_list', args=[kwargs['exhibition_pk']])
+                reverse('items_list', args=[self.kwargs['exhibition_pk']])
             )
             context['undo_url'] = reverse(
-                'items_list', args=[kwargs['exhibition_pk']]
+                'items_list', args=[self.kwargs['exhibition_pk']]
             )
         else:
+            self.request.breadcrumbs(
+                _("Items"),
+                reverse('item_no_exhibition_list')
+            )
             context['undo_url'] = reverse('item_no_exhibition_list')
 
         return context

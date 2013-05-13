@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-10 21:34+0200\n"
+"POT-Creation-Date: 2013-05-13 20:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,11 +29,15 @@ msgstr "Aggiorna mostra"
 msgid "Add item"
 msgstr "Aggiungi oggetto"
 
-#: views.py:176 views.py:242 views.py:295
+#: views.py:178 views.py:248 views.py:306
 msgid "Exhibition"
 msgstr "Mostra"
 
-#: views.py:227
+#: views.py:183 views.py:253 views.py:314
+msgid "Items"
+msgstr "Oggetti"
+
+#: views.py:233
 msgid "Update item"
 msgstr "Aggiorna oggetto"
 
@@ -108,7 +112,7 @@ msgstr "rimuovi"
 msgid "add item"
 msgstr "aggiungi oggetto"
 
-#: templates/authentication/login.html:6
+#: templates/authentication/login.html:9
 msgid "Your username and password didn't match. Please try again."
 msgstr ""
 "Il nome utente e la password inseriti non sono validi. Prego riprovare."
