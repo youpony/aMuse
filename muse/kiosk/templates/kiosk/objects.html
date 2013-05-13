@@ -1,5 +1,6 @@
 {% extends "kiosk/site_base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
     <div id="main">
@@ -8,9 +9,9 @@
 
         <div id="end_exhibition_form" style="display: none;">
             <form>
-                <input type="text" id="inputFullname" placeholder="fullname">
+                <input type="text" id="inputFullname" placeholder="{% trans "fullname"%}">
                 <input type="email" id="inputEmail" placeholder="email">
-                <button type="submit" class="btn">send</button>
+                <button type="submit" class="btn">{% trans "send" %}</button>
                 <div class="clearfix"></div>
             </form>
         </div>
@@ -44,7 +45,7 @@
             $.post(window.urls.story, data).done(function (r) {
                 window.location.href = window.urls.kiosk;
             }).fail(function () {
-                alert('Sorry, something went wrong!');
+                alert('{% trans "Sorry, something went wrong" %}!');
             });
         });
     </script>
@@ -64,7 +65,7 @@
         <article class="item-detail" data-pk="<%= id %>">
 
             <h1 class="text-center">
-                <span id="close-button"><i class="icon-arrow-left"></i> Chiudi</span>
+                <span id="close-button"><i class="icon-arrow-left"></i> {% trans "Close" %}</span>
                 <span><%= name %></span>
             </h1>
             <h4 class="text-center"> <%= author %> <%= year %></h4>
@@ -88,15 +89,15 @@
             <blockquote><%= desc %></blockquote>
         </article>
             <div class="clearfix"></div>
-            <p style="margin-left: 10px; padding-left: 10px; border-left: 5px solid hsl(<%= color %>, 60%, 50%);">L' elaborazione dei tweet riguardo quest'opera hanno valore <%= sentiment > 0 ? "positivo" : "negativo" %></p>
+            <p style="margin-left: 10px; padding-left: 10px; border-left: 5px solid hsl(<%= color %>, 60%, 50%);">{% trans "Tweets about this items are" %} <%= sentiment > 0 ? "{% trans "positive" %}" : "{% trans "negative" %}" %></p>
     </script>
 
     <script type="text/template" id="exhibition_detail_template">
         <article>
             <h1 class="text-center">
-                <span id="back-button"><i class="icon-arrow-left"></i> Indietro</span>
+                <span id="back-button"><i class="icon-arrow-left"></i> {% trans "Back" %}</span>
                 <span><%= title %></span>
-                <span id="end-button" style="display: none;">Fine <i class="icon-arrow-right"></i></span>
+                <span id="end-button" style="display: none;">{% trans "End" %} <i class="icon-arrow-right"></i></span>
             </h1>
             <h4 class="text-center"><%= description %></h4>
         </article>
