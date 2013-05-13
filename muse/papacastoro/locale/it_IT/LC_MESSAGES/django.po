@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-13 13:30+0200\n"
+"POT-Creation-Date: 2013-05-13 14:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,14 @@ msgstr ""
 #: templates/papacastoro/post/posts_list.html:32
 msgid "Personal image"
 msgstr "Immagine personale"
+
+#: templates/papacastoro/index.html:51
+msgid "Share this tour"
+msgstr "Condividi questo tour"
+
+#: templates/papacastoro/site_base.html:10
+msgid "See my tour"
+msgstr "Guarda il mio tour"
 
 #: templates/papacastoro/post/post_comment.html:11
 #: templates/papacastoro/post/post_personal.html:13

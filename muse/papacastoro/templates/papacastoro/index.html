@@ -1,5 +1,6 @@
 {% extends "papacastoro/site_base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block extra-styles %}
     <link rel="stylesheet" type="text/css" href="{% static "papacastoro/css/reveal.css" %}" />
@@ -8,7 +9,7 @@
 {% block content %}
 <div class="reveal">
   <div class="slides">
-    <section class="tour-post tour-cover"><h1>{{ tour }}<h1></section>
+    <section class="tour-post tour-cover"><h1>{{ tour|capfirst }}<h1></section>
       {% for p in posts %}
         {% if p.image %}
         <section class="tour-post user-image">
@@ -47,7 +48,7 @@
         </section>
       {% endfor %}
     <section class="tour-post tour-share">
-      <h2>Share this tour!</h2>
+    <h2>{% trans "Share this tour" %}!</h2>
       <a href="http://www.facebook.com/sharer.php?u=http://{{ host }}/storyteller/{{ tour.public_id }}">
             <i class="icon-facebook icon-4x"></i>
         </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
