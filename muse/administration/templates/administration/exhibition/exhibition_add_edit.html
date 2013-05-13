@@ -2,6 +2,8 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block content %}
+{% load staticfiles %}
+
 <div class="well">
 	<h2>{{ title }}</h2>
 
@@ -9,7 +11,7 @@
 	        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
 	    {% csrf_token %}
 	    {% crispy form %}
-        <button type="submit" value="Submit" class="btn">{% trans "Submit" %}</button>
+        <button type="submit" value="Submit" class="btn btn-primary">{% trans "Submit" %}</button>
 	</form>
 </div>
 
