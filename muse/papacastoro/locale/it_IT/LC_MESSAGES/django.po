@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-10 19:46+0200\n"
+"POT-Creation-Date: 2013-05-13 13:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,47 +16,57 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: templates/papacastoro/post/post_comment.html:17
+#: views.py:121 templates/papacastoro/post/post_comment.html:19
 #: templates/papacastoro/post/post_confirm_delete.html:13
 #: templates/papacastoro/post/posts_list.html:32
 msgid "Personal image"
 msgstr "Immagine personale"
 
-#: templates/papacastoro/post/post_comment.html:25
-#: templates/papacastoro/post/post_confirm_delete.html:19
-#: templates/papacastoro/post/post_personal.html:18
-msgid "Submit"
-msgstr "Invia"
+#: templates/papacastoro/post/post_comment.html:11
+#: templates/papacastoro/post/post_personal.html:13
+msgid "List"
+msgstr "Lista"
+
+#: templates/papacastoro/post/post_comment.html:30
+#: templates/papacastoro/post/post_personal.html:28
+msgid "Back"
+msgstr "Indietro"
+
+#: templates/papacastoro/post/post_comment.html:31
+msgid "Save"
+msgstr "Salva"
 
 #: templates/papacastoro/post/post_confirm_delete.html:13
 msgid "Are you sure to delete"
 msgstr "Sei sicuro di voler eliminare"
 
+#: templates/papacastoro/post/post_confirm_delete.html:19
+#: templates/papacastoro/post/post_personal.html:29
+msgid "Submit"
+msgstr "Invia"
+
 #: templates/papacastoro/post/post_confirm_delete.html:20
 msgid "Yes"
 msgstr "Si"
+
+#: templates/papacastoro/post/post_personal.html:14
+#: templates/papacastoro/post/posts_list.html:50
+msgid "Add image"
+msgstr "Aggiungi immagine"
 
 #: templates/papacastoro/post/posts_list.html:16
 #, python-format
 msgid " %(name)s's tour "
 msgstr " Tour di %(name)s "
 
-#: templates/papacastoro/post/posts_list.html:17
+#: templates/papacastoro/post/posts_list.html:18
 msgid "Preview"
 msgstr "Anteprima"
 
-#: templates/papacastoro/post/posts_list.html:37
+#: templates/papacastoro/post/posts_list.html:38
+msgid "Edit"
+msgstr "Modifica"
+
+#: templates/papacastoro/post/posts_list.html:41
 msgid "Remove"
 msgstr "Rimuovi"
-
-#: templates/papacastoro/post/posts_list.html:44
-msgid "Add image"
-msgstr "Aggiungi immagine"
-
-#: templates/papacastoro/post/posts_list.html:52
-msgid "Undo"
-msgstr "Annulla"
-
-#: templates/papacastoro/post/posts_list.html:53
-msgid "Save"
-msgstr "Salva"
