@@ -9,6 +9,7 @@ from django.dispatch import Signal, receiver
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 
 def csrng_key():
@@ -199,15 +200,15 @@ def notify_email(sender, **kwargs):
        Hey {nickname}!
        Somebody, hopefully you, crated a new story.
        Here is your public link: {publink}
-       Here is your editable link, do not share this with no one! {privlink}.
+       Here is your editable link: {privlink}, do not share this with no one!.
 
        Sincerly yours,
         -- {mname} Notification System
     '''.format(
         mname=museum.name,
         nickname=tour.name,
-        publink=genurl(pk=tour.public_id),
-        privlink=genurl(pk=tour.private_id),
+        publink=genurl(reverse('tour', args=[tour.public_id])),
+        privlink=genurl(reverse('posts_list', args=[tour.private_id])),
     )
 
     # XXX. send as mime message? correct format?

@@ -194,8 +194,8 @@ class StoryView(AjaxMixin, View):
         models.notify_email(
             sender='story_view',
             tour=t,
-            url=lambda pk: (str(request.get_host()) +
-                            '/storyteller/{0}/'.format(pk)),
+            url=lambda relative_url: (str(request.get_host()) +
+                                      '{0}'.format(relative_url)),
         )
         return {'status': 'completed'}
 
