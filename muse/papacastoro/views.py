@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
+from django.utils.translation import ugettext_lazy as _
 
 from ajaxutils.decorators import ajax
 from muse.rest.models import Tour, Post
@@ -68,7 +69,8 @@ class PostList(ListView):
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data(**kwargs)
         context['tour_private_id'] = self.kwargs['private_id']
-        context['tour_name'] = 'Tour di ' + self.tour.name
+        context['tour_public_id'] = self.tour.public_id
+        context['name'] = self.tour.name
         return context
 
 
@@ -116,6 +118,8 @@ class PostComment(UpdateView):
             post.item.itemimage_set.all() if post.item else None
         )
         context['userimage'] = post.image
+        context['title'] = post.item.name if post.item else _("Personal image")
+        context['url'] = post.tour.private_id
         return context
 
 

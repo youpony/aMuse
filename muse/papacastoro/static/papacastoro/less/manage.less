@@ -16,7 +16,17 @@ header {
 #post-list {
 
   .post {
+    height: 3.5em;
     vertical-align: middle;
+    cursor: move;
+  }
+
+  .new-post {
+    cursor: default;
+  }
+
+  .placeholder {
+    background: #ffe;
   }
 
   .thumb {
@@ -31,6 +41,9 @@ header {
 
   .btn-delete {
     float: right;
+  }
+
+  .btn {
     margin: 10px;
   }
 
@@ -45,9 +58,45 @@ header {
 
 #form-controls {
   display: none;
-  text-align: right;
 
   .btn {
     margin: 10px;
   }
+}
+
+.controls {
+  text-align: right;
+}
+
+.dialog {
+  max-width: 480px;
+  margin: 25% auto;
+}
+
+#post-edit {
+  text-align: center;
+
+  label[for="id_text"] {
+    display: none;
+  }
+
+  #id_text {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  #id_image {
+    line-height: inherit;
+  }
+
+  #upload-preview {
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.border-box {
+  box-sizing: border-box;
 }

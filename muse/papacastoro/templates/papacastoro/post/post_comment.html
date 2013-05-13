@@ -1,21 +1,36 @@
 {% extends "papacastoro/site_base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block extra-styles %}
+<link href="{% static "papacastoro/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+<link href="{% static "papacastoro/less/manage.less" %}" rel="stylesheet/less" type="text/css">
+{% endblock %}
 
 {% block content %}
+  <h3><a href="{% url "posts_list" url %}"><i class="icon-list"></i> list</a> > {{ title }}</h3>
+    <hr>
+<div id="post-edit" class="row-fluid">
+    <div class="span4">
+        {% if itemimages %}
+            <img class="thumb" src="{{ itemimages.0.image.url }}" alt="{{ itemimages.0.title }}">
+        {% endif %}
+        {% if userimage %}
+            <img class="thumb" src="{{ userimage.url }}" alt="{% trans "Personal image" %}">
+        {% endif %}
+    </div>
 
-{% for itemimage in itemimages %}
-    <img src="{{ itemimage.image.url }}" alt="{{ itemimage.title }}">
-{% endfor %}
 
-{% if userimage %}
-    <img src={{ userimage.url }} alt="Immagine personale">
-{% endif %}
-
-<div class="content_form">
-    <form id= "edit_form" action="{{ request.get_full_path }}" method="post"
-        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit" />
-    </form>
+  <div class="content_form span8">
+      <form id="edit_form" action="{{ request.get_full_path }}" method="post"
+          {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+          {% csrf_token %}
+          {{ form.text }}
+          <div class="text-right well border-box">
+              <a href="{% url "posts_list" url %}" class="btn">{% trans "Back" %}</a>
+              <input type="submit" value="{% trans "Save" %}" class="btn btn-primary">
+          </div>
+      </form>
+  </div>
 </div>
 {% endblock %}
