@@ -83,7 +83,7 @@ msgstr "città"
 
 #: models.py:82
 msgid "exhibitions where this item is available"
-msgstr "mostre dove é esposto l'pggetto"
+msgstr "mostre in cui è esposto l'oggetto"
 
 #: models.py:103
 msgid "items"
@@ -119,8 +119,8 @@ msgstr "test"
 
 #: models.py:178
 msgid "post"
-msgstr "paletto"
+msgstr "elemento"
 
 #: models.py:179
 msgid "posts"
-msgstr "paletti"
+msgstr "elementi"
