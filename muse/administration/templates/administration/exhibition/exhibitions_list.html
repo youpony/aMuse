@@ -2,8 +2,6 @@
 {% load i18n %}
 {% block content %}
 
-
-{#<div>#}
 {% if item_without_exhibition > 0 %}
     <div class="alert">
             <b>{% trans "Information" %}: </b>
@@ -50,10 +48,8 @@
 {% if not exhibitions.count|divisibleby:"3" %}
     </div>
 {% endif %}
-<br/>
 
-{% include "administration/paginated.html" %}
+    {% include "administration/paginated.html" %}
 
-</div>
 {% endblock content %}
 
