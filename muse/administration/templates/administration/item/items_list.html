@@ -1,54 +1,58 @@
 {% extends "administration/site_base.html" %}
 {% load i18n %}
 {% block content %}
-{% if perms.rest.add_item and exhibition_pk %}
-<div class='add_button'>
-    <a href="{% url 'item_add' exhibition_pk %}">{% trans "add item" %}</a>
-</div>
-{% endif %}
+    {% if perms.rest.add_item and exhibition_pk %}
+        <a href="{% url 'item_add' exhibition_pk %}" class="btn btn-primary pull-right">{% trans "add item" %}</a>
+        <div class="clearfix" style="margin-bottom: 10px;"></div>
+    {% endif %}
 
+    {% for item in items %}
+        {% if forloop.counter0|divisibleby:"3" %}
+            <div class="row-fluid">
+        {% endif %}
+        <div class="well span4">
+            <div class="row-fluid">
+                <div class="span9">
+                    {% if perms.rest.change_item %}
+                        <a href="
+                            {% if exhibition_pk %}
+                                {% url 'item_edit' exhibition_pk item.pk %}
+                            {% else %}
+                                {% url 'item_no_exhibition_edit' item.pk %}
+                            {% endif %}
+                        ">
+                    {% endif %}
 
-<div class="row-fluid">
-	<div class='table'>
-	    {% for item in items %}
-	    <div class="well span4">
-	        {% if perms.rest.change_item %}
-	            <a href="
-	                {% if exhibition_pk %}
-	                    {% url 'item_edit' exhibition_pk item.pk %}
-	                {% else %}
-	                    {% url 'item_no_exhibition_edit' item.pk %}
-	                {% endif %}
-	            ">
-	        {% endif %}
-	
-	        {{ item.name }} || {{ item.year }} || {{ item.author }}
-	
-	        {% if perms.rest.change_item %}
-	            </a>
-	        {% endif %}
-				        
-	        {% if perms.rest.delete_item %}
-	        	<a href="
-		            {% if exhibition_pk %}
-		                {% url 'item_delete' exhibition_pk item.pk %}
-		            {%else%}
-		                {% url 'item_no_exhibition_delete' item.pk  %}
-		            {% endif %}
-		            ">
-		       			 <button class="btn btn-danger">
-		           			 	{% trans "remove" %}
-		        	     </button>
-	            </a>
-	        {% endif %}
-	    </div>
-	    {% endfor %}
-	</div>
-</div>
+                    {{ item.name }} • {{ item.year }} • {{ item.author }}
 
-<br/>
+                    {% if perms.rest.change_item %}
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="span3">
+                    {% if perms.rest.delete_item %}
+                        <a href="
+                            {% if exhibition_pk %}
+                                {% url 'item_delete' exhibition_pk item.pk %}
+                            {% else %}
+                                {% url 'item_no_exhibition_delete' item.pk %}
+                            {% endif %}
+                        ">
+                            <button class="btn btn-danger btn-block">{% trans "remove" %}</button>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% if forloop.counter0|add:"1"|divisibleby:"3" %}
+        </div>
+    {% endif %}
+    {% endfor %}
+    {% if not exhibitions.count|divisibleby:"3" %}
+        </div>
+    {% endif %}
 
-{% include "administration/paginated.html" %}
+    {% include "administration/paginated.html" %}
 
 {% endblock content %}
 

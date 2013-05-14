@@ -1,3 +1,5 @@
+{% load url from future  %}
+{% load i18n %}
 {% load staticfiles %}
 
 <!DOCTYPE html>
@@ -8,37 +10,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="kiosk">
     <meta name="author" content="YouPony">
-	<link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.min.css"%}">
-	<link rel="stylesheet" type="text/css" href="{% static "style.css"%}">
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "style.css" %}">
 </head>
 
 <body>
-	<div class="casababbo">
-		<div class="navbar navbar-inverse">
-			<div class="navbar-inner">
-				{% block logout %}
-					<ul class="nav">
-						<li>
-							<a>
-								{{ user.username }}
-							</a>
-						</li>
-					</ul>
-				<a href={% url 'logout' %}>
-					<button class="btn">
-				        Logout
-					</button>
-				</a>
-			</div>
-
-	</div>
-			    {% endblock %}
-			    {% block breadcrumbs %}
-			        {% include 'administration/breadcrumbs.html' %}
-			    {% endblock %}
-			    {% block content %}{% endblock %}
-			    {% block templates %}{% endblock %}
-			    {% block extra-script %}{% endblock %}
-		</div>
+    <div class="main-padding">
+        {% if user.is_authenticated %}
+        <div class="navbar navbar-inverse">
+            <div class="navbar-inner">
+                {% block logout %}
+                    <a href="{% url 'logout' %}" class="btn pull-right">{% trans "Logout" %}</a>
+                    <ul class="nav pull-right">
+                        <li>
+                            <a>
+                                {{ user.username }}
+                            </a>
+                        </li>
+                    </ul>
+                {% endblock %}
+            </div>
+        </div>
+        {% endif %}
+        {% block breadcrumbs %}
+            {% if user.is_authenticated %}
+                {% include 'administration/breadcrumbs.html' %}
+            {% endif %}
+        {% endblock %}
+        {% block content %}{% endblock %}
+        {% block templates %}{% endblock %}
+        {% block extra-script %}{% endblock %}
+    </div>
 </body>
 </html>
