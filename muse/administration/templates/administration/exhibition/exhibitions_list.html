@@ -2,26 +2,20 @@
 {% load i18n %}
 {% block content %}
 
-{% if perms.rest.add_exhibition %}
-<a href={% url 'exhibition_add'%}>
-    <button class='btn'>
-        {% trans "add exhibition"%}
-    </button>
-</a>
 
-{% endif %}
-
-<div>
+{#<div>#}
 {% if item_without_exhibition > 0 %}
     <div class="alert">
-        <p>
             <b>{% trans "Information" %}: </b>
-                {% blocktrans %}Sorry but one of your exhibitions deletion cause
-                {{ item_without_exhibition }} items to have no exhibition,
-                please check the  {% endblocktrans %}<a href={% url 'item_no_exhibition_list'%}>
-                {% trans "list" %}</a>
-            </p>
+            {% blocktrans %}Sorry but one of your exhibitions deletion cause
+            {{ item_without_exhibition }} items to have no exhibition,
+            please check the  {% endblocktrans %}<a href="{% url 'item_no_exhibition_list'%}">{% trans "list" %}</a>
     </div>
+{% endif %}
+
+{% if perms.rest.add_exhibition %}
+    <a href="{% url 'exhibition_add'%}" class="btn btn-primary pull-right">{% trans "add exhibition" %}</a>
+    <div class="clearfix" style="margin-bottom: 10px;"></div>
 {% endif %}
 
 {% for exhibition in exhibitions %}
@@ -29,25 +23,24 @@
         <div class="row-fluid">
     {% endif %}
     <div class="well span4">
-        <div class="sinistrone">
-            {% if perms.rest.change_exhibition %}
-            <a href={% url 'exhibition_edit' exhibition.pk %}>
-                {{ exhibition.title }} • {{ exhibition.museum }}
-            </a>
-            {% else %}
-                {{ exhibition.title }} • {{ exhibition.museum }}
-            {% endif %}
-        </div>
+        <div class="row-fluid">
+            <div class="span9">
+                {% if perms.rest.change_exhibition %}
+                    <a href="{% url 'exhibition_edit' exhibition.pk %}">{{ exhibition.title }} • {{ exhibition.museum }}</a>
+                {% else %}
+                    {{ exhibition.title }} • {{ exhibition.museum }}
+                {% endif %}
 
-        <div class="destrone">
-            <a href={% url 'items_list' exhibition.pk %} class="btn">
-                {% trans "items" %}
-            </a>
-            {% if perms.rest.delete_item %}
-            <a href={% url 'exhibition_delete' exhibition.pk %} class="btn btn-danger">
-                {% trans "remove" %}
-            </a>
-            {% endif %}
+
+            </div>
+            <div class="span3">
+                <a href="{% url 'items_list' exhibition.pk %}" class="btn btn-block">
+                    {% trans "items" %}
+                </a>
+                {% if perms.rest.delete_item %}
+                    <a href="{% url 'exhibition_delete' exhibition.pk %}" class="btn btn-danger btn-block">{% trans "remove" %}</a>
+                {% endif %}
+            </div>
         </div>
     </div>
     {% if forloop.counter0|add:"1"|divisibleby:"3" %}
