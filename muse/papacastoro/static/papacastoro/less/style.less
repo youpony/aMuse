@@ -34,26 +34,26 @@ h1, h2, h3, h4, h5, h6 {
 
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
+
+  h1 {
+    margin: 20% auto;
+   
+  }
+
+  h2 {
+    margin: 1em auto;
+  }
+
+  p {
+    font-size: 18px;
+    text-align: left;
+    margin: 0;
+  }
 }
 
 .tour-item {
   height: 100%;
   overflow: scroll;
-}
-
-.tour-post h1 {
-  margin: 20% auto;
- 
-}
-
-.tour-post h2 {
-  margin: 1em auto;
-}
-
-.tour-post p {
-  font-size: 18px;
-  text-align: left;
-  margin: 0;
 }
 
 .image-wrapper, .text {
@@ -99,13 +99,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .reveal .other-images {
-  margin-bottom: 30px;
+
+  & > div {
+    position: relative;
+    height: 75px;
+    width: 75px;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+  }
 
   img {
-    vertical-align: middle;
-    width: 30%;
     margin: 0 1%;
-    border: 5px solid white;
+    border: 2px solid white;
     box-sizing: border-box;
   }
 }

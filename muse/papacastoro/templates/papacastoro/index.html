@@ -33,7 +33,9 @@
               {% if images|length > 1 %}
               <div class="other-images">
                 {% for image in images %}
+                <div>
                   <img src="{{ image.image.url }}">
+                </div>
                 {% endfor %}
               </div>
               {% endif %}
