@@ -11,7 +11,7 @@
         <form class="form-horizontal offset2 span10" action="{{ request.get_full_path }}" method="post"
                 {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
             {% csrf_token %}
-            {% crispy form %}
+            {{ form|crispy }}
             <button type="submit" value="Submit" class="btn btn-primary pull-right">{% trans "Submit" %}</button>
             <div class="clearfix"></div>
         </form>

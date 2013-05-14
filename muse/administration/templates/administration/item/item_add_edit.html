@@ -13,7 +13,7 @@
         <div class="row-fluid">
             <div class="span10 offset2">
                 {% csrf_token %}
-                {% crispy form %}
+                {{ form|crispy }}
                 {{ itemimage_formset.management_form }}
             </div>
         </div>
@@ -22,7 +22,7 @@
             <div class="span10 offset2">
                 {% for subform in itemimage_formset.forms %}
                     <div class="form-horizontal">
-                        {% crispy subform %}
+                        {{ subform|crispy }}
                     </div>
                     <hr>
                 {% endfor %}
@@ -31,13 +31,13 @@
 	    <input class="btn btn-primary pull-right" type="submit" value="{% trans "Submit" %}" />
         <div class="clearfix"></div>
 	</form>
-	
+
 	{% endblock content %}
-	
-	
+
+
 	{% block extra-script %}
 	<script src="{% static "deps/js/jquery-1.9.1.min.js"%}" type="text/javascript"></script>
 	<script src="{% static "deps/js/jquery.formset.min.js"%}" type="text/javascript"></script>
-	
+
 	{% endblock %}
 </div>
