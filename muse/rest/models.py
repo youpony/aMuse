@@ -196,7 +196,7 @@ def notify_email(sender, **kwargs):
     referral = museum.referral
     sbj = '[{mname}] Created new story: {id}'.format(
         mname=museum.name, id=tour.public_id[:5])
-    body = '''
+    body = _('''
        Hey {nickname}!
        Somebody, hopefully you, crated a new story.
        Here is your public link: {publink}
@@ -204,7 +204,7 @@ def notify_email(sender, **kwargs):
 
        Sincerly yours,
         -- {mname} Notification System
-    '''.format(
+    ''').format(
         mname=museum.name,
         nickname=tour.name,
         publink=genurl(reverse('tour', args=[tour.public_id])),

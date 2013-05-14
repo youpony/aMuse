@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-13 20:40+0200\n"
+"POT-Creation-Date: 2013-05-14 13:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,23 +21,28 @@ msgstr ""
 msgid "Add exhibition"
 msgstr "Aggiungi mostra"
 
-#: views.py:78
-msgid "Update exhibition"
-msgstr "Aggiorna mostra"
-
-#: views.py:163
-msgid "Add item"
-msgstr "Aggiungi oggetto"
-
-#: views.py:178 views.py:248 views.py:306
+#: views.py:51 views.py:82 views.py:114
 msgid "Exhibition"
 msgstr "Mostra"
 
-#: views.py:183 views.py:253 views.py:314
+#: views.py:79
+msgid "Update exhibition"
+msgstr "Aggiorna mostra"
+
+#: views.py:147 views.py:190 views.py:262 views.py:324 views.py:360
 msgid "Items"
 msgstr "Oggetti"
 
-#: views.py:233
+#: views.py:170
+msgid "Add item"
+msgstr "Aggiungi oggetto"
+
+#: views.py:185 views.py:194 views.py:257 views.py:265 views.py:316
+#: views.py:329
+msgid "Item"
+msgstr "Oggetto"
+
+#: views.py:242
 msgid "Update item"
 msgstr "Aggiorna oggetto"
 
@@ -49,21 +54,25 @@ msgstr "Sei sicuro di voler eliminare"
 msgid "Yes"
 msgstr "Si"
 
-#: templates/administration/paginated.html:8
+#: templates/administration/paginated.html:9
 msgid "previous"
 msgstr "precedente"
 
-#: templates/administration/paginated.html:13
+#: templates/administration/paginated.html:14
 msgid "Page"
 msgstr "Pagina"
 
-#: templates/administration/paginated.html:14
+#: templates/administration/paginated.html:15
 msgid "of"
 msgstr "di"
 
-#: templates/administration/paginated.html:18
+#: templates/administration/paginated.html:19
 msgid "next"
 msgstr "successivo"
+
+#: templates/administration/site_base.html:23
+msgid "Logout"
+msgstr ""
 
 #: templates/administration/unable_to_delete.html:7
 msgid "Unable to delete item due to database constraint"
@@ -71,44 +80,52 @@ msgstr ""
 "Impossibile eliminare l'elemento a causa di violazione dei vincoli del "
 "database"
 
-#: templates/administration/exhibition/exhibition_add_edit.html:12
-#: templates/administration/item/item_add_edit.html:25
+#: templates/administration/exhibition/exhibition_add_edit.html:15
+#: templates/administration/item/item_add_edit.html:31
 msgid "Submit"
 msgstr "Invia"
 
-#: templates/administration/exhibition/exhibitions_list.html:8
-msgid "add exhibition"
-msgstr "aggiungi mostra"
-
-#: templates/administration/exhibition/exhibitions_list.html:18
+#: templates/administration/exhibition/exhibitions_list.html:7
 msgid "Information"
 msgstr "Informazioni"
 
-#: templates/administration/exhibition/exhibitions_list.html:19
+#: templates/administration/exhibition/exhibitions_list.html:8
 #, python-format
 msgid ""
 "Sorry but one of your exhibitions deletion cause\n"
-"                %(item_without_exhibition)s items to have no exhibition,\n"
-"                please check the  "
+"            %(item_without_exhibition)s items to have no exhibition,\n"
+"            please check the  "
 msgstr ""
-"Siamo spiacenti ma la cancellazione di alcune sue mostre a portato\n"
-"                %(item_without_exhibition)s oggetti a non aver una mostra,\n"
+"Siamo spiacenti ma la cancellazione di alcune mostre ha portato\n"
+"                %(item_without_exhibition)s oggetti a non avere una mostra,\n"
 "                prego controllare   "
 
-#: templates/administration/exhibition/exhibitions_list.html:22
+#: templates/administration/exhibition/exhibitions_list.html:10
 msgid "list"
 msgstr "lista"
 
-#: templates/administration/exhibition/exhibitions_list.html:44
+#: templates/administration/exhibition/exhibitions_list.html:15
+msgid "add exhibition"
+msgstr "aggiungi mostra"
+
+#: templates/administration/exhibition/exhibitions_list.html:36
 msgid "items"
 msgstr "oggetti"
 
-#: templates/administration/exhibition/exhibitions_list.html:48
-#: templates/administration/item/items_list.html:36
+#: templates/administration/exhibition/exhibitions_list.html:39
+#: templates/administration/item/items_list.html:41
 msgid "remove"
 msgstr "rimuovi"
 
-#: templates/administration/item/items_list.html:6
+#: templates/administration/item/item_add_edit.html:10
+msgid "General information"
+msgstr "Informazioni"
+
+#: templates/administration/item/item_add_edit.html:20
+msgid "Image management"
+msgstr "Gestione immagini"
+
+#: templates/administration/item/items_list.html:5
 msgid "add item"
 msgstr "aggiungi oggetto"
 

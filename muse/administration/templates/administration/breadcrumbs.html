@@ -1,7 +1,13 @@
 <ul class="breadcrumb">
-	{% for breadcrumb in request.breadcrumbs %}
-	<li {% if forloop.last %} class="active" {% endif %}>
-		<a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a> {% if not forloop.last %} <span class="divider">/</span> {% endif %}
-	</li>
+    {% for breadcrumb in request.breadcrumbs %}
+    {% if forloop.last %}
+	    <li class="active">
+		    <span>{{ breadcrumb.name }}</span>
+        </li>
+    {% else %}
+	    <li>
+		    <a href="{{ breadcrumb.url }}">{{ breadcrumb.name }}</a> <span class="divider">/</span>
+        </li>
+    {% endif %}
 	{% endfor %}
 </ul>
