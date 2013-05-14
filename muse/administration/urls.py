@@ -22,7 +22,12 @@ urlpatterns = patterns(
         name='exhibition_edit'
     ),
     url(
-        r'^exhibitons/delete/(?P<pk>\d+)/$',
+        r'^exhibitions/qrcode/(?P<pk>\d+)/$',
+        views.ExhibitionQr.as_view(),
+        name='exhibition_qrcode'
+    ),
+    url(
+        r'^exhibitions/delete/(?P<pk>\d+)/$',
         views.ExhibitionDelete.as_view(),
         name='exhibition_delete'
     ),
