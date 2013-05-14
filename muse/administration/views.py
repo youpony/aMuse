@@ -246,7 +246,7 @@ class ItemEdit(UpdateView):
 
         if 'exhibition_pk' in self.kwargs:
             self.request.breadcrumbs(
-                _("Exhibition"),
+                _("Item"),
                 reverse('items_list', args=[self.kwargs['exhibition_pk']])
             )
         else:
@@ -304,7 +304,7 @@ class ItemDelete(DeleteView):
 
         if 'exhibition_pk' in self.kwargs:
             self.request.breadcrumbs(
-                _("Exhibition"),
+                _("Item"),
                 reverse('items_list', args=[self.kwargs['exhibition_pk']])
             )
             context['undo_url'] = reverse(
