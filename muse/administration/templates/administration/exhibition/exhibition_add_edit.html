@@ -7,12 +7,15 @@
 <div class="well">
 	<h2>{{ title }}</h2>
 
-	<form class="form-horizontal" action="{{ request.get_full_path }}" method="post"
-	        {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
-	    {% csrf_token %}
-	    {% crispy form %}
-        <button type="submit" value="Submit" class="btn btn-primary">{% trans "Submit" %}</button>
-	</form>
+    <div class="row-fluid">
+        <form class="form-horizontal offset2 span10" action="{{ request.get_full_path }}" method="post"
+                {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}>
+            {% csrf_token %}
+            {% crispy form %}
+            <button type="submit" value="Submit" class="btn btn-primary pull-right">{% trans "Submit" %}</button>
+            <div class="clearfix"></div>
+        </form>
+    </div>
 </div>
 
 {% endblock content %}
