@@ -37,6 +37,21 @@ class ExhibitionList(ListView):
     def dispatch(self, *args, **kwargs):
         return super(ExhibitionList, self).dispatch(*args, **kwargs)
 
+class ExhibitionQr(ListView):
+    model = rest.Item
+    context_object_name = 'items'
+    template_name = 'administration/exhibition/exhibition_qr.html'
+    success_url = reverse_lazy('exhibitions_list')
+
+    def get_context_data(self, **kwargs):
+        context = super(ExhibitionQr, self).get_context_data(**kwargs)
+        context['epk'] = str(self.kwargs['pk'])
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ExhibitionQr, self).dispatch(*args, **kwargs)
+
 
 class ExhibitionCreate(CreateView):
     model = rest.Exhibition

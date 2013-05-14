@@ -8,16 +8,23 @@
 
 {% block content %}
 <div class="reveal">
+  <div id="nav-left" class="control">
+    <a href="#" class="navigate-left">
+      <i class="icon-chevron-left"></i>
+    </a>
+  </div>
   <div class="slides">
     <section class="tour-post tour-cover"><h1>{{ tour|capfirst }}<h1></section>
       {% for p in posts %}
         {% if p.image %}
         <section class="tour-post user-image">
           <img src="{{ p.image.url }}">
-          <p class="comment">
-            <i class="icon-user"></i>
-            {{ p.text }}
-          </p>
+          {% if p.text %}
+            <p class="comment">
+              <i class="icon-comment"></i>
+              {{ p.text }}
+            </p>
+          {% endif %}
         {% else %}
         <section class="tour-post tour-item">
           <h2>{{ p.item.name }}</h2>
@@ -26,7 +33,9 @@
               {% if images|length > 1 %}
               <div class="other-images">
                 {% for image in images %}
+                <div>
                   <img src="{{ image.image.url }}">
+                </div>
                 {% endfor %}
               </div>
               {% endif %}
@@ -39,7 +48,7 @@
             <p>{{ p.item.desc }}</p>
             {% if p.text %}
               <p class="comment">
-                <i class="icon-user"></i>
+                <i class="icon-comment"></i>
                 {{ p.text }}
               </p>
             {% endif %}
@@ -56,6 +65,11 @@
             <i class="icon-twitter icon-4x"></i>
         </a>
     </section>
+  </div>
+  <div id="nav-right" class="control">
+    <a href="#" class="navigate-next">
+      <i class="icon-chevron-right"></i>
+    </a>
   </div>
 </div>
 {% endblock content %}
@@ -90,7 +104,7 @@
    </script>
    <script>
        Reveal.initialize({
-           controls: false,
+           controls: true,
            progress: true,
            history: true,
            center: true,
@@ -103,7 +117,8 @@
       $('#wrapper').tubular({
         videoId: '{{ tour.exhibition.video }}',
         mute: true,
-        repeat: true
+        repeat: true,
+        start: 10
       });
     });
   </script>
