@@ -13,7 +13,7 @@
 
 <header>
 <h1>
-    {% blocktrans %} {{ name }}'s tour {% endblocktrans %}
+    {{ tour|capfirst }}
 </h1>
 <a href="{% url 'tour' tour_public_id %}" target="_blank">{% trans "Preview" %} <i class="icon-external-link"></i></a>
 </header>
