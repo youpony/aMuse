@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block content %}
     {% if perms.rest.add_item and exhibition_pk %}
-        <a href="{% url 'item_add' exhibition_pk %}" class="btn btn-primary pull-right">{% trans "add item" %}</a>
+        <a href="{% url 'item_add' exhibition_pk %}" class="btn btn-primary pull-right no-underline">{% trans "add item" %}</a>
         <div class="clearfix" style="margin-bottom: 10px;"></div>
     {% endif %}
 
@@ -31,7 +31,7 @@
                 </div>
                 <div class="span3">
                     {% if perms.rest.delete_item %}
-                        <a href="
+                        <a class="no-underline" href="
                             {% if exhibition_pk %}
                                 {% url 'item_delete' exhibition_pk item.pk %}
                             {% else %}

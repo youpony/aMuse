@@ -7,27 +7,29 @@
 
 <div class="well">
 	<h2>{{ title }}</h2>
-	
-	<form class="form-horizontal" id="edit_item" action="." method="post" enctype="multipart/form-data">
-	
-	    {% csrf_token %}
-	    {% crispy form %}
-	
-	    {{ itemimage_formset.management_form }}
-	    <div class="well">
-	    <table>
-	        <tbody>
-	            {% for form in itemimage_formset.forms %}
-	            <tr id="{{ form.prefix }}-row">
-	                    <td>{{ form.as_p }}</td>
-	                </tr>
-	            {% endfor %}
-	        </tbody>
-	    </table>
-	   </div>
+    <h4>{% trans "General information" %}</h4>
 
-	    
-	    <input class="btn btn-primary" type="submit" value="{% trans "Submit" %}" />
+	<form class="form-horizontal" id="edit_item" action="." method="post" enctype="multipart/form-data">
+        <div class="row-fluid">
+            <div class="span10 offset2">
+                {% csrf_token %}
+                {% crispy form %}
+                {{ itemimage_formset.management_form }}
+            </div>
+        </div>
+           <h4>{% trans "Image management" %}</h4>
+        <div class="row-fluid">
+            <div class="span10 offset2">
+                {% for subform in itemimage_formset.forms %}
+                    <div class="form-horizontal">
+                        {% crispy subform %}
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+	    <input class="btn btn-primary pull-right" type="submit" value="{% trans "Submit" %}" />
+        <div class="clearfix"></div>
 	</form>
 	
 	{% endblock content %}

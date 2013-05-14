@@ -1,7 +1,8 @@
 {% load i18n %}
 
 {% if is_paginated %}
-<div class="pagination">
+    <div class="clearfix"></div>
+<div class="pagination text-center">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}">

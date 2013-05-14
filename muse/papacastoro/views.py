@@ -70,7 +70,7 @@ class PostList(ListView):
         context = super(PostList, self).get_context_data(**kwargs)
         context['tour_private_id'] = self.kwargs['private_id']
         context['tour_public_id'] = self.tour.public_id
-        context['name'] = self.tour.name
+        context['tour'] = self.tour
         return context
 
 
