@@ -30,6 +30,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 15px;
   padding-bottom: 5px;
   width: 90%;
+  border: 3px solid white;
 
   -webkit-transition: all .2s ease;
   transition: all .2s ease;
@@ -42,6 +43,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .tour-post h1 {
   margin: 20% auto;
+ 
 }
 
 .tour-post h2 {
@@ -63,15 +65,22 @@ h1, h2, h3, h4, h5, h6 {
   font-style: italic;
   text-indent: 10px;
   padding-top: 20px;
+
+  .icon-user {
+    font-size: 32px;
+    margin-right: 10px;
+  }
 }
 
-.comment .icon-user {
-  font-size: 32px;
-  margin-right: 10px;
-}
+.user-image {
+  .comment {
+    text-align: center;
+  }
 
-.user-image .comment {
-  text-align: center;
+  img {
+    border: 10px solid white;
+    box-sizing: border-box;
+  }
 }
 
 .reveal .image-wrapper {
@@ -96,14 +105,14 @@ h1, h2, h3, h4, h5, h6 {
     vertical-align: middle;
     width: 30%;
     margin: 0 1%;
-    border: 6px solid white;
+    border: 5px solid white;
     box-sizing: border-box;
   }
 }
 
 .reveal .item-image {
   max-width: 80%;
-  border: 12px solid white;
+  border: 10px solid white;
   box-sizing: border-box;
 }
 
@@ -125,4 +134,44 @@ h1, h2, h3, h4, h5, h6 {
 
 .icon-twitter:hover {
   color: #1FC1F1;
+}
+
+.controls {
+  display: none !important;
+}
+
+.control {
+  position: fixed;
+  z-index: 100000;
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  top: 90%;
+
+  a {
+    width: 100%;
+    height: 100%;
+    color: white;
+    opacity: 0.5;
+    cursor: default;
+    text-decoration: none;
+
+    &.enabled {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    i {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+#nav-left {
+  left: 24px;
+}
+
+#nav-right {
+  right: 24px;
 }
