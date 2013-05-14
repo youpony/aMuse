@@ -111,7 +111,7 @@ msgstr "immagini dell'oggetto"
 
 #: models.py:147
 msgid "ordering index"
-msgstr ""
+msgstr "indice di ordinamento"
 
 #: models.py:157
 msgid "text"
