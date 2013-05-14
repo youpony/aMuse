@@ -3,7 +3,7 @@ from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.core.exceptions import ValidationError
 from django.forms.util import ErrorList
 from django.forms.forms import NON_FIELD_ERRORS
@@ -50,8 +50,13 @@ class ExhibitionQr(ListView):
     success_url = reverse_lazy('exhibitions_list')
 
     def get_context_data(self, **kwargs):
+        epk = self.kwargs['pk']
+        get_object_or_404(rest.Exhibition, pk=epk)
+
         context = super(ExhibitionQr, self).get_context_data(**kwargs)
-        context['epk'] = str(self.kwargs['pk'])
+        context['items'] = filter(lambda i: i.exhibitions.filter(pk=epk).all(),
+                                  context['items'])
+        context['epk'] = str(epk)
         return context
 
     @method_decorator(login_required)
