@@ -23,6 +23,11 @@ class ExhibitionList(ListView):
     context_object_name = 'exhibitions'
     paginate_by = 21
 
+    def get_queryset(self):
+        return super(ExhibitionList, self).get_queryset().order_by(
+            '-end_date', 'pk'
+        )
+
     def get_context_data(self, **kwargs):
         context = super(ExhibitionList, self).get_context_data(**kwargs)
         self.request.breadcrumbs([
@@ -36,6 +41,7 @@ class ExhibitionList(ListView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ExhibitionList, self).dispatch(*args, **kwargs)
+
 
 class ExhibitionQr(ListView):
     model = rest.Item
@@ -171,7 +177,9 @@ class ItemList(ListView):
 
     def get_queryset(self):
         exhibition_pk = self.kwargs['pk']
-        return rest.Item.objects.filter(exhibitions=exhibition_pk)
+        return rest.Item.objects.filter(exhibitions=exhibition_pk).order_by(
+            'pk'
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -382,7 +390,7 @@ class ItemWithoutExhibition(ListView):
         return context
 
     def get_queryset(self):
-        return rest.Item.objects.filter(exhibitions=None)
+        return rest.Item.objects.filter(exhibitions=None).order_by('pk')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
