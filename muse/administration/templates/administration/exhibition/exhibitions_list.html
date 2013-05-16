@@ -26,15 +26,15 @@
                 {% if perms.rest.change_exhibition %}
                     <a href="{% url 'exhibition_edit' exhibition.pk %}">{{ exhibition.title }} • {{ exhibition.museum }}</a>
                 {% else %}
-                    {{ exhibition.title }} • {{ exhibition.museum }}               
+                    {{ exhibition.title }} • {{ exhibition.museum }}
                 {% endif %}
-              	
+
               	{% if exhibition.expired %}
-              		<br><span style="background-color: #FFFF99;"><i class="icon-eye-close"></i></span> <span>La mostra è scaduta. </span>
+                <br><span style="background-color: #FFFF99;"><i class="icon-eye-close"></i></span> <span>{% trans "The exhibition has expired." %}</span>
               	{% endif %}
-              	
+
               	{% if exhibition.available_in_future %}
-              		<br><span style="background-color: #FFFF99;"><i class="icon-calendar"></i></span> <span>La mostra non è ancora aperta. </span>
+                <br><span style="background-color: #FFFF99;"><i class="icon-calendar"></i></span> <span>{% trans "The exhibition is not open yet." %}  </span>
               	{% endif %}
 
             </div>

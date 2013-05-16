@@ -4,9 +4,9 @@
 {% block content %}
 
 <div class="hero-unit">
-    <h3>{% trans "Unable to delete item due to database constraint" %}: </h3>
+    <h3>{% trans "Unable to delete selected item due to database constraint" %}: </h3>
 
-    <p>{{error}}</p>
+    <p>{% blocktrans %}You cannot delete {{object}}, because is already used in user stories{% endblocktrans %}.</p>
 </div>
 {% endblock content %}
 

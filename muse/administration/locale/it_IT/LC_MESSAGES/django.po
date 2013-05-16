@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-14 13:32+0200\n"
+"POT-Creation-Date: 2013-05-16 22:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,32 +17,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: views.py:48
+#: views.py:74
 msgid "Add exhibition"
 msgstr "Aggiungi mostra"
 
-#: views.py:51 views.py:82 views.py:114
+#: views.py:77 views.py:108 views.py:140 views.py:173 views.py:213
+#: views.py:285 views.py:344
 msgid "Exhibition"
 msgstr "Mostra"
 
-#: views.py:79
+#: views.py:105
 msgid "Update exhibition"
 msgstr "Aggiorna mostra"
 
-#: views.py:147 views.py:190 views.py:262 views.py:324 views.py:360
-msgid "Items"
-msgstr "Oggetti"
-
-#: views.py:170
+#: views.py:198
 msgid "Add item"
 msgstr "Aggiungi oggetto"
 
-#: views.py:185 views.py:194 views.py:257 views.py:265 views.py:316
-#: views.py:329
+#: views.py:218 views.py:290 views.py:352 views.py:388
+msgid "Items"
+msgstr "Oggetti"
+
+#: views.py:222 views.py:293 views.py:357
 msgid "Item"
 msgstr "Oggetto"
 
-#: views.py:242
+#: views.py:270
 msgid "Update item"
 msgstr "Aggiorna oggetto"
 
@@ -75,10 +75,17 @@ msgid "Logout"
 msgstr ""
 
 #: templates/administration/unable_to_delete.html:7
-msgid "Unable to delete item due to database constraint"
+msgid "Unable to delete selected item due to database constraint"
 msgstr ""
-"Impossibile eliminare l'elemento a causa di violazione dei vincoli del "
-"database"
+"Impossibile eliminare l'elemento selezionato a causa di violazione dei "
+"vincoli del database"
+
+#: templates/administration/unable_to_delete.html:9
+#, python-format
+msgid "You cannot delete %(object)s, because is already used in user stories"
+msgstr ""
+"Non è possibile eliminare %(object)s, perchè è utilizzato nelle storie degli "
+"utenti"
 
 #: templates/administration/exhibition/exhibition_add_edit.html:15
 #: templates/administration/item/item_add_edit.html:31
@@ -108,11 +115,19 @@ msgstr "lista"
 msgid "add exhibition"
 msgstr "aggiungi mostra"
 
-#: templates/administration/exhibition/exhibitions_list.html:36
+#: templates/administration/exhibition/exhibitions_list.html:33
+msgid "The exhibition has expired."
+msgstr "La mostra è scaduta."
+
+#: templates/administration/exhibition/exhibitions_list.html:37
+msgid "The exhibition is not open yet."
+msgstr "La mostra non è ancora aperta."
+
+#: templates/administration/exhibition/exhibitions_list.html:43
 msgid "items"
 msgstr "oggetti"
 
-#: templates/administration/exhibition/exhibitions_list.html:39
+#: templates/administration/exhibition/exhibitions_list.html:46
 #: templates/administration/item/items_list.html:41
 msgid "remove"
 msgstr "rimuovi"
