@@ -3,6 +3,7 @@ import hashlib
 import os
 import time
 import re
+import datetime
 
 from django.db import models
 from django.dispatch import Signal, receiver
@@ -50,6 +51,22 @@ class Exhibition(models.Model):
     image = models.ImageField(_('image'), upload_to='uploads')
     video = models.CharField(max_length=40, blank=True)
 
+    @property
+    def expired(self):
+        """
+        This method return a boolean value that indicate if the Exhibition
+        is actually exposed in the Museum or has already expired
+        """
+        return self.end_date < datetime.date.today()
+
+    @property
+    def available_in_future(self):
+        """
+        This method return a boolean value that indicate if the Exhibition
+        is actually exposed or is scheduled for the future
+        """
+        return self.start_date > datetime.date.today()
+
     def __unicode__(self):
         return u'{title}-{museum}'.format(title=self.title,
                                           museum=self.museum)
@@ -60,7 +77,7 @@ class Exhibition(models.Model):
         than start_date
         """
         if self.end_date < self.start_date:
-            raise ValidationError('End date must to be after start date')
+            raise ValidationError(_('End date must to be after start date'))
 
         super(Exhibition, self).save(*args, **kwargs)
 
@@ -76,8 +93,8 @@ class Item(models.Model):
     name = models.CharField(_('item'), max_length=50)
     desc = models.TextField(_('description'))
     author = models.CharField(_('author'), max_length=50, blank=True)
-    year = models.CharField(_('year'),max_length=9)
-    city = models.CharField(_('city'),max_length=50, blank=True)
+    year = models.CharField(_('year'), max_length=9)
+    city = models.CharField(_('city'), max_length=50, blank=True)
     exhibitions = models.ManyToManyField(
         Exhibition,
         verbose_name=_('exhibitions where this item is available')
@@ -95,7 +112,9 @@ class Item(models.Model):
         """
         if not (re.match(r'^\d{1,4}$', str(self.year)) or
                 re.match(r'^\d{1,4}-\d{1,4}$', str(self.year))):
-            raise ValidationError('Year must be in format yyyy or yyyy-yyyy')
+            raise ValidationError(
+                _('Year must be in format yyyy or yyyy-yyyy')
+            )
 
         super(Item, self).save(*args, **kwargs)
 
@@ -159,7 +178,6 @@ class Post(models.Model):
     text = models.TextField(_('text'), blank=True, null=True)
     # XXX. add pointer to the current exhibition.
 
-
     def save(self, *args, **kwargs):
         """
         Override save method to ensure that a Post is referred to at least
@@ -167,8 +185,8 @@ class Post(models.Model):
         two possibility is set.
         """
         if ((self.item is None and self.image is None)):
-            raise ValidationError('A Post must refer to an image or '
-                                  'to an item')
+            raise ValidationError(_('A Post must refer to an image or '
+                                  'to an item'))
 
         super(Post, self).save(*args, **kwargs)
 
@@ -194,13 +212,15 @@ def notify_email(sender, **kwargs):
     museum = tour.exhibition.museum
 
     referral = museum.referral
-    sbj = '[{mname}] Created new story: {id}'.format(
+    sbj = _('[{mname}] Created new story: {id}').format(
         mname=museum.name, id=tour.public_id[:5])
     body = _('''
        Hey {nickname}!
        Somebody, hopefully you, crated a new story.
-       Here is your public link: {publink}
-       Here is your editable link: {privlink}, do not share this with no one!.
+       Here is your public link:
+       {publink}
+       Here is your private editable link (do not share this with anyone!):
+       {privlink}
 
        Sincerly yours,
         -- {mname} Notification System

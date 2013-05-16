@@ -25,7 +25,7 @@ class ExhibitionList(ListView):
 
     def get_queryset(self):
         return super(ExhibitionList, self).get_queryset().order_by(
-            'pk'
+            '-end_date', 'pk'
         )
 
     def get_context_data(self, **kwargs):
