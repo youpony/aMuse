@@ -20,7 +20,7 @@
     {% if forloop.counter0|divisibleby:"3" %}
         <div class="row-fluid">
     {% endif %}
-    <div class="well span4">
+    <div class="well span4" {% if exhibition.expired %}style="opacity: 0.5" {% endif %}>
         <div class="row-fluid">
             <div class="span9">
                 {% if perms.rest.change_exhibition %}
@@ -30,7 +30,7 @@
                 {% endif %}
 
               	{% if exhibition.expired %}
-                <br><span style="background-color: #FFFF99;"><i class="icon-eye-close"></i></span> <span>{% trans "The exhibition has expired." %}</span>
+                <p>{% trans "The exhibition has expired." %}</p>
               	{% endif %}
 
               	{% if exhibition.available_in_future %}
