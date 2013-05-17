@@ -8,3 +8,4 @@ settings_local.py
 migrations
 reports
 muse/media/people_uploads/
+muse/media/uploads/
