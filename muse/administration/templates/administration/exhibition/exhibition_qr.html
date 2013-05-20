@@ -6,8 +6,8 @@
 <div class="row-fluid">
 {% for item in items %}
     {% with item.pk|stringformat:"d" as ipk %}
-        {% with epk|add:"&"|add:ipk as text %}
-        <p class="qrcodeImage"> {% qr_from_text text "m" %} </p>
+    {% with epk|add:"."|add:ipk as qrstring %}
+        <p class="qrcodeImage"> {% qr_from_text qrstring "m" %} </p>
         <p> {{ item.name }} </p>
         <p> {{ item.author }}, {{ item.year }}
             {% if item.city %}, {{ item.city }}  {% endif %}
