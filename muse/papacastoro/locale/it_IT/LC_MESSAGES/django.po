@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-14 09:52+0200\n"
+"POT-Creation-Date: 2013-05-21 10:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Personal image"
 msgstr "Immagine personale"
 
-#: templates/papacastoro/index.html:51
+#: templates/papacastoro/index.html:60
 msgid "Share this tour"
 msgstr "Condividi questo tour"
 
@@ -36,7 +36,7 @@ msgid "List"
 msgstr "Lista"
 
 #: templates/papacastoro/post/post_comment.html:30
-#: templates/papacastoro/post/post_personal.html:28
+#: templates/papacastoro/post/post_personal.html:29
 msgid "Back"
 msgstr "Indietro"
 
@@ -49,7 +49,7 @@ msgid "Are you sure to delete"
 msgstr "Sei sicuro di voler eliminare"
 
 #: templates/papacastoro/post/post_confirm_delete.html:19
-#: templates/papacastoro/post/post_personal.html:29
+#: templates/papacastoro/post/post_personal.html:30
 msgid "Submit"
 msgstr "Invia"
 
