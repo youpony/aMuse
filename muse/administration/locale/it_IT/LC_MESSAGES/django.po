@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-21 08:46+0200\n"
+"POT-Creation-Date: 2013-05-21 09:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,14 +70,14 @@ msgstr "di"
 msgid "next"
 msgstr "successivo"
 
-#: templates/administration/site_base.html:23
+#: templates/administration/site_base.html:24
 msgid "Logout"
 msgstr ""
 
 #: templates/administration/unable_to_delete.html:7
 msgid "Unable to delete selected item due to database constraint"
 msgstr ""
-"Impossibile eliminare l'elemento selezionato a causa di violazione dei "
+"Impossibile eliminare l'elemento selezionato a causa di una violazione nei "
 "vincoli del database"
 
 #: templates/administration/unable_to_delete.html:9
@@ -92,6 +92,10 @@ msgstr ""
 msgid "Submit"
 msgstr "Invia"
 
+#: templates/administration/exhibition/exhibition_qr.html:27
+msgid "Print"
+msgstr "Stampa"
+
 #: templates/administration/exhibition/exhibitions_list.html:7
 msgid "Information"
 msgstr "Informazioni"
@@ -105,7 +109,7 @@ msgid ""
 msgstr ""
 "Siamo spiacenti ma la cancellazione di alcune mostre ha portato\n"
 "                %(item_without_exhibition)s oggetti a non avere una mostra,\n"
-"                prego controllare   "
+"                prego controllare la  "
 
 #: templates/administration/exhibition/exhibitions_list.html:10
 msgid "list"
@@ -145,8 +149,8 @@ msgid "add item"
 msgstr "aggiungi oggetto"
 
 #: templates/administration/item/items_list.html:6
-msgid "generate qrcodes"
-msgstr "genera i qrcode"
+msgid "generate QRcodes"
+msgstr "genera i QRcode"
 
 #: templates/authentication/login.html:9
 msgid "Your username and password didn't match. Please try again."
@@ -155,4 +159,5 @@ msgstr ""
 
 #: templates/authentication/logout.html:9
 msgid "Thanks for spending some quality time with me, see you soon."
-msgstr "Grazie di aver passato del tempo con me, ci vediamo presto."
+msgstr ""
+"Grazie di aver trascorso dei piacevoli momenti con me, ci vediamo presto."
