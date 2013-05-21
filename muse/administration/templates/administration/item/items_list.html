@@ -2,8 +2,9 @@
 {% load i18n %}
 {% block content %}
     {% if perms.rest.add_item and exhibition_pk %}
-        <a href="{% url 'item_add' exhibition_pk %}" class="btn btn-primary pull-right no-underline">{% trans "add item" %}</a>
-        <div class="clearfix" style="margin-bottom: 10px;"></div>
+    <a href="{% url 'item_add' exhibition_pk %}" class="btn btn-primary pull-right no-underline">{% trans "add item" %}</a>
+    <a href="{% url 'exhibition_qrcode' exhibition_pk %}" class="btn pull-right no-underline" style="margin-right: 10px;">{% trans "generate qrcodes" %}</a>
+    <div class="clearfix" style="margin-bottom: 10px;"></div>
     {% endif %}
 
     {% for item in items %}
