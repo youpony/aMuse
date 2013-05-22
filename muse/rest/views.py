@@ -170,7 +170,7 @@ class StoryView(AjaxMixin, View):
         try:
             t.full_clean()
         except ValidationError:
-            raise HttpResponseBadRequest('name, email or fileds invalid.')
+            return HttpResponseBadRequest('name, email or fileds invalid.')
 
         t.save()
 
