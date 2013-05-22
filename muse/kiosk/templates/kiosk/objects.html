@@ -93,6 +93,12 @@
     </script>
 
     <script type="text/template" id="exhibition_detail_template">
+        <div style="position: fixed; z-index: -10; top: 0; bottom: 0; left: -100px; right: 0px;">
+            <iframe frameborder="0" height="100%" width="100%"
+                    src="https://youtube.com/embed/<%= video %>?autoplay=1&controls=0&showinfo=0&autohide=1&start=10&loop=1">
+            </iframe>
+        </div>
+
         <article>
             <h1 class="text-center">
                 <span id="back-button"><i class="icon-arrow-left"></i> {% trans "Back" %}</span>

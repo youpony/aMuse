@@ -1,24 +1,56 @@
 {% extends "administration/site_base.html" %}
 {% load i18n %}
 {% load qr_tags %}
+
+{% block extra_style %}
+<style>
+@media print {
+    .navbar.navbar-inverse {
+        display: none;
+    }
+    blockquote {
+        border: 0;
+        width: 100%;
+    }
+    .btn {
+        display: none;
+    }
+}
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
 {% block content %}
 
-<div class="row-fluid">
+<div class="btn btn-danger pull-right" id="print">{% trans "Print" %} <i class="icon-print icon-white"></i></div>
+<div class="clearfix"></div>
 {% for item in items %}
+<div class="row-fluid">
     {% with item.pk|stringformat:"d" as ipk %}
     {% with epk|add:"."|add:ipk as qrstring %}
-        <p class="qrcodeImage"> {% qr_from_text qrstring "m" %} </p>
-        <p> {{ item.name }} </p>
-        <p> {{ item.author }}, {{ item.year }}
+    <div class="span4 text-right"> {% qr_from_text qrstring "m" %} </div>
+    <div class="span8">
+        <h2>{{ item.name }}</h2>
+        <em style="margin-bottom: 10px;">{{ item.author }}, {{ item.year }}
             {% if item.city %}, {{ item.city }}  {% endif %}
-        </p>
-        <p> {{ item.desc }} </p>
+        </em>
+        <blockquote style="margin-top: 10px; text-align: justify;">{{ item.desc }}</blockquote>
+    </div>
         {% endwith %}
+
     {% endwith %}
       <br/>
+  </div>
+  <hr>
+
+  <script>
+      document.getElementById('print').onclick = function () { window.print() };
+  </script>
+
 {% endfor %}
 
 {% include "administration/paginated.html" %}
-</div>
 {% endblock content %}
 

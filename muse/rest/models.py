@@ -216,7 +216,7 @@ def notify_email(sender, **kwargs):
         mname=museum.name, id=tour.public_id[:5])
     body = _('''
        Hey {nickname}!
-       Somebody, hopefully you, crated a new story.
+       Somebody, hopefully you, created a new story.
        Here is your public link:
        {publink}
        Here is your private editable link (do not share this with anyone!):

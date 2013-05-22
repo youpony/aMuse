@@ -159,13 +159,6 @@ $(function () {
 
         this.model = new ExhibitionDetail();
         this.model.fetch({success: function () {
-          $('#wrapper').tubular({
-            videoId: self.model.get('video'),
-            mute: true,
-            repeat: true,
-            start: 10
-          });
-
           self.render();
         }});
 
