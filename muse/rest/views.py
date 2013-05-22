@@ -186,7 +186,9 @@ class StoryView(AjaxMixin, View):
             if not image and not item:
                 return HttpResponseBadRequest()
 
-            p = models.Post(ordering_index=i, tour=t, item=item, image=image)
+            p = models.Post(ordering_index=i, tour=t, item=item)
+            if image:
+                p.image.save('{tour}-{num}'.format(tour=t.pk, num=i), image,save=True)
             p.save()
 
         # fire up the notification system
