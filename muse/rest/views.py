@@ -89,7 +89,7 @@ def _sentiment(city):
     if not city:
         return .0
 
-    _avg = lambda v: sum(v) / len(v)
+    _avg = lambda v: sum(v) / len(v) if len(v) else 0
     return _avg([sentiment(tweet.text)[0] for tweet in
                  twengine.search('#' + city.lower(), count=100, cached=True)])
 
