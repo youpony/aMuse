@@ -263,7 +263,12 @@ class ItemEdit(UpdateView):
     template_name = 'administration/item/item_add_edit.html'
 
     def get_success_url(self):
-        return reverse_lazy('items_list', args=[self.kwargs['exhibition_pk']])
+        if 'exhibition_pk' in self.kwargs:
+            return reverse_lazy(
+                'items_list', args=[self.kwargs['exhibition_pk']]
+            )
+        else:
+            return reverse('item_no_exhibition_list')
 
     def get_context_data(self, **kwargs):
         context = super(ItemEdit, self).get_context_data(**kwargs)
